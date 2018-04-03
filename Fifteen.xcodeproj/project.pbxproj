@@ -12,6 +12,8 @@
 		834224DA2072FC9D005D3144 /* Fifteen.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 834224D82072FC9D005D3144 /* Fifteen.xcdatamodeld */; };
 		834224DD2072FC9D005D3144 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 834224DB2072FC9D005D3144 /* Main.storyboard */; };
 		834224DF2072FC9D005D3144 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 834224DE2072FC9D005D3144 /* Assets.xcassets */; };
+		83B3FDAC207305B000D66EE5 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3FDAB207305B000D66EE5 /* Board.swift */; };
+		83B3FDAE207305D000D66EE5 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3FDAD207305D000D66EE5 /* Tile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		834224DC2072FC9D005D3144 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		834224DE2072FC9D005D3144 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		834224E02072FC9D005D3144 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		83B3FDAB207305B000D66EE5 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
+		83B3FDAD207305D000D66EE5 /* Tile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +60,8 @@
 			children = (
 				834224D42072FC9D005D3144 /* AppDelegate.swift */,
 				834224D62072FC9D005D3144 /* ViewController.swift */,
+				83B3FDAB207305B000D66EE5 /* Board.swift */,
+				83B3FDAD207305D000D66EE5 /* Tile.swift */,
 				834224DB2072FC9D005D3144 /* Main.storyboard */,
 				834224DE2072FC9D005D3144 /* Assets.xcassets */,
 				834224E02072FC9D005D3144 /* Info.plist */,
@@ -137,6 +143,8 @@
 			files = (
 				834224D72072FC9D005D3144 /* ViewController.swift in Sources */,
 				834224D52072FC9D005D3144 /* AppDelegate.swift in Sources */,
+				83B3FDAE207305D000D66EE5 /* Tile.swift in Sources */,
+				83B3FDAC207305B000D66EE5 /* Board.swift in Sources */,
 				834224DA2072FC9D005D3144 /* Fifteen.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
