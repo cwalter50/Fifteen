@@ -48,8 +48,6 @@ class ViewController: UIViewController {
         print("\(sender.name) was tapped.")
     }
 
-    @IBAction func testButtonTapped(_ sender: UIButton) {
-    }
     
 
 
