@@ -22,31 +22,35 @@ class ViewController: UIViewController {
         createGameBoard()
     }
     
+    override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+        super.didUpdateFocus(in: context, with: coordinator)
+        let tile = context.nextFocusedView
+        tile?.layer.shadowOffset = CGSize(width: 0, height: 10)
+        tile?.layer.shadowOpacity = 0.6
+        tile?.layer.shadowRadius = 15
+        tile?.layer.shadowColor = UIColor.black.cgColor
+        context.previouslyFocusedView?.layer.shadowOpacity = 0
+    }
+    
     func createGameBoard() {
-        
-        let board = Board(rows: 4, columns: 7)
+        let board = Board(rows: 4, columns: 4)
         self.view.addSubview(board.backgroundView)
-//        // create a 4x4 grid of buttons
-//        let center = CGPoint(x: width * 0.5, y: height * 0.5)
-//        for row in 0...3 {
-//            for column in 0...3 {
-//                // to find the position move to the center, then shift 2 blocks back and up.
-//                let x = center.x - (2*blockWidth + 4) + CGFloat(column)*(blockWidth+2)
-//                let y = center.y - (2*blockWidth + 4) + CGFloat(row)*(blockWidth+2)
-//                let button = UIButton(frame: CGRect(x: x , y: y, width: blockWidth, height: blockWidth))
-//                button.backgroundColor = UIColor.green
-//                button.layer.cornerRadius = 10.0
-//                button.layer.borderColor = UIColor.darkGray.cgColor
-//                button.layer.borderWidth = 2.0
-//                button.setTitle("Test", for: UIControlState())
-//                self.view.addSubview(button)
-//                
-//            }
-//        }
+        
+        
+        // add target to each tile
+        for tile in board.tiles {
+            tile.addTarget(self, action: #selector(tileTapped), for: .primaryActionTriggered)
+        }
         
     }
+    
+    @objc func tileTapped(sender: Tile) {
+        print("\(sender.name) was tapped.")
+    }
 
-
+    @IBAction func testButtonTapped(_ sender: UIButton) {
+    }
+    
 
 
 }

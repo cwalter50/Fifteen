@@ -12,17 +12,23 @@ class Tile : UIButton
 {
     var position: TilePosition // this will carry the row and column
     var name: Int
+    var bordersEmptyTile: Bool
     
     init(position: TilePosition, name: Int, frame: CGRect) {
         self.position = position
         self.name = name
+        self.bordersEmptyTile = false
         super.init(frame: frame)
         self.setTitle("\(name)", for: .normal)
         self.setTitleColor(.black, for: .normal)
-        self.backgroundColor = UIColor.blueJeansDark
+        self.backgroundColor = UIColor.blueJeansLight
         self.layer.cornerRadius = 10.0
         self.layer.borderColor = UIColor.darkGray.cgColor
         self.layer.borderWidth = 2.0
+        self.adjustsImageWhenHighlighted = true
+        self.adjustsImageWhenDisabled = true
+        self.isUserInteractionEnabled = true
+        self.tintColor = UIColor.white
     }
 //    var tile : PuzzleTile
 //

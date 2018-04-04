@@ -12,7 +12,8 @@ class Board {
     
     var rows: Int, columns: Int
 
-    var emptySquare: TilePosition
+//    var emptySquare: TilePosition
+    var emptyTile: Tile
 
     var tiles = [Tile]()
     var backgroundView: UIView
@@ -22,48 +23,52 @@ class Board {
         self.rows = rows
         self.columns = columns
         
-        self.emptySquare = TilePosition(row: rows, column: columns)
         let width = UIScreen.main.bounds.width
         let height = UIScreen.main.bounds.height
         let blockWidth = (height - 300.0) / CGFloat(rows)
         let center = CGPoint(x: width * 0.5, y: height * 0.5)
         self.backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: (blockWidth + 2.0) * CGFloat(columns), height: (blockWidth + 2.0) * CGFloat(rows)))
-        self.backgroundView.backgroundColor = UIColor.grapefruitDark
+//        self.backgroundView.backgroundColor = UIColor.grapefruitDark
         self.backgroundView.center = center
         
         for i in 0..<(rows * columns - 1)
         {
-            let row = (i % columns) + 1
-            let column = i / columns + 1
+            let row = i / columns + 1
+            let column = (i % columns) + 1
             let pos = TilePosition(row: row, column: column)
-            let rect = CGRect(x:CGFloat(row - 1) * (blockWidth + 2.0) , y: CGFloat(column - 1) * (blockWidth + 2.0), width: blockWidth, height: blockWidth)
+            let rect = CGRect(x:CGFloat(column - 1) * (blockWidth + 2.0) , y: CGFloat(row - 1) * (blockWidth + 2.0), width: blockWidth, height: blockWidth)
             let tile = Tile(position: pos, name: i + 1, frame: rect)
             tiles.append(tile)
             backgroundView.addSubview(tile)
         }
+        let pos = TilePosition(row: rows, column: columns)
+        emptyTile = Tile(position: pos, name: 0, frame: CGRect(x: CGFloat(columns - 1) * (blockWidth + 2), y: CGFloat(rows - 1) * (blockWidth + 2), width: blockWidth, height: blockWidth))
+        tiles.append(emptyTile)
+        backgroundView.addSubview(emptyTile)
     }
+    
 
-    func resetBoard()
-    {
-        for i in 0..<(rows * columns - 1)
-        {
-            let pos = TilePosition(row: i / columns + 1, column: (i % columns) + 1)
-            tiles[i].position = pos
-        }
-        emptySquare = TilePosition(row: rows, column: columns)
-    }
-
-    func isInRowToEmptySquare(position: TilePosition) -> Bool
-    {
-        return position.row == emptySquare.row || position.column == emptySquare.column
-    }
-
-    func isNextToEmptySquare(position: TilePosition) -> Bool
-    {
-        return
-            (position.row == emptySquare.row && abs(position.column - emptySquare.column) == 1) ||
-                (position.column == emptySquare.column && abs(position.row - emptySquare.row) == 1)
-    }
+//    func resetBoard()
+//    {
+//        for i in 0..<(rows * columns - 1)
+//        {
+//            let pos = TilePosition(row: i / columns + 1, column: (i % columns) + 1)
+//            tiles[i].position = pos
+//        }
+//        emptySquare = TilePosition(row: rows, column: columns)
+//    }
+//
+//    func isInRowToEmptySquare(position: TilePosition) -> Bool
+//    {
+//        return position.row == emptySquare.row || position.column == emptySquare.column
+//    }
+//
+//    func isNextToEmptySquare(position: TilePosition) -> Bool
+//    {
+//        return
+//            (position.row == emptySquare.row && abs(position.column - emptySquare.column) == 1) ||
+//                (position.column == emptySquare.column && abs(position.row - emptySquare.row) == 1)
+//    }
 
 //    func tileAt(position: TilePosition) -> PuzzleTile?
 //    {
