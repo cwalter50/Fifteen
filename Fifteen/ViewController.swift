@@ -14,6 +14,7 @@ class ViewController: UIViewController {
 //    let width = UIScreen.main.bounds.width
 //    let height = UIScreen.main.bounds.height
 //    var blockWidth: CGFloat = 0.0
+    var board: Board = Board(rows: 4, columns: 4)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +23,7 @@ class ViewController: UIViewController {
         createGameBoard()
     }
     
+    // this method is called whenever the focused item changes
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         super.didUpdateFocus(in: context, with: coordinator)
         let tile = context.nextFocusedView
@@ -33,9 +35,7 @@ class ViewController: UIViewController {
     }
     
     func createGameBoard() {
-        let board = Board(rows: 4, columns: 4)
         self.view.addSubview(board.backgroundView)
-        
         
         // add target to each tile
         for tile in board.tiles {
@@ -46,6 +46,15 @@ class ViewController: UIViewController {
     
     @objc func tileTapped(sender: Tile) {
         print("\(sender.name) was tapped.")
+
+        if board.isNextToEmptySquare(position: sender.position) {
+            board.move(startPosition: sender.position)
+        }
+        else {
+            print("tile: \(sender.name) is invalid to move")
+        }
+        
+        
     }
 
     

@@ -47,6 +47,54 @@ class Board {
         backgroundView.addSubview(emptyTile)
     }
     
+    func move(startPosition: TilePosition) {
+        
+        // get the tile you want to move
+        if let tile = self.tileAt(position: startPosition) {
+            let holdingFrame = emptyTile.frame
+            let holdingPosition = emptyTile.position
+            // swap emptyTile with tile's frame and position
+            emptyTile.frame = tile.frame
+            tile.frame = holdingFrame
+            
+            emptyTile.position = tile.position
+            tile.position = holdingPosition
+            
+            
+        }
+    }
+    
+    func isNextToEmptySquare(position: TilePosition) -> Bool
+    {
+
+        return
+            (position.row == emptyTile.position.row && abs(position.column - emptyTile.position.column) == 1) ||
+                (position.column == emptyTile.position.column && abs(position.row - emptyTile.position.row) == 1)
+    }
+    
+    func tileAt(position: TilePosition) -> Tile?
+    {
+        for tile in self.tiles
+        {
+            if tile.position.row == position.row && tile.position.column == position.column
+            {
+                return tile
+            }
+        }
+        return nil
+    }
+    
+    //    func move(movement: TileMovement)
+    //    {
+    //        let tile = self.tileAt(position: movement.start)
+    //
+    //        assert(movement.end == emptySquare, "destination not empty")
+    //        assert(tile != nil, "tile not found")
+    //
+    //        emptySquare = movement.start
+    //        tile?.position = movement.end
+    //    }
+    
 
 //    func resetBoard()
 //    {

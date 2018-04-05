@@ -19,16 +19,24 @@ class Tile : UIButton
         self.name = name
         self.bordersEmptyTile = false
         super.init(frame: frame)
-        self.setTitle("\(name)", for: .normal)
+        
         self.setTitleColor(.black, for: .normal)
         self.backgroundColor = UIColor.blueJeansLight
         self.layer.cornerRadius = 10.0
         self.layer.borderColor = UIColor.darkGray.cgColor
         self.layer.borderWidth = 2.0
-        self.adjustsImageWhenHighlighted = true
-        self.adjustsImageWhenDisabled = true
-        self.isUserInteractionEnabled = true
-        self.tintColor = UIColor.white
+        self.setTileTitle()
+        
+    }
+    
+    func setTileTitle() {
+        if self.name == 0 {
+            // this is the empty tile
+            self.setTitle("", for: .normal)
+        } else {
+            // this is every other tile
+            self.setTitle("\(name)", for: .normal)
+        }
     }
 //    var tile : PuzzleTile
 //
@@ -61,10 +69,10 @@ func == (left: TilePosition, right: TilePosition) -> Bool
 }
 
 
-struct TileMovement
-{
-    var start: TilePosition, end: TilePosition
-}
+//struct TileMovement
+//{
+//    var start: TilePosition, end: TilePosition
+//}
 
 //class PuzzleTile
 //{
