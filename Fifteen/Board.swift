@@ -47,8 +47,27 @@ class Board {
         backgroundView.addSubview(emptyTile)
     }
     
+    func shuffle(numberOfMoves: Int) {
+        for _ in 0..<numberOfMoves {
+            // find all possible moves.  up to 4.
+            var possibleTiles: [Tile] = []
+            for tile in self.tiles {
+                if isNextToEmptySquare(position: tile.position) {
+                    possibleTiles.append(tile)
+                    print("found possible tile: \(tile.name)")
+                }
+            }
+            
+            // select a random one of the possible moves and move
+            let randIndex = Int(arc4random_uniform(UInt32(possibleTiles.count)))
+            
+            let tileToMove = possibleTiles[randIndex]
+            self.move(startPosition: tileToMove.position)
+        }
+    }
+    
+    // this function will move swap the tile in the start position with the emptyTile.  The check if its valid happens in the game.
     func move(startPosition: TilePosition) {
-        
         // get the tile you want to move
         if let tile = self.tileAt(position: startPosition) {
             let holdingFrame = emptyTile.frame
@@ -66,7 +85,6 @@ class Board {
     
     func isNextToEmptySquare(position: TilePosition) -> Bool
     {
-
         return
             (position.row == emptyTile.position.row && abs(position.column - emptyTile.position.column) == 1) ||
                 (position.column == emptyTile.position.column && abs(position.row - emptyTile.position.row) == 1)
@@ -82,6 +100,18 @@ class Board {
             }
         }
         return nil
+    }
+    
+    func isSolved() -> Bool {
+        for i in 0..<(rows * columns - 1)
+        {
+            let pos = TilePosition(row: i / columns + 1, column: (i % columns) + 1)
+            if(tiles[i].position != pos)
+            {
+                return false
+            }
+        }
+        return true
     }
     
     //    func move(movement: TileMovement)

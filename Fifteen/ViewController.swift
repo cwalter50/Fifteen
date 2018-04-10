@@ -21,6 +21,8 @@ class ViewController: UIViewController {
 //        print("screen width: \(width), screenHeight: \(height)")
 //        blockWidth = height / 6.0
         createGameBoard()
+        // figure out a setting to shuffle board for easy/ medium, or hard
+        board.shuffle(numberOfMoves: 10)
     }
     
     // this method is called whenever the focused item changes
@@ -52,6 +54,11 @@ class ViewController: UIViewController {
         }
         else {
             print("tile: \(sender.name) is invalid to move")
+        }
+        
+        // check if board is solved
+        if board.isSolved() {
+            print("board solved!!!")
         }
         
         
