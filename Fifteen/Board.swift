@@ -66,6 +66,8 @@ class Board {
             let tileToMove = possibleTiles[randIndex]
             self.move(startPosition: tileToMove.position)
         }
+        // reset moves to 0, because you are shuffling and starting over
+        self.moves = 0
     }
     
     // this function will move swap the tile in the start position with the emptyTile.  The check if its valid happens in the game.
@@ -131,6 +133,9 @@ class Board {
         emptyTile = tileAt(position: TilePosition(row: rows, column: columns))!
         emptyTile.name = 0
         emptyTile.setTileTitle()
+        
+        // reset moves to 0, because you are shuffling and starting over
+        self.moves = 0
     }
 
 

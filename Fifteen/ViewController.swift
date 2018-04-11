@@ -36,8 +36,8 @@ class ViewController: UIViewController {
 
         createGameBoard()
         // figure out a setting to shuffle board for easy/ medium, or hard
-        board.shuffle(numberOfMoves: 5)
-        board.moves = 0 // reset moves after the shuffle so that we start at 0
+        board.shuffle(numberOfMoves: 100)
+//        board.moves = 0 // reset moves after the shuffle so that we start at 0
 
         
         createTimerAndMovesLabel()
@@ -114,7 +114,7 @@ class ViewController: UIViewController {
         let alert = UIAlertController(title: "You won in \(moves) moves!!!", message: "Would you like to play again?", preferredStyle: .alert)
         let yesAction = UIAlertAction(title: "Yes", style: .default, handler: {action in
             self.board.shuffle(numberOfMoves: 20)
-            self.board.moves = 0
+//            self.board.moves = 0
             
         })
         let noAction = UIAlertAction(title: "No", style: .destructive, handler: nil)
