@@ -10,7 +10,8 @@ import UIKit
 
 class Tile : UIButton
 {
-    var position: TilePosition // this will carry the row and column
+        // this will carry the row and column
+    var position: TilePosition
     var name: Int
     var bordersEmptyTile: Bool
     
@@ -63,10 +64,10 @@ struct TilePosition : Equatable
 
 
 
-func == (left: TilePosition, right: TilePosition) -> Bool
-{
-    return (left.row == right.row) && (left.column == right.column)
-}
+//func == (left: TilePosition, right: TilePosition) -> Bool
+//{
+//    return (left.row == right.row) && (left.column == right.column)
+//}
 
 
 //struct TileMovement

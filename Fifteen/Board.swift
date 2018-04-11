@@ -106,12 +106,30 @@ class Board {
         for i in 0..<(rows * columns - 1)
         {
             let pos = TilePosition(row: i / columns + 1, column: (i % columns) + 1)
-            if(tiles[i].position != pos)
-            {
-                return false
+            if let tile = tileAt(position: pos) {
+                if tile.name != i + 1 {
+                    return false
+                }
             }
+
         }
         return true
+    }
+    
+    // this will bring board back to the solved position
+    func resetBoard()
+    {
+        for i in 0..<(rows * columns - 1)
+        {
+            let pos = TilePosition(row: i / columns + 1, column: (i % columns) + 1)
+            if let tile = tileAt(position: pos) {
+                tile.name = i + 1
+                tile.setTileTitle()
+            }
+        }
+        emptyTile = tileAt(position: TilePosition(row: rows, column: columns))!
+        emptyTile.name = 0
+        emptyTile.setTileTitle()
     }
     
     //    func move(movement: TileMovement)
