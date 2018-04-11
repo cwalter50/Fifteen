@@ -28,17 +28,30 @@ class ViewController: UIViewController {
         return label
     }()
     
+    var time = 0
+    var timer: Timer = Timer()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        print("screen width: \(width), screenHeight: \(height)")
-//        blockWidth = height / 6.0
+
         createGameBoard()
         // figure out a setting to shuffle board for easy/ medium, or hard
         board.shuffle(numberOfMoves: 5)
         board.moves = 0 // reset moves after the shuffle so that we start at 0
-        updateMovesLabel()
+
         
         createTimerAndMovesLabel()
+        updateMovesLabel()
+        
+        // start timer
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { (timer) in
+            self.time += 1
+            let min = self.time / 60
+            let sec = self.time % 60
+            let timeText = String(format:"%i:%02i",min, sec)
+            self.timerLabel.text = timeText
+            })
+        
     }
     
     // this method is called whenever the focused item changes
