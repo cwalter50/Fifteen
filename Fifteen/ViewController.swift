@@ -11,10 +11,22 @@ import UIKit
 class ViewController: UIViewController {
 
     // MARK: Properties
-//    let width = UIScreen.main.bounds.width
-//    let height = UIScreen.main.bounds.height
+    let width = UIScreen.main.bounds.width
+    let height = UIScreen.main.bounds.height
 //    var blockWidth: CGFloat = 0.0
     var board: Board = Board(rows: 4, columns: 4)
+    
+    var timerLabel: UILabel = {
+        let label = UILabel(frame: CGRect(x: 100, y: 0, width: 200, height: 100))
+        label.text = "0:00"
+        return label
+    }()
+    
+    var movesLabel: UILabel = {
+        let label = UILabel(frame: CGRect(x: 100, y: 0, width: 200, height: 100))
+        label.text = "Moves: 0"
+        return label
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +34,11 @@ class ViewController: UIViewController {
 //        blockWidth = height / 6.0
         createGameBoard()
         // figure out a setting to shuffle board for easy/ medium, or hard
-        board.shuffle(numberOfMoves: 20)
+        board.shuffle(numberOfMoves: 5)
+        board.moves = 0 // reset moves after the shuffle so that we start at 0
+        updateMovesLabel()
+        
+        createTimerAndMovesLabel()
     }
     
     // this method is called whenever the focused item changes
@@ -34,6 +50,20 @@ class ViewController: UIViewController {
         tile?.layer.shadowRadius = 15
         tile?.layer.shadowColor = UIColor.black.cgColor
         context.previouslyFocusedView?.layer.shadowOpacity = 0
+    }
+    
+    func createTimerAndMovesLabel() {
+        self.view.addSubview(timerLabel)
+        timerLabel.center.x = width * 0.43
+        timerLabel.center.y = height * 0.07
+        
+        self.view.addSubview(movesLabel)
+        movesLabel.center.x = width * 0.6
+        movesLabel.center.y = height * 0.07
+        
+    }
+    func updateMovesLabel() {
+        movesLabel.text = "Moves: \(board.moves)"
     }
     
     func createGameBoard() {
@@ -56,13 +86,28 @@ class ViewController: UIViewController {
             print("tile: \(sender.name) is invalid to move")
             board.resetBoard()
         }
-        
+        updateMovesLabel()
         // check if board is solved
         if board.isSolved() {
             print("board solved!!!")
+            solvedBoardAlert(moves: board.moves)
+            
         }
         
         
+    }
+    
+    func solvedBoardAlert(moves: Int) {
+        let alert = UIAlertController(title: "You won in \(moves) moves!!!", message: "Would you like to play again?", preferredStyle: .alert)
+        let yesAction = UIAlertAction(title: "Yes", style: .default, handler: {action in
+            self.board.shuffle(numberOfMoves: 20)
+            self.board.moves = 0
+            
+        })
+        let noAction = UIAlertAction(title: "No", style: .destructive, handler: nil)
+        alert.addAction(yesAction)
+        alert.addAction(noAction)
+        present(alert, animated: true, completion: nil)
     }
 
     
