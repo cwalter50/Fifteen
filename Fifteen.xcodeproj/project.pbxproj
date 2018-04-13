@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		383DD76E207FA48700737D42 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 383DD76D207FA48700737D42 /* CloudKit.framework */; };
+		383DD770207FA75E00737D42 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383DD76F207FA75E00737D42 /* Score.swift */; };
 		834224D52072FC9D005D3144 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834224D42072FC9D005D3144 /* AppDelegate.swift */; };
 		834224D72072FC9D005D3144 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834224D62072FC9D005D3144 /* ViewController.swift */; };
 		834224DA2072FC9D005D3144 /* Fifteen.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 834224D82072FC9D005D3144 /* Fifteen.xcdatamodeld */; };
@@ -18,6 +20,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		383DD76B207FA48400737D42 /* Fifteen.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Fifteen.entitlements; sourceTree = "<group>"; };
+		383DD76D207FA48700737D42 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		383DD76F207FA75E00737D42 /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
 		834224D12072FC9D005D3144 /* Fifteen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fifteen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		834224D42072FC9D005D3144 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		834224D62072FC9D005D3144 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -35,17 +40,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				383DD76E207FA48700737D42 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		383DD76C207FA48700737D42 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				383DD76D207FA48700737D42 /* CloudKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		834224C82072FC9D005D3144 = {
 			isa = PBXGroup;
 			children = (
 				834224D32072FC9D005D3144 /* Fifteen */,
 				834224D22072FC9D005D3144 /* Products */,
+				383DD76C207FA48700737D42 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,8 +75,10 @@
 		834224D32072FC9D005D3144 /* Fifteen */ = {
 			isa = PBXGroup;
 			children = (
+				383DD76B207FA48400737D42 /* Fifteen.entitlements */,
 				834224D42072FC9D005D3144 /* AppDelegate.swift */,
 				834224D62072FC9D005D3144 /* ViewController.swift */,
+				383DD76F207FA75E00737D42 /* Score.swift */,
 				83B3FDAB207305B000D66EE5 /* Board.swift */,
 				83B3FDAD207305D000D66EE5 /* Tile.swift */,
 				83B3FDAF2074513800D66EE5 /* Extensions.swift */,
@@ -106,6 +123,14 @@
 					834224D02072FC9D005D3144 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -144,6 +169,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				383DD770207FA75E00737D42 /* Score.swift in Sources */,
 				834224D72072FC9D005D3144 /* ViewController.swift in Sources */,
 				83B3FDB02074513800D66EE5 /* Extensions.swift in Sources */,
 				834224D52072FC9D005D3144 /* AppDelegate.swift in Sources */,
@@ -277,6 +303,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = Fifteen/Fifteen.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 84LWTY6T5F;
 				INFOPLIST_FILE = Fifteen/Info.plist;
@@ -293,6 +320,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = Fifteen/Fifteen.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 84LWTY6T5F;
 				INFOPLIST_FILE = Fifteen/Info.plist;

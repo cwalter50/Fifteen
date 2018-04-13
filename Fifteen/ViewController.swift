@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CloudKit
 
 class ViewController: UIViewController {
 
@@ -36,7 +37,7 @@ class ViewController: UIViewController {
 
         createGameBoard()
         // figure out a setting to shuffle board for easy/ medium, or hard
-        board.shuffle(numberOfMoves: 100)
+        board.shuffle(numberOfMoves: 5)
 //        board.moves = 0 // reset moves after the shuffle so that we start at 0
 
         
@@ -97,17 +98,23 @@ class ViewController: UIViewController {
         }
         else {
             print("tile: \(sender.name) is invalid to move")
-            board.resetBoard()
+//            board.resetBoard()
         }
         updateMovesLabel()
         // check if board is solved
         if board.isSolved() {
             print("board solved!!!")
+            saveScoreInCloudKit()
             solvedBoardAlert(moves: board.moves)
             
         }
+    }
+    
+    func saveScoreInCloudKit() {
+        let newScore = Score(name: "Test", moves: board.moves, time: time, difficultyLevel: "Easy")
         
-        
+        newScore.saveToCloudkit()
+       
     }
     
     func solvedBoardAlert(moves: Int) {
@@ -117,7 +124,7 @@ class ViewController: UIViewController {
 //            self.board.moves = 0
             
         })
-        let noAction = UIAlertAction(title: "No", style: .destructive, handler: nil)
+        let noAction = UIAlertAction(title: "No", style: .cancel, handler: nil)
         alert.addAction(yesAction)
         alert.addAction(noAction)
         present(alert, animated: true, completion: nil)
