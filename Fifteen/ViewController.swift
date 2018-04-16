@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     let height = UIScreen.main.bounds.height
 //    var blockWidth: CGFloat = 0.0
     var board: Board = Board(rows: 4, columns: 4)
+    var scores: [Score] = []
     
     var timerLabel: UILabel = {
         let label = UILabel(frame: CGRect(x: 100, y: 0, width: 200, height: 100))
@@ -35,12 +36,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+
         createGameBoard()
         // figure out a setting to shuffle board for easy/ medium, or hard
-        board.shuffle(numberOfMoves: 5)
+        board.shuffle(numberOfMoves: 1)
 //        board.moves = 0 // reset moves after the shuffle so that we start at 0
-
-        
         createTimerAndMovesLabel()
         updateMovesLabel()
         
@@ -92,6 +92,7 @@ class ViewController: UIViewController {
     
     @objc func tileTapped(sender: Tile) {
         print("\(sender.name) was tapped.")
+//        self.performSegue(withIdentifier: "HighScoresSegue", sender: self)
 
         if board.isNextToEmptySquare(position: sender.position) {
             board.move(startPosition: sender.position)
@@ -105,17 +106,19 @@ class ViewController: UIViewController {
         if board.isSolved() {
             print("board solved!!!")
             saveScoreInCloudKit()
-            solvedBoardAlert(moves: board.moves)
+//            solvedBoardAlert(moves: board.moves)
             
         }
     }
     
     func saveScoreInCloudKit() {
         let newScore = Score(name: "Test", moves: board.moves, time: time, difficultyLevel: "Easy")
-        
-        newScore.saveToCloudkit()
-       
+        newScore.delegate = self // set the delegate so that we can alert this view when cloud data is saved or if there is an error
+        newScore.saveToCloudkit() // I created a method to save to cloudkit within the class Score
+//        scores.append(newScore)
     }
+    
+
     
     func solvedBoardAlert(moves: Int) {
         let alert = UIAlertController(title: "You won in \(moves) moves!!!", message: "Would you like to play again?", preferredStyle: .alert)
@@ -129,9 +132,63 @@ class ViewController: UIViewController {
         alert.addAction(noAction)
         present(alert, animated: true, completion: nil)
     }
-
     
 
+    
+//    func loadScoresFromCloudkit() {
+//        let publicDatabase = CKContainer.default().publicCloudDatabase
+//
+//        // Initialize Query.  And load all classes.
+//        let predicate = NSPredicate(value: true) // this will grab all scores
+//        let query = CKQuery(recordType: "Score", predicate: predicate)
+//
+//        // Configure Query.  Figure out a better way to sort.  Maybe sort by created?
+//        query.sortDescriptors = [NSSortDescriptor(key: "moves", ascending: true)]
+//
+//        publicDatabase.perform(query, inZoneWith: nil) {
+//            (records, error) in
+//            guard let records = records else {
+//                print("Error querying records: ", error as Any)
+//                return
+//            }
+//            print("Found \(records.count) records matching query")
+//            if records.count == 0 {
+//                // we found no scores.  Display default score.
+//                let score = Score(name: "No Scores yet", moves: 0, time: 0, difficultyLevel: "Easy")
+//                // populate scores with just the default score
+//                self.scores = [score]
+//            } else {
+//
+//                for record in records {
+//                    // create a score from the record...
+//                    let foundScore = Score(record: record)
+//                    self.scores.append(foundScore)
+//                }
+//            }
+//        }
+//    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "HighScoresSegue" {
+            let destVC = segue.destination as! HighScoresViewController
+            // pass data here
+//            destVC.scores = scores
+        }
+    }
+}
 
+extension ViewController: newScoreAddedDelegate {
+    // this function will get called after theScore is saved in cloudkit
+    func showHighScores() {
+        self.performSegue(withIdentifier: "HighScoresSegue", sender: self)
+    }
+    // this will be called if there is an error in saving the score to cloudkit
+    func errorAlert(message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        let yesAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(yesAction)
+        present(alert, animated: true, completion: nil)
+    }
 }
 

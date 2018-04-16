@@ -56,7 +56,7 @@ class Board {
             for tile in self.tiles {
                 if isNextToEmptySquare(position: tile.position) {
                     possibleTiles.append(tile)
-                    print("found possible tile: \(tile.name)")
+//                    print("found possible tile: \(tile.name)")
                 }
             }
             
