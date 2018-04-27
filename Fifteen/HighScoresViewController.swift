@@ -24,6 +24,7 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func setUpViews() {
+        highScoresTableView.tableFooterView = UIView(frame: CGRect.zero)
         highScoresTableView.backgroundColor = UIColor.white
         highScoresTableView.layer.cornerRadius = 10.0
     }
@@ -67,7 +68,7 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
     
     // Mark: TableView methods
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150.0
+        return 100.0
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return scores.count
@@ -87,6 +88,9 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         return cell
     }
     
+    func tableView(_ tableView: UITableView, canFocusRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
     
     
     

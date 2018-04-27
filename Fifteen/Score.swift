@@ -18,6 +18,7 @@ class Score {
     var moves: Int
     var time: Int
     var difficultyLevel: String
+    var creationDate: Date
     var record: CKRecord?
     
     var delegate: newScoreAddedDelegate? // this will allow us to call a method on ViewController when newScore gets added to cloudkit
@@ -27,6 +28,7 @@ class Score {
         self.moves = moves
         self.time = time
         self.difficultyLevel = difficultyLevel
+        self.creationDate = Date()
         record = nil
     }
     
@@ -35,7 +37,9 @@ class Score {
         self.moves = record["moves"] as? Int ?? 0
         self.time = record["time"] as? Int ?? 0
         self.difficultyLevel = record["difficultyLevel"] as? String ?? ""
+        self.creationDate = record["creationDate"] as? Date ?? Date()
         self.record = record
+        
 //        self.recordName = record.recordID.recordName
       
     }

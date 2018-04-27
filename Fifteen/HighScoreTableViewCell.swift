@@ -27,11 +27,10 @@ class HighScoreTableViewCell: UITableViewCell {
             let timeText = String(format:"%i:%02i",min, sec)
             self.timeLabel.text = timeText
             
-            
-//            self.dateLabel.text = score?.createdAt
-//            self.layer.borderWidth = 2.0
-//            self.layer.borderColor = UIColor.darkGray.cgColor
-//            self.layer.cornerRadius = 5.0
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .medium
+            dateFormatter.timeStyle = .short
+            self.dateLabel.text = dateFormatter.string(from: theScore.creationDate)
         }
     }
     override func awakeFromNib() {
