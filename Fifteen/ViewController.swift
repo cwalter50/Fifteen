@@ -17,6 +17,8 @@ class ViewController: UIViewController {
 //    var blockWidth: CGFloat = 0.0
     var board: Board = Board(rows: 4, columns: 4)
     var scores: [Score] = []
+    var score : Score?
+    
     
     var timerLabel: UILabel = {
         let label = UILabel(frame: CGRect(x: 100, y: 0, width: 200, height: 100))
@@ -105,14 +107,14 @@ class ViewController: UIViewController {
         // check if board is solved
         if board.isSolved() {
             print("board solved!!!")
-            saveScoreInCloudKit()
-//            solvedBoardAlert(moves: board.moves)
+            timer.invalidate()
+            solvedBoardAlert(moves: board.moves)
             
         }
     }
     
-    func saveScoreInCloudKit() {
-        let newScore = Score(name: "Test", moves: board.moves, time: time, difficultyLevel: "Easy")
+    func saveScoreInCloudKit(name: String) {
+        let newScore = Score(name: name, moves: board.moves, time: time, difficultyLevel: "Easy")
         newScore.delegate = self // set the delegate so that we can alert this view when cloud data is saved or if there is an error
         newScore.saveToCloudkit() // I created a method to save to cloudkit within the class Score
 //        scores.append(newScore)
@@ -121,15 +123,32 @@ class ViewController: UIViewController {
 
     
     func solvedBoardAlert(moves: Int) {
-        let alert = UIAlertController(title: "You won in \(moves) moves!!!", message: "Would you like to play again?", preferredStyle: .alert)
-        let yesAction = UIAlertAction(title: "Yes", style: .default, handler: {action in
+        let alert = UIAlertController(title: "You won in \(moves) moves!!!", message: "Enter your name below", preferredStyle: .alert)
+        
+        //2. Add the text field. You can configure it however you need.
+        alert.addTextField { (textField) in
+            textField.placeholder = "Enter your name here"
+            textField.autocapitalizationType = .words
+            // give textfield a default value or save the name to user defaults, so that the name is saved for next time you play.
+        }
+        let saveScoreAction = UIAlertAction(title: "Save Score", style: .default, handler: {action in
+            
+            let textField = alert.textFields![0]
+            let name = textField.text ?? ""
+            self.saveScoreInCloudKit(name: name)
             self.board.shuffle(numberOfMoves: 20)
+            
+//            self.performSegue(withIdentifier: "HighScoresSegue", sender: self)
 //            self.board.moves = 0
             
         })
+        let playAgainAction = UIAlertAction(title: "Play Again", style: .default, handler: {action in
+            self.board.shuffle(numberOfMoves: 20)
+        })
         let noAction = UIAlertAction(title: "No", style: .cancel, handler: nil)
-        alert.addAction(yesAction)
-        alert.addAction(noAction)
+        alert.addAction(saveScoreAction)
+//        alert.addAction(playAgainAction)
+//        alert.addAction(noAction)
         present(alert, animated: true, completion: nil)
     }
     
@@ -173,6 +192,8 @@ class ViewController: UIViewController {
         if segue.identifier == "HighScoresSegue" {
             let destVC = segue.destination as! HighScoresViewController
             // pass data here
+            
+
 //            destVC.scores = scores
         }
     }

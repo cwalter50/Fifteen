@@ -74,6 +74,7 @@ class Score {
             DispatchQueue.main.async(execute: {
                 self.delegate?.showHighScores()
             })
+
         }
     }
 }
