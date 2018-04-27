@@ -17,6 +17,10 @@ class ViewController: UIViewController {
 //    var blockWidth: CGFloat = 0.0
     var board: Board = Board(rows: 4, columns: 4)
     var scores: [Score] = []
+    var shuffleCount = 1 // this is used to set shuffle amount consistently
+    
+    var time = 0
+    var timer: Timer = Timer()
     
     var timerLabel: UILabel = {
         let label = UILabel(frame: CGRect(x: 100, y: 0, width: 200, height: 100))
@@ -30,30 +34,40 @@ class ViewController: UIViewController {
         return label
     }()
     
-    var time = 0
-    var timer: Timer = Timer()
+    var resetButton: UIButton = {
+        let button = UIButton(frame: CGRect(x: 100, y: 0, width: 300, height: 100))
+        button.backgroundColor = UIColor.red
+        button.setTitle("Reset Game", for: UIControlState.normal)
+        button.addTarget(self, action: #selector(resetBoard), for: .primaryActionTriggered)
+        return button
+    }()
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
         createGameBoard()
         // figure out a setting to shuffle board for easy/ medium, or hard
-        board.shuffle(numberOfMoves: 1)
+        board.shuffle(numberOfMoves: shuffleCount)
 //        board.moves = 0 // reset moves after the shuffle so that we start at 0
-        createTimerAndMovesLabel()
+        createLabelsAndButtons()
         updateMovesLabel()
         
         // start timer
+        startTimer()
+        
+    }
+    
+    func startTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { (timer) in
             self.time += 1
             let min = self.time / 60
             let sec = self.time % 60
             let timeText = String(format:"%i:%02i",min, sec)
             self.timerLabel.text = timeText
-            })
-        
+        })
     }
+
     
     // this method is called whenever the focused item changes
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
@@ -66,7 +80,7 @@ class ViewController: UIViewController {
         context.previouslyFocusedView?.layer.shadowOpacity = 0
     }
     
-    func createTimerAndMovesLabel() {
+    func createLabelsAndButtons() {
         self.view.addSubview(timerLabel)
         timerLabel.center.x = width * 0.43
         timerLabel.center.y = height * 0.07
@@ -74,6 +88,9 @@ class ViewController: UIViewController {
         self.view.addSubview(movesLabel)
         movesLabel.center.x = width * 0.6
         movesLabel.center.y = height * 0.07
+        self.view.addSubview(resetButton)
+        resetButton.center.x = width * 0.5
+        resetButton.center.y = height * 0.94
         
     }
     func updateMovesLabel() {
@@ -87,6 +104,16 @@ class ViewController: UIViewController {
         for tile in board.tiles {
             tile.addTarget(self, action: #selector(tileTapped), for: .primaryActionTriggered)
         }
+        
+    }
+    
+    @objc func resetBoard(sender: UIButton) {
+        // reset Moves label to 0, timer label to 0, solve puzzle, then shuffle Again
+        board.moves = 0
+        timer.invalidate()
+        time = 0
+        startTimer()
+        board.shuffle(numberOfMoves: shuffleCount)
         
     }
     
@@ -105,14 +132,15 @@ class ViewController: UIViewController {
         // check if board is solved
         if board.isSolved() {
             print("board solved!!!")
-            saveScoreInCloudKit()
-//            solvedBoardAlert(moves: board.moves)
+//            saveScoreInCloudKit()
+            timer.invalidate()
+            solvedBoardAlert(moves: board.moves)
             
         }
     }
     
-    func saveScoreInCloudKit() {
-        let newScore = Score(name: "Test", moves: board.moves, time: time, difficultyLevel: "Easy")
+    func saveScoreInCloudKit(name: String) {
+        let newScore = Score(name: name, moves: board.moves, time: time, difficultyLevel: "Easy")
         newScore.delegate = self // set the delegate so that we can alert this view when cloud data is saved or if there is an error
         newScore.saveToCloudkit() // I created a method to save to cloudkit within the class Score
 //        scores.append(newScore)
@@ -121,15 +149,27 @@ class ViewController: UIViewController {
 
     
     func solvedBoardAlert(moves: Int) {
-        let alert = UIAlertController(title: "You won in \(moves) moves!!!", message: "Would you like to play again?", preferredStyle: .alert)
-        let yesAction = UIAlertAction(title: "Yes", style: .default, handler: {action in
-            self.board.shuffle(numberOfMoves: 20)
+        let alert = UIAlertController(title: "You won in \(moves) moves!!!", message: "Enter your name below.", preferredStyle: .alert)
+        
+        alert.addTextField {textField in
+            textField.placeholder = "Enter Name Here"
+            textField.autocapitalizationType = .words
+            
+        }
+        let yesAction = UIAlertAction(title: "Save", style: .default, handler: {action in
+            
+            let nameTF = alert.textFields![0] // force unwrap because we know it's there
+            let name = nameTF.text ?? "Hulk"
+            self.saveScoreInCloudKit(name: name)
+            
+            
+//            self.board.shuffle(numberOfMoves: 1)
 //            self.board.moves = 0
             
         })
         let noAction = UIAlertAction(title: "No", style: .cancel, handler: nil)
         alert.addAction(yesAction)
-        alert.addAction(noAction)
+//        alert.addAction(noAction)
         present(alert, animated: true, completion: nil)
     }
     

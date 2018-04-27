@@ -22,6 +22,8 @@ class Tile : UIButton
         super.init(frame: frame)
         
         self.setTitleColor(.black, for: .normal)
+        self.titleLabel?.font = UIFont(name: "Avenir", size: frame.height*0.8)
+        
         self.backgroundColor = UIColor.blueJeansLight
         self.layer.cornerRadius = 10.0
         self.layer.borderColor = UIColor.darkGray.cgColor
