@@ -17,7 +17,7 @@ class ViewController: UIViewController {
 //    var blockWidth: CGFloat = 0.0
     var board: Board = Board(rows: 4, columns: 4)
     var scores: [Score] = []
-    var shuffleCount = 1 // this is used to set shuffle amount consistently
+    var shuffleCount = 20 // this is used to set shuffle amount consistently
     
     var time = 0
     var timer: Timer = Timer()
@@ -46,6 +46,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setUpSwipeGestures()
         createGameBoard()
         // figure out a setting to shuffle board for easy/ medium, or hard
         board.shuffle(numberOfMoves: shuffleCount)
@@ -56,6 +58,26 @@ class ViewController: UIViewController {
         // start timer
         startTimer()
         
+    }
+    
+    func setUpSwipeGestures() {
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(swiped))
+        swipeRight.direction = .right
+        self.view.addGestureRecognizer(swipeRight)
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(swiped))
+        swipeLeft.direction = .left
+        self.view.addGestureRecognizer(swipeLeft)
+        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(swiped))
+        swipeUp.direction = .up
+        self.view.addGestureRecognizer(swipeUp)
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(swiped))
+        swipeDown.direction = .down
+        self.view.addGestureRecognizer(swipeDown)
+
+    }
+    @objc func swiped(sender: UISwipeGestureRecognizer) {
+        print("swiped \(sender.direction)")
+        // add logic to move pieces if its a valid direction. etc.
     }
     
     func startTimer() {
