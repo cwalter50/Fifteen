@@ -86,6 +86,30 @@ class Board {
         }
     }
     
+    func moveDirection(direction: UISwipeGestureRecognizerDirection) {
+        
+        // get tile next to position
+        var tileToMove: Tile?
+        switch direction {
+        case .up:
+            tileToMove = tileAt(position: TilePosition(row: emptyTile.position.row+1, column: emptyTile.position.column))
+        case .down:
+            tileToMove = tileAt(position: TilePosition(row: emptyTile.position.row-1, column: emptyTile.position.column))
+        case .left:
+            tileToMove = tileAt(position: TilePosition(row: emptyTile.position.row, column: emptyTile.position.column+1))
+        case .right:
+            tileToMove = tileAt(position: TilePosition(row: emptyTile.position.row, column: emptyTile.position.column-1))
+        default:
+            print("did not swipe up, down, left, or right")
+        }
+        
+        if let foundTile = tileToMove {
+            move(startPosition:foundTile.position)
+        } else {
+            print("not a valid swipe direction for current position")
+        }
+    }
+    
     func isNextToEmptySquare(position: TilePosition) -> Bool
     {
         return

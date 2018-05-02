@@ -77,7 +77,18 @@ class ViewController: UIViewController {
     }
     @objc func swiped(sender: UISwipeGestureRecognizer) {
         print("swiped \(sender.direction)")
+        
         // add logic to move pieces if its a valid direction. etc.
+        board.moveDirection(direction: sender.direction)
+        updateMovesLabel()
+        // check if board is solved
+        if board.isSolved() {
+            print("board solved!!!")
+            //            saveScoreInCloudKit()
+            timer.invalidate()
+            solvedBoardAlert(moves: board.moves)
+            
+        }
     }
     
     func startTimer() {
