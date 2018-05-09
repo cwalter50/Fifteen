@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     var board: Board = Board(rows: 4, columns: 4)
     var scores: [Score] = []
     var shuffleCount = 20 // this is used to set shuffle amount consistently
+    var gameWon = false // this is used to prevent the user from keep moving the board around with swipes after the game is won
     
     var time = 0
     var timer: Timer = Timer()
@@ -39,6 +40,14 @@ class ViewController: UIViewController {
         button.backgroundColor = UIColor.red
         button.setTitle("Reset Game", for: UIControlState.normal)
         button.addTarget(self, action: #selector(resetBoard), for: .primaryActionTriggered)
+        return button
+    }()
+    
+    var pauseButton: UIButton = {
+        let button = UIButton(frame: CGRect(x: 100, y: 0, width: 300, height: 100))
+        button.backgroundColor = UIColor.red
+        button.setTitle("Pause Game", for: UIControlState.normal)
+        button.addTarget(self, action: #selector(pauseGame), for: .primaryActionTriggered)
         return button
     }()
     
@@ -77,17 +86,18 @@ class ViewController: UIViewController {
     }
     @objc func swiped(sender: UISwipeGestureRecognizer) {
         
-        // add logic to move pieces if its a valid direction. etc.
-        board.moveDirection(direction: sender.direction)
-        updateMovesLabel()
-        // check if board is solved
-        if board.isSolved() {
-            print("board solved!!!")
-            //            saveScoreInCloudKit()
-            timer.invalidate()
-            solvedBoardAlert(moves: board.moves)
-            
+        // add logic to move pieces if its a valid direction. Also if the game is not paused or won
+        if gameWon == false && gamePaused == false {
+            board.moveDirection(direction: sender.direction)
+            updateMovesLabel()
+            // check if board is solved
+            if board.isSolved() {
+                print("board solved!!!")
+                timer.invalidate()
+                solvedBoardAlert(moves: board.moves)
+            }
         }
+        
     }
     
     func startTimer() {
@@ -116,12 +126,14 @@ class ViewController: UIViewController {
         self.view.addSubview(timerLabel)
         timerLabel.center.x = width * 0.43
         timerLabel.center.y = height * 0.07
-        
         self.view.addSubview(movesLabel)
         movesLabel.center.x = width * 0.6
         movesLabel.center.y = height * 0.07
+        self.view.addSubview(pauseButton)
+        pauseButton.center.x = width * 0.43
+        pauseButton.center.y = height * 0.94
         self.view.addSubview(resetButton)
-        resetButton.center.x = width * 0.5
+        resetButton.center.x = width * 0.6
         resetButton.center.y = height * 0.94
         
     }
@@ -145,31 +157,32 @@ class ViewController: UIViewController {
         timer.invalidate()
         time = 0
         startTimer()
+        board.resetBoard()
         board.shuffle(numberOfMoves: shuffleCount)
         
     }
     
-//    @objc func tileTapped(sender: Tile) {
-//        print("\(sender.name) was tapped.")
-////        self.performSegue(withIdentifier: "HighScoresSegue", sender: self)
-//
-//        if board.isNextToEmptySquare(position: sender.position) {
-//            board.move(startPosition: sender.position)
-//        }
-//        else {
-//            print("tile: \(sender.name) is invalid to move")
-////            board.resetBoard()
-//        }
-//        updateMovesLabel()
-//        // check if board is solved
-//        if board.isSolved() {
-//            print("board solved!!!")
-////            saveScoreInCloudKit()
-//            timer.invalidate()
-//            solvedBoardAlert(moves: board.moves)
-//            
-//        }
-//    }
+    var gamePaused = false
+    @objc func pauseGame(sender: UIButton) {
+        gamePaused = !gamePaused
+        
+        if gamePaused {
+            // stop timer
+            timer.invalidate()
+            // make all numbers disapear
+            for tile in board.tiles {
+                tile.nameLabel.text = "#"
+            }
+        } else {
+            // DO NOT reset time
+            startTimer()
+            for tile in board.tiles {
+                tile.setTileTitle()
+            }
+            
+        }
+    }
+    
     
     func saveScoreInCloudKit(name: String) {
         let newScore = Score(name: name, moves: board.moves, time: time, difficultyLevel: "Easy")

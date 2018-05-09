@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		381CF82A20A3411C00D4A4B5 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381CF82920A3411C00D4A4B5 /* MenuViewController.swift */; };
 		383DD76E207FA48700737D42 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 383DD76D207FA48700737D42 /* CloudKit.framework */; };
 		383DD770207FA75E00737D42 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383DD76F207FA75E00737D42 /* Score.swift */; };
 		834224D52072FC9D005D3144 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834224D42072FC9D005D3144 /* AppDelegate.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		381CF82920A3411C00D4A4B5 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		383DD76B207FA48400737D42 /* Fifteen.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Fifteen.entitlements; sourceTree = "<group>"; };
 		383DD76D207FA48700737D42 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		383DD76F207FA75E00737D42 /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 			children = (
 				383DD76B207FA48400737D42 /* Fifteen.entitlements */,
 				834224D42072FC9D005D3144 /* AppDelegate.swift */,
+				381CF82920A3411C00D4A4B5 /* MenuViewController.swift */,
 				834224D62072FC9D005D3144 /* ViewController.swift */,
 				835E91A120838EDB0072D221 /* HighScoresViewController.swift */,
 				835E91A32083D7E30072D221 /* HighScoreTableViewCell.swift */,
@@ -176,6 +179,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				383DD770207FA75E00737D42 /* Score.swift in Sources */,
+				381CF82A20A3411C00D4A4B5 /* MenuViewController.swift in Sources */,
 				834224D72072FC9D005D3144 /* ViewController.swift in Sources */,
 				83B3FDB02074513800D66EE5 /* Extensions.swift in Sources */,
 				834224D52072FC9D005D3144 /* AppDelegate.swift in Sources */,

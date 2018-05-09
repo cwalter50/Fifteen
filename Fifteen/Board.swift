@@ -56,7 +56,6 @@ class Board {
             for tile in self.tiles {
                 if isNextToEmptySquare(position: tile.position) {
                     possibleTiles.append(tile)
-//                    print("found possible tile: \(tile.name)")
                 }
             }
             
@@ -69,7 +68,6 @@ class Board {
         // reset moves to 0, because you are shuffling and starting over
         self.moves = 0
     }
-    
     // this function will move swap the tile in the start position with the emptyTile.  The check if its valid happens in the game.
     func move(startPosition: TilePosition) {
         // get the tile you want to move
