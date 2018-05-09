@@ -76,12 +76,14 @@ class Board {
         if let tile = self.tileAt(position: startPosition) {
             let holdingFrame = emptyTile.frame
             let holdingPosition = emptyTile.position
+
             // swap emptyTile with tile's frame and position
             emptyTile.frame = tile.frame
-            tile.frame = holdingFrame
-            
             emptyTile.position = tile.position
+            
+            tile.frame = holdingFrame
             tile.position = holdingPosition
+            
             moves += 1
         }
     }

@@ -76,7 +76,6 @@ class ViewController: UIViewController {
 
     }
     @objc func swiped(sender: UISwipeGestureRecognizer) {
-        print("swiped \(sender.direction)")
         
         // add logic to move pieces if its a valid direction. etc.
         board.moveDirection(direction: sender.direction)
@@ -133,10 +132,10 @@ class ViewController: UIViewController {
     func createGameBoard() {
         self.view.addSubview(board.backgroundView)
         
-        // add target to each tile
-        for tile in board.tiles {
-            tile.addTarget(self, action: #selector(tileTapped), for: .primaryActionTriggered)
-        }
+//        // add target to each tile
+//        for tile in board.tiles {
+//            tile.addTarget(self, action: #selector(tileTapped), for: .primaryActionTriggered)
+//        }
         
     }
     
@@ -150,27 +149,27 @@ class ViewController: UIViewController {
         
     }
     
-    @objc func tileTapped(sender: Tile) {
-        print("\(sender.name) was tapped.")
-//        self.performSegue(withIdentifier: "HighScoresSegue", sender: self)
-
-        if board.isNextToEmptySquare(position: sender.position) {
-            board.move(startPosition: sender.position)
-        }
-        else {
-            print("tile: \(sender.name) is invalid to move")
-//            board.resetBoard()
-        }
-        updateMovesLabel()
-        // check if board is solved
-        if board.isSolved() {
-            print("board solved!!!")
-//            saveScoreInCloudKit()
-            timer.invalidate()
-            solvedBoardAlert(moves: board.moves)
-            
-        }
-    }
+//    @objc func tileTapped(sender: Tile) {
+//        print("\(sender.name) was tapped.")
+////        self.performSegue(withIdentifier: "HighScoresSegue", sender: self)
+//
+//        if board.isNextToEmptySquare(position: sender.position) {
+//            board.move(startPosition: sender.position)
+//        }
+//        else {
+//            print("tile: \(sender.name) is invalid to move")
+////            board.resetBoard()
+//        }
+//        updateMovesLabel()
+//        // check if board is solved
+//        if board.isSolved() {
+//            print("board solved!!!")
+////            saveScoreInCloudKit()
+//            timer.invalidate()
+//            solvedBoardAlert(moves: board.moves)
+//            
+//        }
+//    }
     
     func saveScoreInCloudKit(name: String) {
         let newScore = Score(name: name, moves: board.moves, time: time, difficultyLevel: "Easy")
