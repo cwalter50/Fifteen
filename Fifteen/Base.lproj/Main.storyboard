@@ -10,6 +10,24 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--View Controller-->
+        <scene sceneID="6nN-TQ-RPq">
+            <objects>
+                <viewController id="1xY-Na-CIf" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="erk-rb-etP"/>
+                        <viewControllerLayoutGuide type="bottom" id="hSs-os-ZDJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vJN-Gy-QSJ">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="BUy-aS-yNF"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3Yc-Un-rgu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2114" y="-1150"/>
+        </scene>
         <!--Menu View Controller-->
         <scene sceneID="9vC-fZ-xsW">
             <objects>
@@ -26,6 +44,7 @@
                     <navigationItem key="navigationItem" id="8Jp-aH-GY6"/>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="quickGameSegue" id="LEM-ET-BPB"/>
+                        <segue destination="1xY-Na-CIf" kind="show" identifier="customGameSegue" id="Djd-f3-GHv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y7y-Fa-MMC" userLabel="First Responder" sceneMemberID="firstResponder"/>

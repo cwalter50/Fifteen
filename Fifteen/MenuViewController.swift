@@ -22,6 +22,15 @@ class MenuViewController: UIViewController {
         return button
     }()
     
+    var customGameButton: UIButton = {
+        let button = UIButton(frame: CGRect(x: 100, y: 0, width: 300, height: 100))
+        button.backgroundColor = UIColor.aquaLight
+        button.setTitle("Custom Game", for: .normal)
+        button.addTarget(self, action: #selector(customGame), for: .primaryActionTriggered)
+        
+        return button
+    }()
+    
 //    var resetButton: UIButton = {
 //        let button = UIButton(frame: CGRect(x: 100, y: 0, width: 300, height: 100))
 //        button.backgroundColor = UIColor.red
@@ -36,10 +45,27 @@ class MenuViewController: UIViewController {
         createLabelsAndButtons()
     }
     
+    // this method is called whenever the focused item changes
+    override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+        super.didUpdateFocus(in: context, with: coordinator)
+        let button = context.nextFocusedView
+        button?.layer.shadowOffset = CGSize(width: 0, height: 10)
+        button?.layer.shadowOpacity = 0.6
+        button?.layer.shadowRadius = 15
+        button?.layer.shadowColor = UIColor.black.cgColor
+        context.previouslyFocusedView?.layer.shadowOpacity = 0
+    }
+    
     func createLabelsAndButtons() {
         self.view.addSubview(quickGameButton)
-
-        quickGameButton.center = view.center
+        self.view.addSubview(customGameButton)
+        
+        quickGameButton.center = CGPoint(x: view.center.x, y: view.center.y - 100)
+        customGameButton.center = CGPoint(x: view.center.x, y: view.center.y + 100)
+    }
+    
+    @objc func customGame() {
+        performSegue(withIdentifier: "customGameSegue", sender: self)
     }
 
     @objc func quickGame() {
@@ -50,7 +76,7 @@ class MenuViewController: UIViewController {
         if segue.identifier == "quickGameSegue" {
             let destVC = segue.destination as! ViewController
             // pass in some settings like shuffle count and board size etc.
-            destVC.shuffleCount = 10
+            destVC.shuffleCount = 100
         }
     }
     

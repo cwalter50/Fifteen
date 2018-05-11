@@ -30,7 +30,7 @@ class ViewController: UIViewController {
     }()
     
     var movesLabel: UILabel = {
-        let label = UILabel(frame: CGRect(x: 100, y: 0, width: 200, height: 100))
+        let label = UILabel(frame: CGRect(x: 100, y: 0, width: 300, height: 100))
         label.text = "Moves: 0"
         return label
     }()
