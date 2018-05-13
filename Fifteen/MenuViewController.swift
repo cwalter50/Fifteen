@@ -8,11 +8,13 @@
 
 import UIKit
 
-class MenuViewController: UIViewController {
+class MenuViewController: UIViewController, CustomGameDelegate {
 
     // MARK: Properties
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
+    
+    var gameSettings: GameSettings = GameSettings() // use default initializer for gameSettings which is 4 x 4 medium
     
     var quickGameButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 100, y: 0, width: 300, height: 100))
@@ -31,13 +33,6 @@ class MenuViewController: UIViewController {
         return button
     }()
     
-//    var resetButton: UIButton = {
-//        let button = UIButton(frame: CGRect(x: 100, y: 0, width: 300, height: 100))
-//        button.backgroundColor = UIColor.red
-//        button.setTitle("Reset Game", for: UIControlState.normal)
-//        button.addTarget(self, action: #selector(resetBoard), for: .primaryActionTriggered)
-//        return button
-//    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,18 +60,42 @@ class MenuViewController: UIViewController {
     }
     
     @objc func customGame() {
-        performSegue(withIdentifier: "customGameSegue", sender: self)
+        performSegue(withIdentifier: "customGameSettingsSegue", sender: self)
     }
 
     @objc func quickGame() {
         performSegue(withIdentifier: "quickGameSegue", sender: self)
     }
     
+    func playGame(newGameSettings: GameSettings) {
+        self.gameSettings = newGameSettings
+        performSegue(withIdentifier: "playCustomGame", sender: self)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "quickGameSegue" {
-            let destVC = segue.destination as! ViewController
+            let destVC = segue.destination as! GameViewController
             // pass in some settings like shuffle count and board size etc.
-            destVC.shuffleCount = 100
+            destVC.gameSettings = self.gameSettings
+//            destVC.shuffleCount = 100
+//            destVC.rows = 4
+//            destVC.columns = 4
+//            destVC.difficulty = "Medium"
+        }
+        if segue.identifier == "customGameSettingsSegue" {
+            let destVC = segue.destination as! CustomGameViewController
+            // pass stuff here
+            destVC.delegate = self
+            destVC.gameSettings = self.gameSettings
+        }
+        if segue.identifier == "playCustomGame" {
+            let destVC = segue.destination as! GameViewController
+            // pass stuff here
+            destVC.gameSettings = self.gameSettings
+//            destVC.shuffleCount = 100
+//            destVC.rows = rows
+//            destVC.columns = columns
+//            destVC.difficulty = difficulty
         }
     }
     

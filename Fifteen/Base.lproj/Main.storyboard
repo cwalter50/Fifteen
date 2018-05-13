@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Custom Game View Controller-->
         <scene sceneID="6nN-TQ-RPq">
             <objects>
-                <viewController id="1xY-Na-CIf" sceneMemberID="viewController">
+                <viewController id="1xY-Na-CIf" customClass="CustomGameViewController" customModule="Fifteen" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="erk-rb-etP"/>
                         <viewControllerLayoutGuide type="bottom" id="hSs-os-ZDJ"/>
@@ -44,17 +44,18 @@
                     <navigationItem key="navigationItem" id="8Jp-aH-GY6"/>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="quickGameSegue" id="LEM-ET-BPB"/>
-                        <segue destination="1xY-Na-CIf" kind="show" identifier="customGameSegue" id="Djd-f3-GHv"/>
+                        <segue destination="1xY-Na-CIf" kind="presentation" identifier="customGameSettingsSegue" id="Djd-f3-GHv"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="playCustomGame" id="Gm3-LW-ueE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y7y-Fa-MMC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2114" y="134"/>
         </scene>
-        <!--View Controller-->
+        <!--Game View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Fifteen" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="GameViewController" customModule="Fifteen" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -216,4 +217,7 @@
             <point key="canvasLocation" x="47" y="134"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Gm3-LW-ueE"/>
+    </inferredMetricsTieBreakers>
 </document>
