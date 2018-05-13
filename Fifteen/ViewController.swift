@@ -27,7 +27,7 @@ class ViewController: UIViewController {
     }()
     
     var movesLabel: UILabel = {
-        let label = UILabel(frame: CGRect(x: 100, y: 0, width: 200, height: 100))
+        let label = UILabel(frame: CGRect(x: 100, y: 0, width: 300, height: 100))
         label.text = "Moves: 0"
         return label
     }()
@@ -37,6 +37,14 @@ class ViewController: UIViewController {
         button.backgroundColor = UIColor.red
         button.setTitle("Reset Game", for: UIControlState.normal)
         button.addTarget(self, action: #selector(resetBoard), for: .primaryActionTriggered)
+        return button
+    }()
+    
+    var pauseButton: UIButton = {
+        let button = UIButton(frame: CGRect(x: 100, y: 0, width: 300, height: 100))
+        button.backgroundColor = UIColor.red
+        button.setTitle("Pause Game", for: UIControlState.normal)
+        button.addTarget(self, action: #selector(pauseGame), for: .primaryActionTriggered)
         return button
     }()
     
@@ -74,8 +82,19 @@ class ViewController: UIViewController {
 
     }
     @objc func swiped(sender: UISwipeGestureRecognizer) {
-        print("swiped \(sender.direction)")
-        // add logic to move pieces if its a valid direction. etc.
+        
+        // add logic to move pieces if its a valid direction. Also if the game is not paused or won
+        if gameWon == false && gamePaused == false {
+            board.moveDirection(direction: sender.direction)
+            updateMovesLabel()
+            // check if board is solved
+            if board.isSolved() {
+                print("board solved!!!")
+                timer.invalidate()
+                solvedBoardAlert(moves: board.moves)
+            }
+        }
+        
     }
     
     func startTimer() {
@@ -104,12 +123,14 @@ class ViewController: UIViewController {
         self.view.addSubview(timerLabel)
         timerLabel.center.x = width * 0.43
         timerLabel.center.y = height * 0.07
-        
         self.view.addSubview(movesLabel)
         movesLabel.center.x = width * 0.6
         movesLabel.center.y = height * 0.07
+        self.view.addSubview(pauseButton)
+        pauseButton.center.x = width * 0.43
+        pauseButton.center.y = height * 0.94
         self.view.addSubview(resetButton)
-        resetButton.center.x = width * 0.5
+        resetButton.center.x = width * 0.6
         resetButton.center.y = height * 0.94
         
     }
@@ -120,10 +141,10 @@ class ViewController: UIViewController {
     func createGameBoard() {
         self.view.addSubview(board.backgroundView)
         
-        // add target to each tile
-        for tile in board.tiles {
-            tile.addTarget(self, action: #selector(tileTapped), for: .primaryActionTriggered)
-        }
+//        // add target to each tile
+//        for tile in board.tiles {
+//            tile.addTarget(self, action: #selector(tileTapped), for: .primaryActionTriggered)
+//        }
         
     }
     
@@ -133,6 +154,7 @@ class ViewController: UIViewController {
         timer.invalidate()
         time = 0
         startTimer()
+        board.resetBoard()
         board.shuffle(numberOfMoves: shuffleCount)
         
     }
@@ -153,10 +175,20 @@ class ViewController: UIViewController {
         if board.isSolved() {
             print("board solved!!!")
             timer.invalidate()
-            solvedBoardAlert(moves: board.moves)
+            // make all numbers disapear
+            for tile in board.tiles {
+                tile.nameLabel.text = "#"
+            }
+        } else {
+            // DO NOT reset time
+            startTimer()
+            for tile in board.tiles {
+                tile.setTileTitle()
+            }
             
         }
     }
+    
     
     func saveScoreInCloudKit(name: String) {
         let newScore = Score(name: name, moves: board.moves, time: time, difficultyLevel: "Easy")

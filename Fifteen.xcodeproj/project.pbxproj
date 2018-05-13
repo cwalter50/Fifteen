@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		381CF82A20A3411C00D4A4B5 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381CF82920A3411C00D4A4B5 /* MenuViewController.swift */; };
+		381CF82C20A5DE7200D4A4B5 /* CustomGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381CF82B20A5DE7200D4A4B5 /* CustomGameViewController.swift */; };
 		383DD76E207FA48700737D42 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 383DD76D207FA48700737D42 /* CloudKit.framework */; };
 		383DD770207FA75E00737D42 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383DD76F207FA75E00737D42 /* Score.swift */; };
 		834224D52072FC9D005D3144 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834224D42072FC9D005D3144 /* AppDelegate.swift */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		381CF82920A3411C00D4A4B5 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		381CF82B20A5DE7200D4A4B5 /* CustomGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGameViewController.swift; sourceTree = "<group>"; };
 		383DD76B207FA48400737D42 /* Fifteen.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Fifteen.entitlements; sourceTree = "<group>"; };
 		383DD76D207FA48700737D42 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		383DD76F207FA75E00737D42 /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
@@ -51,6 +55,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		381CF82F20A5DFF200D4A4B5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				383DD76F207FA75E00737D42 /* Score.swift */,
+				83B3FDAB207305B000D66EE5 /* Board.swift */,
+				83B3FDAD207305D000D66EE5 /* Tile.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		383DD76C207FA48700737D42 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -79,19 +93,19 @@
 		834224D32072FC9D005D3144 /* Fifteen */ = {
 			isa = PBXGroup;
 			children = (
-				383DD76B207FA48400737D42 /* Fifteen.entitlements */,
+				381CF82F20A5DFF200D4A4B5 /* Model */,
 				834224D42072FC9D005D3144 /* AppDelegate.swift */,
+				381CF82920A3411C00D4A4B5 /* MenuViewController.swift */,
+				381CF82B20A5DE7200D4A4B5 /* CustomGameViewController.swift */,
 				834224D62072FC9D005D3144 /* ViewController.swift */,
 				835E91A120838EDB0072D221 /* HighScoresViewController.swift */,
 				835E91A32083D7E30072D221 /* HighScoreTableViewCell.swift */,
-				383DD76F207FA75E00737D42 /* Score.swift */,
-				83B3FDAB207305B000D66EE5 /* Board.swift */,
-				83B3FDAD207305D000D66EE5 /* Tile.swift */,
 				83B3FDAF2074513800D66EE5 /* Extensions.swift */,
 				834224DB2072FC9D005D3144 /* Main.storyboard */,
 				834224DE2072FC9D005D3144 /* Assets.xcassets */,
 				834224E02072FC9D005D3144 /* Info.plist */,
 				834224D82072FC9D005D3144 /* Fifteen.xcdatamodeld */,
+				383DD76B207FA48400737D42 /* Fifteen.entitlements */,
 			);
 			path = Fifteen;
 			sourceTree = "<group>";
@@ -176,6 +190,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				383DD770207FA75E00737D42 /* Score.swift in Sources */,
+				381CF82A20A3411C00D4A4B5 /* MenuViewController.swift in Sources */,
 				834224D72072FC9D005D3144 /* ViewController.swift in Sources */,
 				83B3FDB02074513800D66EE5 /* Extensions.swift in Sources */,
 				834224D52072FC9D005D3144 /* AppDelegate.swift in Sources */,
@@ -183,6 +198,7 @@
 				83B3FDAC207305B000D66EE5 /* Board.swift in Sources */,
 				834224DA2072FC9D005D3144 /* Fifteen.xcdatamodeld in Sources */,
 				835E91A220838EDB0072D221 /* HighScoresViewController.swift in Sources */,
+				381CF82C20A5DE7200D4A4B5 /* CustomGameViewController.swift in Sources */,
 				835E91A42083D7E30072D221 /* HighScoreTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

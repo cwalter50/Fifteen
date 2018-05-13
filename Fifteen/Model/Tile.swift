@@ -8,21 +8,35 @@
 
 import UIKit
 
-class Tile : UIButton
+class Tile : UIView
 {
         // this will carry the row and column
     var position: TilePosition
     var name: Int
     var bordersEmptyTile: Bool
+    var nameLabel: UILabel = {
+        let label = UILabel(frame: CGRect.zero)
+        label.textColor = UIColor.black
+        label.font = UIFont(name: "Avenir", size: 20)
+        label.textAlignment = .center
+        return label
+    }()
+
     
     init(position: TilePosition, name: Int, frame: CGRect) {
         self.position = position
         self.name = name
         self.bordersEmptyTile = false
-        super.init(frame: frame)
         
-        self.setTitleColor(.black, for: .normal)
-        self.titleLabel?.font = UIFont(name: "Avenir", size: frame.height*0.8)
+        super.init(frame: frame)
+        self.nameLabel.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
+//        nameLabel.center = self.center
+        self.nameLabel.font = UIFont(name: "Avenir", size: frame.height*0.8)
+
+        self.addSubview(nameLabel)
+        
+//        self.setTitleColor(.black, for: .normal)
+//        self.titleLabel?.font = UIFont(name: "Avenir", size: frame.height*0.8)
         
         self.backgroundColor = UIColor.blueJeansLight
         self.layer.cornerRadius = 10.0
@@ -32,13 +46,16 @@ class Tile : UIButton
         
     }
     
+    
     func setTileTitle() {
         if self.name == 0 {
             // this is the empty tile
-            self.setTitle("", for: .normal)
+            self.nameLabel.text = ""
+//            self.setTitle("", for: .normal)
         } else {
             // this is every other tile
-            self.setTitle("\(name)", for: .normal)
+            self.nameLabel.text = "\(name)"
+//            self.setTitle("\(name)", for: .normal)
         }
     }
     

@@ -56,7 +56,6 @@ class Board {
             for tile in self.tiles {
                 if isNextToEmptySquare(position: tile.position) {
                     possibleTiles.append(tile)
-//                    print("found possible tile: \(tile.name)")
                 }
             }
             
@@ -69,20 +68,45 @@ class Board {
         // reset moves to 0, because you are shuffling and starting over
         self.moves = 0
     }
-    
     // this function will move swap the tile in the start position with the emptyTile.  The check if its valid happens in the game.
     func move(startPosition: TilePosition) {
         // get the tile you want to move
         if let tile = self.tileAt(position: startPosition) {
             let holdingFrame = emptyTile.frame
             let holdingPosition = emptyTile.position
+
             // swap emptyTile with tile's frame and position
             emptyTile.frame = tile.frame
-            tile.frame = holdingFrame
-            
             emptyTile.position = tile.position
+            
+            tile.frame = holdingFrame
             tile.position = holdingPosition
+            
             moves += 1
+        }
+    }
+    
+    func moveDirection(direction: UISwipeGestureRecognizerDirection) {
+        
+        // get tile next to position
+        var tileToMove: Tile?
+        switch direction {
+        case .up:
+            tileToMove = tileAt(position: TilePosition(row: emptyTile.position.row+1, column: emptyTile.position.column))
+        case .down:
+            tileToMove = tileAt(position: TilePosition(row: emptyTile.position.row-1, column: emptyTile.position.column))
+        case .left:
+            tileToMove = tileAt(position: TilePosition(row: emptyTile.position.row, column: emptyTile.position.column+1))
+        case .right:
+            tileToMove = tileAt(position: TilePosition(row: emptyTile.position.row, column: emptyTile.position.column-1))
+        default:
+            print("did not swipe up, down, left, or right")
+        }
+        
+        if let foundTile = tileToMove {
+            move(startPosition:foundTile.position)
+        } else {
+            print("not a valid swipe direction for current position")
         }
     }
     

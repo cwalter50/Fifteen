@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="14109" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Szl-4a-b6l">
+<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="14109" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="UrP-cN-o6R">
     <device id="appleTV" orientation="landscape">
         <adaptation id="light"/>
     </device>
@@ -10,6 +10,47 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--View Controller-->
+        <scene sceneID="6nN-TQ-RPq">
+            <objects>
+                <viewController id="1xY-Na-CIf" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="erk-rb-etP"/>
+                        <viewControllerLayoutGuide type="bottom" id="hSs-os-ZDJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vJN-Gy-QSJ">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="BUy-aS-yNF"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3Yc-Un-rgu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2114" y="-1150"/>
+        </scene>
+        <!--Menu View Controller-->
+        <scene sceneID="9vC-fZ-xsW">
+            <objects>
+                <viewController id="FUD-9Q-h7x" customClass="MenuViewController" customModule="Fifteen" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qP2-yx-Vfr"/>
+                        <viewControllerLayoutGuide type="bottom" id="GJf-HE-UyH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="crN-fV-8pC">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="PRe-YP-R0I"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="8Jp-aH-GY6"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="quickGameSegue" id="LEM-ET-BPB"/>
+                        <segue destination="1xY-Na-CIf" kind="show" identifier="customGameSegue" id="Djd-f3-GHv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Y7y-Fa-MMC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2114" y="134"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -31,7 +72,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2212" y="134"/>
+            <point key="canvasLocation" x="4344" y="134"/>
         </scene>
         <!--High Scores View Controller-->
         <scene sceneID="5pL-wA-Gvq">
@@ -154,25 +195,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Kx-Xk-trd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4338" y="134"/>
+            <point key="canvasLocation" x="6470" y="134"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="y8t-8K-uGQ">
+        <scene sceneID="bh5-eR-F6B">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Szl-4a-b6l" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UrP-cN-o6R" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="59j-vY-Hhw">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Rlq-22-bk4">
                         <rect key="frame" x="0.0" y="0.0" width="1920" height="145"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="eRt-4F-jyn"/>
+                        <segue destination="FUD-9Q-h7x" kind="relationship" relationship="rootViewController" id="u6r-C5-gsY"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ZbQ-cj-Lld" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8gS-8I-QIy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-238" y="134"/>
+            <point key="canvasLocation" x="47" y="134"/>
         </scene>
     </scenes>
 </document>
