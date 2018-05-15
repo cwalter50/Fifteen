@@ -33,57 +33,68 @@ class CustomGameViewController: UIViewController {
 //    var difficulty = "Medium"
     
     let rowLabel: UILabel = {
-        let label = UILabel(frame: CGRect(x: 200, y: 200, width: 300, height: 100))
+        let label = UILabel(frame: CGRect(x: 200, y: 200, width: 350, height: 100))
         label.font = UIFont(name: "Avenir", size: 60.0)
         label.text = "Rows"
         label.textAlignment = NSTextAlignment.center
         label.textColor = UIColor.black
         label.backgroundColor = UIColor.sunFlowerLight
-        label.layer.cornerRadius = 5.0
+        label.layer.cornerRadius = 10.0
         label.layer.borderColor = UIColor.darkGray.cgColor
+        label.layer.borderWidth = 2.0
+        label.layer.masksToBounds = true
         
         return label
     }()
     
     let columnLabel: UILabel = {
-        let label = UILabel(frame: CGRect(x: 200, y: 200, width: 300, height: 100))
+        let label = UILabel(frame: CGRect(x: 200, y: 200, width: 350, height: 100))
         label.font = UIFont(name: "Avenir", size: 60.0)
         label.text = "Columns"
         label.textAlignment = NSTextAlignment.center
         label.textColor = UIColor.black
         label.backgroundColor = UIColor.sunFlowerLight
-        label.layer.cornerRadius = 5.0
+        label.layer.cornerRadius = 10.0
         label.layer.borderColor = UIColor.darkGray.cgColor
+        label.layer.borderWidth = 2.0
+        label.layer.masksToBounds = true
         
         return label
     }()
     
     let difficultyLabel: UILabel = {
-        let label = UILabel(frame: CGRect(x: 200, y: 200, width: 300, height: 100))
+        let label = UILabel(frame: CGRect(x: 200, y: 200, width: 350, height: 100))
         label.font = UIFont(name: "Avenir", size: 60.0)
         label.text = "Difficulty"
         label.textAlignment = NSTextAlignment.center
         label.textColor = UIColor.black
         label.backgroundColor = UIColor.sunFlowerLight
-        label.layer.cornerRadius = 5.0
+        label.layer.cornerRadius = 10.0
         label.layer.borderColor = UIColor.darkGray.cgColor
+        label.layer.borderWidth = 2.0
+        label.layer.masksToBounds = true
 
         return label
     }()
     
     var playGameButton: UIButton = {
-        let button = UIButton(frame: CGRect(x: 200, y: 200, width: 300, height: 100))
-        button.backgroundColor = UIColor.aquaLight
+        let button = UIButton(frame: CGRect(x: 200, y: 200, width: 350, height: 150))
+        button.backgroundColor = UIColor.blueJeansDark
         button.setTitle("Play", for: .normal)
+        button.titleLabel?.font = UIFont(name: "Avenir", size: 60.0)
         button.addTarget(self, action: #selector(playGameTapped), for: .primaryActionTriggered)
+
+        
         return button
     }()
     
     var backButton: UIButton = {
-        let button = UIButton(frame: CGRect(x: 100, y: 0, width: 300, height: 100))
+        let button = UIButton(frame: CGRect(x: 100, y: 0, width: 350, height: 150))
         button.backgroundColor = UIColor.bitterSweetDark
         button.setTitle("Cancel", for: .normal)
+        button.titleLabel?.font = UIFont(name: "Avenir", size: 60.0)
         button.addTarget(self, action: #selector(backButtonTapped), for: .primaryActionTriggered)
+
         return button
     }()
     
@@ -122,13 +133,15 @@ class CustomGameViewController: UIViewController {
         // create 4 row, 4 column, and 4 difficulty MenuButtons
         
         for i in 3...6 {
-            let rowButton = MenuButton(name: "\(i)", frame: CGRect(x: 0, y: 0, width: 300, height: 150))
+            let rowButton = MenuButton(name: "\(i)", frame: CGRect(x: 0, y: 0, width: 350, height: 150))
+
             rowButton.addTarget(self, action: #selector(rowButtonTapped), for: .primaryActionTriggered)
             self.view.addSubview(rowButton)
             rowButtons.append(rowButton)
             rowButton.center = CGPoint(x: width*0.2, y: height * 0.1 + 160 * (CGFloat(i) - 2.0))
             // these are the columns buttons
-            let button = MenuButton(name: "\(i)", frame: CGRect(x: 0, y: 0, width: 300, height: 150))
+            let button = MenuButton(name: "\(i)", frame: CGRect(x: 0, y: 0, width: 350, height: 150))
+
             button.addTarget(self, action: #selector(columnButtonTapped), for: .primaryActionTriggered)
             self.view.addSubview(button)
             columnButtons.append(button)
@@ -144,7 +157,8 @@ class CustomGameViewController: UIViewController {
         var difficultyNames = ["easy", "medium", "hard", "black belt"]
         for i in 0..<difficultyNames.count {
             
-            let button = MenuButton(name: "\(difficultyNames[i])", frame: CGRect(x: 0, y: 0, width: 300, height: 150))
+            let button = MenuButton(name: "\(difficultyNames[i])", frame: CGRect(x: 0, y: 0, width: 350, height: 150))
+
             button.addTarget(self, action: #selector(difficultyButtonTapped), for: .primaryActionTriggered)
             self.view.addSubview(button)
             difficultyButtons.append(button)
@@ -154,6 +168,8 @@ class CustomGameViewController: UIViewController {
             }
         }
     }
+    
+
     
     @objc func difficultyButtonTapped(sender: UIButton) {
         for button in difficultyButtons {

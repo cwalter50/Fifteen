@@ -47,6 +47,7 @@ class Board {
         tiles.append(emptyTile)
         backgroundView.addSubview(emptyTile)
         moves = 0
+        
     }
     
     func shuffle(numberOfMoves: Int) {
@@ -58,15 +59,19 @@ class Board {
                     possibleTiles.append(tile)
                 }
             }
-            
             // select a random one of the possible moves and move
             let randIndex = Int(arc4random_uniform(UInt32(possibleTiles.count)))
-            
             let tileToMove = possibleTiles[randIndex]
             self.move(startPosition: tileToMove.position)
         }
         // reset moves to 0, because you are shuffling and starting over
         self.moves = 0
+        // set initialTiles to whatever the shuffle comes out to
+        // cycle through tiles and reset initial name so that it can be reset by user
+        for tile in tiles {
+            tile.initialPosition = tile.position
+            tile.initialFrame = tile.frame
+        }
     }
     // this function will move swap the tile in the start position with the emptyTile.  The check if its valid happens in the game.
     func move(startPosition: TilePosition) {
@@ -81,7 +86,6 @@ class Board {
             
             tile.frame = holdingFrame
             tile.position = holdingPosition
-            
             moves += 1
         }
     }
@@ -160,6 +164,16 @@ class Board {
         
         // reset moves to 0, because you are shuffling and starting over
         self.moves = 0
+    }
+    
+    func setBoardToInitialState() {
+        // set board to initialState, then set tile title again.
+
+        for tile in tiles {
+            tile.frame = tile.initialFrame
+            tile.position = tile.initialPosition
+        }
+        moves = 0
     }
 
 

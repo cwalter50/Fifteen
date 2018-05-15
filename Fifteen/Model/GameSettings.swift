@@ -17,19 +17,23 @@ class GameSettings {
         }
     }
     var shuffleCount = 10
+    var board: Board
     
     init() {
         rows = 4
         columns = 4
         difficulty = "medium"
+        board = Board(rows: rows, columns: columns)
         shuffleCount = 10
         updateShuffleCount()
+        
     }
     
     init(rows: Int, columns: Int, difficulty: String, shuffleCount: Int) {
         self.rows = rows
         self.columns = columns
         self.difficulty = difficulty
+        board = Board(rows: rows, columns: columns)
         self.shuffleCount = shuffleCount
         updateShuffleCount()
     }

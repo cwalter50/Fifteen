@@ -13,6 +13,8 @@ class Tile : UIView
         // this will carry the row and column
     var position: TilePosition
     var name: Int
+    var initialFrame: CGRect // used to reset the game.  Its set on init and after shuffle
+    var initialPosition: TilePosition // used to help reset game
     var bordersEmptyTile: Bool
     var nameLabel: UILabel = {
         let label = UILabel(frame: CGRect.zero)
@@ -27,7 +29,9 @@ class Tile : UIView
         self.position = position
         self.name = name
         self.bordersEmptyTile = false
-        
+        self.initialPosition = position
+        self.initialFrame = frame
+
         super.init(frame: frame)
         self.nameLabel.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
 //        nameLabel.center = self.center

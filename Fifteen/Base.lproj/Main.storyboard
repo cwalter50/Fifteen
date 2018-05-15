@@ -46,6 +46,7 @@
                         <segue destination="BYZ-38-t0r" kind="show" identifier="quickGameSegue" id="LEM-ET-BPB"/>
                         <segue destination="1xY-Na-CIf" kind="presentation" identifier="customGameSettingsSegue" id="Djd-f3-GHv"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="playCustomGame" id="Gm3-LW-ueE"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="resumeGameSegue" id="fyD-Ej-ZX9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y7y-Fa-MMC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -218,6 +219,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Gm3-LW-ueE"/>
+        <segue reference="fyD-Ej-ZX9"/>
     </inferredMetricsTieBreakers>
 </document>

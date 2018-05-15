@@ -16,6 +16,7 @@
 import UIKit
 import CloudKit
 
+
 class GameViewController: UIViewController {
     
     // MARK: Properties
@@ -40,6 +41,7 @@ class GameViewController: UIViewController {
         label.font = UIFont(name: "Avenir", size: 50.0)
         label.text = "0:00"
         label.textAlignment = .center
+        label.adjustsFontSizeToFitWidth = true
         return label
     }()
     
@@ -49,6 +51,7 @@ class GameViewController: UIViewController {
         label.font = UIFont(name: "Avenir", size: 50.0)
         label.text = "Moves: 0"
         label.textAlignment = .center
+        label.adjustsFontSizeToFitWidth = true
         return label
     }()
     
@@ -96,13 +99,11 @@ class GameViewController: UIViewController {
         createGameBoard()
         // figure out a setting to shuffle board for easy/ medium, or hard
         board.shuffle(numberOfMoves: gameSettings.shuffleCount)
-        //        board.moves = 0 // reset moves after the shuffle so that we start at 0
         createLabelsAndButtons()
         updateMovesLabel()
         
         // start timer
         startTimer()
-        
     }
     
     func setUpSwipeGestures() {
@@ -121,7 +122,6 @@ class GameViewController: UIViewController {
         
     }
     @objc func swiped(sender: UISwipeGestureRecognizer) {
-        
         // add logic to move pieces if its a valid direction. Also if the game is not paused or won
         if gameWon == false && gamePaused == false {
             board.moveDirection(direction: sender.direction)
@@ -133,11 +133,8 @@ class GameViewController: UIViewController {
                 solvedBoardAlert(moves: board.moves)
             }
         }
-        
     }
-    
 
-    
     func startTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { (timer) in
             self.time += 1
@@ -173,10 +170,7 @@ class GameViewController: UIViewController {
         self.view.addSubview(pauseButton)
         pauseButton.center = CGPoint(x: width * 0.6, y: height * 0.94)
         self.view.addSubview(saveButton)
-        saveButton.center = CGPoint(x: width * 0.8, y: height * 0.94)
-        
-        
-        
+        saveButton.center = CGPoint(x: width * 0.8, y: height * 0.94)  
     }
     func updateMovesLabel() {
         movesLabel.text = "Moves: \(board.moves)"
@@ -185,11 +179,7 @@ class GameViewController: UIViewController {
     func createGameBoard() {
         board = Board(rows: gameSettings.rows, columns: gameSettings.columns)
         self.view.addSubview(board.backgroundView)
-        
-        //        // add target to each tile
-        //        for tile in board.tiles {
-        //            tile.addTarget(self, action: #selector(tileTapped), for: .primaryActionTriggered)
-        //        }
+        gameSettings.board = board
         
     }
     
@@ -204,12 +194,16 @@ class GameViewController: UIViewController {
     
     @objc func resetBoard(sender: UIButton) {
         // reset Moves label to 0, timer label to 0, solve puzzle, then shuffle Again
+        print("reset Board pressed")
         board.moves = 0
         timer.invalidate()
         time = 0
         startTimer()
-        board.resetBoard()
-        board.shuffle(numberOfMoves: gameSettings.shuffleCount)
+        updateMovesLabel()
+        board.setBoardToInitialState()
+//        board = initialBoard
+//        board.resetBoard()
+//        board.shuffle(numberOfMoves: gameSettings.shuffleCount)
         
     }
     
@@ -220,6 +214,7 @@ class GameViewController: UIViewController {
         if gamePaused {
             // stop timer
             timer.invalidate()
+            pauseButton.setTitle("Resume", for: .normal)
             // make all numbers disapear
             for tile in board.tiles {
                 tile.nameLabel.text = "#"
@@ -227,6 +222,7 @@ class GameViewController: UIViewController {
         } else {
             // DO NOT reset time
             startTimer()
+            pauseButton.setTitle("Pause", for: .normal)
             for tile in board.tiles {
                 tile.setTileTitle()
             }

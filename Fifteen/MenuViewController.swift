@@ -17,18 +17,30 @@ class MenuViewController: UIViewController, CustomGameDelegate {
     var gameSettings: GameSettings = GameSettings() // use default initializer for gameSettings which is 4 x 4 medium
     
     var quickGameButton: UIButton = {
-        let button = UIButton(frame: CGRect(x: 100, y: 0, width: 300, height: 100))
-        button.backgroundColor = UIColor.aquaLight
+        let button = UIButton(frame: CGRect(x: 100, y: 0, width: 400, height: 100))
+        button.backgroundColor = UIColor.mintDark
         button.setTitle("Quick Game", for: .normal)
+        button.titleLabel?.font = UIFont(name: "Avenir", size: 60)
         button.addTarget(self, action: #selector(quickGame), for: .primaryActionTriggered)
         return button
     }()
     
     var customGameButton: UIButton = {
-        let button = UIButton(frame: CGRect(x: 100, y: 0, width: 300, height: 100))
-        button.backgroundColor = UIColor.aquaLight
+        let button = UIButton(frame: CGRect(x: 100, y: 0, width: 400, height: 100))
+        button.backgroundColor = UIColor.blueJeansDark
         button.setTitle("Custom Game", for: .normal)
         button.addTarget(self, action: #selector(customGame), for: .primaryActionTriggered)
+        button.titleLabel?.font = UIFont(name: "Avenir", size: 60.0)
+        
+        return button
+    }()
+    
+    var resumeGameButton: UIButton = {
+        let button = UIButton(frame: CGRect(x: 100, y: 0, width: 400, height: 100))
+        button.backgroundColor = UIColor.aquaDark
+        button.setTitle("Resume Game", for: .normal)
+        button.addTarget(self, action: #selector(resumeGame), for: .primaryActionTriggered)
+        button.titleLabel?.font = UIFont(name: "Avenir", size: 60.0)
         
         return button
     }()
@@ -54,9 +66,11 @@ class MenuViewController: UIViewController, CustomGameDelegate {
     func createLabelsAndButtons() {
         self.view.addSubview(quickGameButton)
         self.view.addSubview(customGameButton)
+        self.view.addSubview(resumeGameButton)
         
-        quickGameButton.center = CGPoint(x: view.center.x, y: view.center.y - 100)
-        customGameButton.center = CGPoint(x: view.center.x, y: view.center.y + 100)
+        quickGameButton.center = CGPoint(x: view.center.x, y: view.center.y - 200)
+        customGameButton.center = CGPoint(x: view.center.x, y: view.center.y)
+        resumeGameButton.center = CGPoint(x: view.center.x, y: view.center.y + 200)
     }
     
     @objc func customGame() {
@@ -65,6 +79,10 @@ class MenuViewController: UIViewController, CustomGameDelegate {
 
     @objc func quickGame() {
         performSegue(withIdentifier: "quickGameSegue", sender: self)
+    }
+    
+    @objc func resumeGame() {
+        performSegue(withIdentifier: "resumeGameSegue", sender: self)
     }
     
     func playGame(newGameSettings: GameSettings) {
@@ -77,10 +95,6 @@ class MenuViewController: UIViewController, CustomGameDelegate {
             let destVC = segue.destination as! GameViewController
             // pass in some settings like shuffle count and board size etc.
             destVC.gameSettings = self.gameSettings
-//            destVC.shuffleCount = 100
-//            destVC.rows = 4
-//            destVC.columns = 4
-//            destVC.difficulty = "Medium"
         }
         if segue.identifier == "customGameSettingsSegue" {
             let destVC = segue.destination as! CustomGameViewController
@@ -92,10 +106,13 @@ class MenuViewController: UIViewController, CustomGameDelegate {
             let destVC = segue.destination as! GameViewController
             // pass stuff here
             destVC.gameSettings = self.gameSettings
-//            destVC.shuffleCount = 100
-//            destVC.rows = rows
-//            destVC.columns = columns
-//            destVC.difficulty = difficulty
+        }
+        
+        if segue.identifier == "resumeGameSegue"{
+            let destVC = segue.destination as! GameViewController
+            // pass stuff here
+            destVC.gameSettings = self.gameSettings
+            // figure out how to save current game and pass game to continue.
         }
     }
     
