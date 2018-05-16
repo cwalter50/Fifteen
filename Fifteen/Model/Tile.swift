@@ -49,6 +49,17 @@ class Tile : UIView
         self.setTileTitle()
         
     }
+    init(row: Int, column: Int, initialRow: Int, initialColumn: Int, name: Int, initialFrame: CGRect, bordersEmptyTile: Bool, nameLabel: UILabel) {
+        self.position = TilePosition(row: row, column: column)
+        self.name = name
+        self.initialFrame = initialFrame
+        self.initialPosition = TilePosition(row: initialRow, column: initialColumn)
+        self.bordersEmptyTile = bordersEmptyTile
+        self.nameLabel = nameLabel
+        super.init(frame: initialFrame) // might have to change this to currentFrame and not initialFrame.  TEST!!!
+        
+        
+    }
     
     
     func setTileTitle() {
@@ -62,14 +73,41 @@ class Tile : UIView
 //            self.setTitle("\(name)", for: .normal)
         }
     }
+    required convenience init(coder aDecoder: NSCoder) {
+        // use these to get position
+        let row = aDecoder.decodeInteger(forKey: "row")
+        let column = aDecoder.decodeInteger(forKey: "column")
+        // use these to get initialPosition
+        let initialRow = aDecoder.decodeInteger(forKey: "initialRow")
+        let initialColumn = aDecoder.decodeInteger(forKey: "initialColumn")
+        let name = aDecoder.decodeInteger(forKey: "name")
+        let initialFrame = aDecoder.decodeCGRect(forKey: "initialFrame")
+        let bordersEmptyTile = aDecoder.decodeBool(forKey: "bordersEmptyTile")
+        let nameLabel = aDecoder.decodeObject(forKey: "nameLabel") as! UILabel
+        self.init(row: row, column: column, initialRow: initialRow, initialColumn: initialColumn, name: name, initialFrame: initialFrame, bordersEmptyTile: bordersEmptyTile, nameLabel: nameLabel)
+    }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    override func encode(with aCoder: NSCoder) {
+        super.encode(with: aCoder)
+        let row = position.row
+        let column = position.column
+        aCoder.encode(row, forKey: "row")
+        aCoder.encode(column, forKey: "column")
+        let initialRow = initialPosition.row
+        let initialColumn = initialPosition.column
+        aCoder.encode(initialRow, forKey: "initialRow")
+        aCoder.encode(initialColumn, forKey: "initialColumn")
+        aCoder.encode(name, forKey: "name")
+        aCoder.encode(initialFrame, forKey: "initialFrame")
+        aCoder.encode(bordersEmptyTile, forKey: "bordersEmptyTile")
+        aCoder.encode(time, forKey: "time")
+        aCoder.encode(nameLabel, forKey: "nameLabel")
     }
 }
 struct TilePosition : Equatable
 {
     var row: Int, column: Int
+        
 }
 
 

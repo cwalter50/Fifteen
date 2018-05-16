@@ -18,11 +18,13 @@ class Board {
     var tiles = [Tile]()
     var backgroundView: UIView
     var moves: Int = 0
+    var time: Int = 0
 
     init(rows: Int, columns: Int)
     {
         self.rows = rows
         self.columns = columns
+        
         
         let width = UIScreen.main.bounds.width
         let height = UIScreen.main.bounds.height
@@ -47,6 +49,18 @@ class Board {
         tiles.append(emptyTile)
         backgroundView.addSubview(emptyTile)
         moves = 0
+        time = 0
+        
+    }
+    
+    init(rows: Int, columns:Int, emptyTile: Tile, tiles: [Tile], moves: Int, time: Int, backgroundView: UIView) {
+        self.rows = rows
+        self.columns = columns
+        self.emptyTile = emptyTile
+        self.tiles = tiles
+        self.moves = moves
+        self.time = time
+        self.backgroundView = backgroundView
         
     }
     
@@ -164,6 +178,7 @@ class Board {
         
         // reset moves to 0, because you are shuffling and starting over
         self.moves = 0
+        self.time = 0
     }
     
     func setBoardToInitialState() {
@@ -174,6 +189,29 @@ class Board {
             tile.position = tile.initialPosition
         }
         moves = 0
+        time = 0
+    }
+    
+    required convenience init(coder aDecoder: NSCoder) {
+        let rows = aDecoder.decodeInteger(forKey: "rows")
+        let columns = aDecoder.decodeInteger(forKey: "columns")
+        let moves = aDecoder.decodeInteger(forKey: "moves")
+        let time = aDecoder.decodeInteger(forKey: "time")
+        let backgroundView = aDecoder.decodeObject(forKey: "backgroundView") as! UIView
+        let emptyTile = aDecoder.decodeObject(forKey: "emptyTile") as! Tile
+        let tiles = aDecoder.decodeObject(forKey: "tiles") as! [Tile]
+        
+        self.init(rows: rows, columns: columns, emptyTile: emptyTile, tiles: tiles, moves: moves, time: time, backgroundView: backgroundView)
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(rows, forKey: "rows")
+        aCoder.encode(columns, forKey: "columns")
+        aCoder.encode(moves, forKey: "moves")
+        aCoder.encode(time, forKey: "time")
+        aCoder.encode(backgroundView, forKey: "backgroundView")
+        aCoder.encode(emptyTile, forKey: "emptyTile")
+        aCoder.encode(tiles, forKey: "tiles")
     }
 
 

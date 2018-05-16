@@ -16,6 +16,8 @@ class MenuViewController: UIViewController, CustomGameDelegate {
     
     var gameSettings: GameSettings = GameSettings() // use default initializer for gameSettings which is 4 x 4 medium
     
+    
+    
     var quickGameButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 100, y: 0, width: 400, height: 100))
         button.backgroundColor = UIColor.mintDark
@@ -81,8 +83,29 @@ class MenuViewController: UIViewController, CustomGameDelegate {
         performSegue(withIdentifier: "quickGameSegue", sender: self)
     }
     
+    var savedBoard: Board?
     @objc func resumeGame() {
-        performSegue(withIdentifier: "resumeGameSegue", sender: self)
+        // load savedBoard if it exists.
+        savedBoard = UserDefaults.standard.object(forKey: "savedBoard") as? Board
+        
+        if savedBoard != nil {
+            // pass savedBoard with segue
+            performSegue(withIdentifier: "resumeGameSegue", sender: self)
+        } else {
+            // display error that says that we could not find a saved game.
+            let alert = UIAlertController(title: "We did not find a saved game.", message: "Would you like to play a new game?", preferredStyle: .alert)
+            let yesQuick = UIAlertAction(title: "Yes, Play Quick Game", style: .default, handler: {action in
+                self.quickGame()
+            })
+            let yesCustom = UIAlertAction(title: "Yes, Play Default Game", style: .default, handler: {action in
+                self.customGame()
+            })
+            let no = UIAlertAction(title: "No", style: .default, handler: nil)
+            alert.addAction(yesQuick)
+            alert.addAction(yesCustom)
+            alert.addAction(no)
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     func playGame(newGameSettings: GameSettings) {
@@ -112,6 +135,7 @@ class MenuViewController: UIViewController, CustomGameDelegate {
             let destVC = segue.destination as! GameViewController
             // pass stuff here
             destVC.gameSettings = self.gameSettings
+            destVC.savedBoard = savedBoard
             // figure out how to save current game and pass game to continue.
         }
     }

@@ -29,11 +29,12 @@ class GameViewController: UIViewController {
     var gameSettings = GameSettings() // this carries rows, columns, shuffle, etc
 
     var board: Board = Board(rows: 4, columns: 4)
+    var savedBoard: Board?
     
     var gameWon = false // this is used to prevent the user from keep moving the board around with swipes after the game is won
     
-    var time = 0
-    var timer: Timer = Timer()
+
+    var timer: Timer = Timer() // time is kept in the board class
     
     var timerLabel: UILabel = {
         let label = UILabel(frame: CGRect(x: 100, y: 0, width: 200, height: 100))
@@ -96,7 +97,7 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         
         setUpSwipeGestures()
-        createGameBoard()
+        createOrLoadGameBoard()
         // figure out a setting to shuffle board for easy/ medium, or hard
         board.shuffle(numberOfMoves: gameSettings.shuffleCount)
         createLabelsAndButtons()
@@ -137,9 +138,9 @@ class GameViewController: UIViewController {
 
     func startTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { (timer) in
-            self.time += 1
-            let min = self.time / 60
-            let sec = self.time % 60
+            self.board.time += 1
+            let min = self.board.time / 60
+            let sec = self.board.time % 60
             let timeText = String(format:"%i:%02i",min, sec)
             self.timerLabel.text = timeText
         })
@@ -176,8 +177,14 @@ class GameViewController: UIViewController {
         movesLabel.text = "Moves: \(board.moves)"
     }
     
-    func createGameBoard() {
-        board = Board(rows: gameSettings.rows, columns: gameSettings.columns)
+    // this will either load the saved board, or create a new board
+    func createOrLoadGameBoard() {
+        // load saved Board if it exists, otherwise create a new board
+        if let theBoard = savedBoard {
+            board = theBoard
+        } else {
+            board = Board(rows: gameSettings.rows, columns: gameSettings.columns)
+        }
         self.view.addSubview(board.backgroundView)
         gameSettings.board = board
         
@@ -189,28 +196,34 @@ class GameViewController: UIViewController {
     }
     @objc func saveGame(sender: UIButton) {
         print("saveGame tapped")
+        // save board to user defaults and dismiss
+        
+        let userDefaults = UserDefaults.standard
+        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: board)
+
+        userDefaults.set(encodedData, forKey: "savedBoard")
+        userDefaults.synchronize() // consider removing????
+//        let defaults = UserDefaults.standard
+//        defaults.set(board, forKey: "savedGame")
+        
+        self.navigationController?.popViewController(animated: true)
         
     }
     
     @objc func resetBoard(sender: UIButton) {
         // reset Moves label to 0, timer label to 0, solve puzzle, then shuffle Again
-        print("reset Board pressed")
         board.moves = 0
         timer.invalidate()
-        time = 0
+        self.board.time = 0
         startTimer()
         updateMovesLabel()
         board.setBoardToInitialState()
-//        board = initialBoard
-//        board.resetBoard()
-//        board.shuffle(numberOfMoves: gameSettings.shuffleCount)
         
     }
     
     var gamePaused = false
     @objc func pauseGame(sender: UIButton) {
         gamePaused = !gamePaused
-        
         if gamePaused {
             // stop timer
             timer.invalidate()
@@ -232,7 +245,7 @@ class GameViewController: UIViewController {
     
     
     func saveScoreInCloudKit(name: String) {
-        let newScore = Score(name: name, moves: board.moves, time: time, difficultyLevel: "Easy")
+        let newScore = Score(name: name, moves: board.moves, time: board.time, difficultyLevel: "Easy")
         newScore.delegate = self // set the delegate so that we can alert this view when cloud data is saved or if there is an error
         newScore.saveToCloudkit() // I created a method to save to cloudkit within the class Score
         //        scores.append(newScore)

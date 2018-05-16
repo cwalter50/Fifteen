@@ -44,13 +44,13 @@ class GameSettings {
         case "easy":
             shuffleMultiplier = 1
         case "medium":
-            shuffleMultiplier = 5
+            shuffleMultiplier = 8
         case "hard":
-            shuffleMultiplier = 10
+            shuffleMultiplier = 12
         case "black belt":
             shuffleMultiplier = 50
         default:
-            shuffleMultiplier = 1
+            shuffleMultiplier = 8
         }
         
         self.shuffleCount = rows * columns * shuffleMultiplier
