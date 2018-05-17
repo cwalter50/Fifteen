@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Board {
+class Board: NSObject, NSCoding {
     
     var rows: Int, columns: Int
 
@@ -197,11 +197,12 @@ class Board {
         let columns = aDecoder.decodeInteger(forKey: "columns")
         let moves = aDecoder.decodeInteger(forKey: "moves")
         let time = aDecoder.decodeInteger(forKey: "time")
-        let backgroundView = aDecoder.decodeObject(forKey: "backgroundView") as! UIView
+//        let backgroundView = aDecoder.decodeObject(forKey: "backgroundView") as? UIView
+        let backgroundView = aDecoder.decodeCGRect(forKey: "backgroundView")
         let emptyTile = aDecoder.decodeObject(forKey: "emptyTile") as! Tile
         let tiles = aDecoder.decodeObject(forKey: "tiles") as! [Tile]
         
-        self.init(rows: rows, columns: columns, emptyTile: emptyTile, tiles: tiles, moves: moves, time: time, backgroundView: backgroundView)
+        self.init(rows: rows, columns: columns, emptyTile: emptyTile, tiles: tiles, moves: moves, time: time, backgroundView: UIView(frame: backgroundView))
     }
     
     func encode(with aCoder: NSCoder) {
@@ -209,7 +210,7 @@ class Board {
         aCoder.encode(columns, forKey: "columns")
         aCoder.encode(moves, forKey: "moves")
         aCoder.encode(time, forKey: "time")
-        aCoder.encode(backgroundView, forKey: "backgroundView")
+        aCoder.encode(backgroundView.frame, forKey: "backgroundView")
         aCoder.encode(emptyTile, forKey: "emptyTile")
         aCoder.encode(tiles, forKey: "tiles")
     }

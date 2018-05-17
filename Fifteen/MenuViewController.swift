@@ -86,7 +86,10 @@ class MenuViewController: UIViewController, CustomGameDelegate {
     var savedBoard: Board?
     @objc func resumeGame() {
         // load savedBoard if it exists.
-        savedBoard = UserDefaults.standard.object(forKey: "savedBoard") as? Board
+        let decodedData = UserDefaults.standard.object(forKey: "savedBoard") as! Data
+//        let decoded = userDefaults.object(forKey: "teams") as! Data
+        let savedBoard = NSKeyedUnarchiver.unarchiveObject(with: decodedData) as? Board
+//        savedBoard = UserDefaults.standard.object(forKey: "savedBoard") as? Board
         
         if savedBoard != nil {
             // pass savedBoard with segue

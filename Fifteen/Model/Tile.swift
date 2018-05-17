@@ -100,7 +100,7 @@ class Tile : UIView
         aCoder.encode(name, forKey: "name")
         aCoder.encode(initialFrame, forKey: "initialFrame")
         aCoder.encode(bordersEmptyTile, forKey: "bordersEmptyTile")
-        aCoder.encode(time, forKey: "time")
+
         aCoder.encode(nameLabel, forKey: "nameLabel")
     }
 }

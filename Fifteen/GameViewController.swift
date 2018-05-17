@@ -197,7 +197,6 @@ class GameViewController: UIViewController {
     @objc func saveGame(sender: UIButton) {
         print("saveGame tapped")
         // save board to user defaults and dismiss
-        
         let userDefaults = UserDefaults.standard
         let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: board)
 
