@@ -11,8 +11,14 @@ import CloudKit
 
 class HighScoresViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    @IBOutlet weak var highScoresTableView: UITableView!
+    // MARK: Properties
+    let width = UIScreen.main.bounds.width
+    let height = UIScreen.main.bounds.height
+    var highScoresTableView: UITableView = UITableView()
+    var personalTableView: UITableView = UITableView()
+    var personalBackgroundView: UIView = UIView()
     var scores: [Score] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViews()
@@ -24,6 +30,28 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func setUpViews() {
+        personalBackgroundView = UIView(frame: CGRect(x: 0, y: 0, width: width / 4.0 - 10, height: height * 0.75))
+        personalBackgroundView.center = view.center
+        personalBackgroundView.backgroundColor = UIColor.mintDark
+        personalBackgroundView.layer.cornerRadius = 10.0
+        self.view.addSubview(personalBackgroundView)
+        
+        personalTableView = UITableView(frame: CGRect(x: 0, y: 0, width: width / 4.0, height: height * 0.75), style: UITableViewStyle.plain)
+        personalTableView.center = CGPoint(x: width * 0.25, y: height * 0.5)
+        personalTableView.delegate = self
+        personalTableView.dataSource = self
+        personalTableView.register(HighScoreTableViewCell.self, forCellReuseIdentifier: "personalCell")
+        self.view.addSubview(self.personalTableView)
+        personalTableView.backgroundColor = UIColor.white
+        personalTableView.layer.cornerRadius = 10.0
+        personalTableView.tableFooterView = UIView(frame: CGRect.zero)
+        
+        highScoresTableView = UITableView(frame: CGRect(x: 0, y: 0, width: width / 4.0, height: height * 0.75), style: UITableViewStyle.plain)
+        highScoresTableView.center = CGPoint(x: width * 0.75, y: height * 0.5)
+        highScoresTableView.delegate = self
+        highScoresTableView.dataSource = self
+        highScoresTableView.register(HighScoreTableViewCell.self, forCellReuseIdentifier: "highCell")
+        self.view.addSubview(self.highScoresTableView)
         highScoresTableView.tableFooterView = UIView(frame: CGRect.zero)
         highScoresTableView.backgroundColor = UIColor.white
         highScoresTableView.layer.cornerRadius = 10.0
@@ -72,6 +100,7 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return scores.count
+//        return 5
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -79,13 +108,21 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as! HighScoreTableViewCell
-        let myScore = scores[indexPath.row]
-        cell.score = myScore
-        cell.rankLabel.text = "\(indexPath.row + 1)"
+        if tableView == personalTableView {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "personalCell", for: indexPath) as! HighScoreTableViewCell
+            let myScore = scores[indexPath.row]
+            cell.score = myScore
+            cell.rankLabel.text = "\(indexPath.row + 1)"
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as! HighScoreTableViewCell
+            let myScore = scores[indexPath.row]
+            cell.score = myScore
+            cell.rankLabel.text = "\(indexPath.row + 1)"
+            
+            return cell
+        }
         
-        
-        return cell
     }
     
     func tableView(_ tableView: UITableView, canFocusRowAt indexPath: IndexPath) -> Bool {

@@ -131,7 +131,8 @@ class GameViewController: UIViewController {
             if board.isSolved() {
                 print("board solved!!!")
                 timer.invalidate()
-                solvedBoardAlert(moves: board.moves)
+                self.performSegue(withIdentifier: "HighScoresSegue", sender: self)
+//                solvedBoardAlert(moves: board.moves)
             }
         }
     }
@@ -258,8 +259,6 @@ class GameViewController: UIViewController {
         //        scores.append(newScore)
     }
     
-    
-    
     func solvedBoardAlert(moves: Int) {
         let alert = UIAlertController(title: "You won in \(moves) moves!!!", message: "Enter your name below.", preferredStyle: .alert)
         
@@ -272,7 +271,9 @@ class GameViewController: UIViewController {
             
             let nameTF = alert.textFields![0] // force unwrap because we know it's there
             let name = nameTF.text ?? "Hulk"
+            // uncomment after testing
             self.saveScoreInCloudKit(name: name)
+ 
             
             
             //            self.board.shuffle(numberOfMoves: 1)
@@ -284,41 +285,6 @@ class GameViewController: UIViewController {
         //        alert.addAction(noAction)
         present(alert, animated: true, completion: nil)
     }
-    
-    
-    
-    //    func loadScoresFromCloudkit() {
-    //        let publicDatabase = CKContainer.default().publicCloudDatabase
-    //
-    //        // Initialize Query.  And load all classes.
-    //        let predicate = NSPredicate(value: true) // this will grab all scores
-    //        let query = CKQuery(recordType: "Score", predicate: predicate)
-    //
-    //        // Configure Query.  Figure out a better way to sort.  Maybe sort by created?
-    //        query.sortDescriptors = [NSSortDescriptor(key: "moves", ascending: true)]
-    //
-    //        publicDatabase.perform(query, inZoneWith: nil) {
-    //            (records, error) in
-    //            guard let records = records else {
-    //                print("Error querying records: ", error as Any)
-    //                return
-    //            }
-    //            print("Found \(records.count) records matching query")
-    //            if records.count == 0 {
-    //                // we found no scores.  Display default score.
-    //                let score = Score(name: "No Scores yet", moves: 0, time: 0, difficultyLevel: "Easy")
-    //                // populate scores with just the default score
-    //                self.scores = [score]
-    //            } else {
-    //
-    //                for record in records {
-    //                    // create a score from the record...
-    //                    let foundScore = Score(record: record)
-    //                    self.scores.append(foundScore)
-    //                }
-    //            }
-    //        }
-    //    }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
