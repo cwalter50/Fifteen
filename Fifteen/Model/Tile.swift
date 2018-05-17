@@ -15,6 +15,7 @@ class Tile : UIView
     var name: Int
     var initialFrame: CGRect // used to reset the game.  Its set on init and after shuffle
     var initialPosition: TilePosition // used to help reset game
+    var currentFrame: CGRect
     var bordersEmptyTile: Bool
     var nameLabel: UILabel = {
         let label = UILabel(frame: CGRect.zero)
@@ -31,36 +32,39 @@ class Tile : UIView
         self.bordersEmptyTile = false
         self.initialPosition = position
         self.initialFrame = frame
+        self.currentFrame = frame
 
         super.init(frame: frame)
-        self.nameLabel.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
-//        nameLabel.center = self.center
-        self.nameLabel.font = UIFont(name: "Avenir", size: frame.height*0.8)
-
-        self.addSubview(nameLabel)
-        
-//        self.setTitleColor(.black, for: .normal)
-//        self.titleLabel?.font = UIFont(name: "Avenir", size: frame.height*0.8)
-        
-        self.backgroundColor = UIColor.blueJeansLight
-        self.layer.cornerRadius = 10.0
-        self.layer.borderColor = UIColor.darkGray.cgColor
-        self.layer.borderWidth = 2.0
-        self.setTileTitle()
+        setTileLabelsAndViews()
         
     }
-    init(row: Int, column: Int, initialRow: Int, initialColumn: Int, name: Int, initialFrame: CGRect, bordersEmptyTile: Bool, nameLabel: UILabel) {
+    
+    
+    init(row: Int, column: Int, initialRow: Int, initialColumn: Int, name: Int, initialFrame: CGRect, bordersEmptyTile: Bool, nameLabel: UILabel, currentFrame: CGRect) {
         self.position = TilePosition(row: row, column: column)
         self.name = name
         self.initialFrame = initialFrame
         self.initialPosition = TilePosition(row: initialRow, column: initialColumn)
         self.bordersEmptyTile = bordersEmptyTile
         self.nameLabel = nameLabel
-        super.init(frame: initialFrame) // might have to change this to currentFrame and not initialFrame.  TEST!!!
-        
-        
+        self.currentFrame = currentFrame
+        super.init(frame: currentFrame) // might have to change this to currentFrame and not initialFrame.  TEST!!!
+        setTileLabelsAndViews()
     }
     
+    func setTileLabelsAndViews() {
+        self.nameLabel.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
+        //        nameLabel.center = self.center
+        self.nameLabel.font = UIFont(name: "Avenir", size: frame.height*0.8)
+        
+        self.addSubview(nameLabel)
+        
+        self.backgroundColor = UIColor.blueJeansLight
+        self.layer.cornerRadius = 10.0
+        self.layer.borderColor = UIColor.darkGray.cgColor
+        self.layer.borderWidth = 2.0
+        self.setTileTitle()
+    }
     
     func setTileTitle() {
         if self.name == 0 {
@@ -82,9 +86,10 @@ class Tile : UIView
         let initialColumn = aDecoder.decodeInteger(forKey: "initialColumn")
         let name = aDecoder.decodeInteger(forKey: "name")
         let initialFrame = aDecoder.decodeCGRect(forKey: "initialFrame")
+        let currentFrame = aDecoder.decodeCGRect(forKey: "currentFrame")
         let bordersEmptyTile = aDecoder.decodeBool(forKey: "bordersEmptyTile")
         let nameLabel = aDecoder.decodeObject(forKey: "nameLabel") as! UILabel
-        self.init(row: row, column: column, initialRow: initialRow, initialColumn: initialColumn, name: name, initialFrame: initialFrame, bordersEmptyTile: bordersEmptyTile, nameLabel: nameLabel)
+        self.init(row: row, column: column, initialRow: initialRow, initialColumn: initialColumn, name: name, initialFrame: initialFrame, bordersEmptyTile: bordersEmptyTile, nameLabel: nameLabel, currentFrame: currentFrame)
     }
     
     override func encode(with aCoder: NSCoder) {
@@ -99,8 +104,8 @@ class Tile : UIView
         aCoder.encode(initialColumn, forKey: "initialColumn")
         aCoder.encode(name, forKey: "name")
         aCoder.encode(initialFrame, forKey: "initialFrame")
+        aCoder.encode(currentFrame, forKey: "currentFrame")
         aCoder.encode(bordersEmptyTile, forKey: "bordersEmptyTile")
-
         aCoder.encode(nameLabel, forKey: "nameLabel")
     }
 }

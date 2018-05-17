@@ -37,7 +37,7 @@ class GameViewController: UIViewController {
     var timer: Timer = Timer() // time is kept in the board class
     
     var timerLabel: UILabel = {
-        let label = UILabel(frame: CGRect(x: 100, y: 0, width: 200, height: 100))
+        let label = UILabel(frame: CGRect(x: 100, y: 0, width: 300, height: 100))
         label.backgroundColor = UIColor.sunFlowerLight
         label.font = UIFont(name: "Avenir", size: 50.0)
         label.text = "0:00"
@@ -98,8 +98,8 @@ class GameViewController: UIViewController {
         
         setUpSwipeGestures()
         createOrLoadGameBoard()
-        // figure out a setting to shuffle board for easy/ medium, or hard
-        board.shuffle(numberOfMoves: gameSettings.shuffleCount)
+
+
         createLabelsAndButtons()
         updateMovesLabel()
         
@@ -182,11 +182,19 @@ class GameViewController: UIViewController {
         // load saved Board if it exists, otherwise create a new board
         if let theBoard = savedBoard {
             board = theBoard
+        // update timerLabel to fix the 1 second glitch
+        let min = self.board.time / 60
+        let sec = self.board.time % 60
+        let timeText = String(format:"%i:%02i",min, sec)
+        self.timerLabel.text = timeText
         } else {
             board = Board(rows: gameSettings.rows, columns: gameSettings.columns)
+            // figure out a setting to shuffle board for easy/ medium, or hard
+            board.shuffle(numberOfMoves: gameSettings.shuffleCount)
+            
         }
         self.view.addSubview(board.backgroundView)
-        gameSettings.board = board
+
         
     }
     

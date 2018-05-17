@@ -87,12 +87,11 @@ class MenuViewController: UIViewController, CustomGameDelegate {
     @objc func resumeGame() {
         // load savedBoard if it exists.
         let decodedData = UserDefaults.standard.object(forKey: "savedBoard") as! Data
-//        let decoded = userDefaults.object(forKey: "teams") as! Data
-        let savedBoard = NSKeyedUnarchiver.unarchiveObject(with: decodedData) as? Board
-//        savedBoard = UserDefaults.standard.object(forKey: "savedBoard") as? Board
+        savedBoard = NSKeyedUnarchiver.unarchiveObject(with: decodedData) as? Board
         
         if savedBoard != nil {
             // pass savedBoard with segue
+           
             performSegue(withIdentifier: "resumeGameSegue", sender: self)
         } else {
             // display error that says that we could not find a saved game.

@@ -62,6 +62,10 @@ class Board: NSObject, NSCoding {
         self.time = time
         self.backgroundView = backgroundView
         
+        for tile in tiles {
+            self.backgroundView.addSubview(tile)
+        }
+        
     }
     
     func shuffle(numberOfMoves: Int) {
@@ -85,6 +89,7 @@ class Board: NSObject, NSCoding {
         for tile in tiles {
             tile.initialPosition = tile.position
             tile.initialFrame = tile.frame
+            tile.currentFrame = tile.frame
         }
     }
     // this function will move swap the tile in the start position with the emptyTile.  The check if its valid happens in the game.
@@ -97,9 +102,11 @@ class Board: NSObject, NSCoding {
             // swap emptyTile with tile's frame and position
             emptyTile.frame = tile.frame
             emptyTile.position = tile.position
+            emptyTile.currentFrame = tile.frame // this is used to help save and load game
             
             tile.frame = holdingFrame
             tile.position = holdingPosition
+            tile.currentFrame = holdingFrame // this is used to help save and load game
             moves += 1
         }
     }
