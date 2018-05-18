@@ -98,8 +98,6 @@ class GameViewController: UIViewController {
         
         setUpSwipeGestures()
         createOrLoadGameBoard()
-
-
         createLabelsAndButtons()
         updateMovesLabel()
         

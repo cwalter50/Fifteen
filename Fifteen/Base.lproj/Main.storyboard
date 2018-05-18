@@ -87,17 +87,6 @@
                     <view key="view" contentMode="scaleToFill" id="MHF-ml-ig1">
                         <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aIR-P3-UiR">
-                                <rect key="frame" x="1704" y="236" width="106" height="86"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
-                                <state key="normal" title="X"/>
-                                <connections>
-                                    <action selector="dismissButtonTapped:" destination="hqO-0n-PnW" eventType="primaryActionTriggered" id="kin-RM-5xf"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Zsm-am-TKk"/>
                     </view>
                 </viewController>
