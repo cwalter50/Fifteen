@@ -35,11 +35,12 @@ class PersonalScoresView: UIView {
     
     init(theFrame: CGRect) {
         
+        super.init(frame: theFrame)
         self.gameScoreView = UIView(frame: CGRect(x: 0, y: 0, width: theFrame.width, height: theFrame.height / 3.0))
         self.levelAverageView = UIView(frame: CGRect(x: 0, y: theFrame.height / 3.0, width: theFrame.width, height: theFrame.height / 3.0))
-        self.personalAverageView = UIView(frame: CGRect(x: 0, y: theFrame.height * 2.0 / 3.0, width: theFrame.width, height: theFrame.height / 3.0) )
+        self.personalAverageView = UIView(frame: CGRect(x: 0, y: theFrame.height * 2.0 / 3.0, width: theFrame.width, height: theFrame.height / 3.0))
         
-        super.init(frame: theFrame)
+        
         self.addSubview(gameScoreView)
         
         self.addSubview(levelAverageView)

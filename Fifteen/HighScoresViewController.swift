@@ -78,11 +78,7 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
     
     func setUpViews() {
 //        personalBackgroundView = UIView(frame: CGRect(x: 0, y: 0, width: width / 4.0 - 10, height: height * 0.7))
-        personalBackgroundView = PersonalScoresView(theFrame: CGRect(x: 0, y: 0, width: width / 4.0 - 10, height: height * 0.7))
-        personalBackgroundView.center = view.center
-        personalBackgroundView.backgroundColor = UIColor.mintDark
-        personalBackgroundView.layer.cornerRadius = 10.0
-        self.view.addSubview(personalBackgroundView)
+        
         
         personalTableView = UITableView(frame: CGRect(x: 0, y: 0, width: width / 4.0, height: height * 0.7), style: UITableViewStyle.plain)
         personalTableView.center = CGPoint(x: width * 0.25, y: height * 0.5)
@@ -108,6 +104,28 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         playAgainButton.center = CGPoint(x: width * 0.6, y: height * 0.07)
         self.view.addSubview(mainMenuButton)
         mainMenuButton.center = CGPoint(x: width * 0.4, y: height * 0.07)
+        
+        personalBackgroundView = PersonalScoresView(theFrame: CGRect(x: 0, y: 0, width: width / 4.0 - 10, height: height * 0.7))
+        personalBackgroundView.center = view.center
+        personalBackgroundView.backgroundColor = UIColor.mintDark
+        personalBackgroundView.layer.cornerRadius = 10.0
+        self.view.addSubview(personalBackgroundView)
+        
+        let theFrame = personalBackgroundView.frame
+        var gameScoreView = UIView(frame: CGRect(x: 0, y: 0, width: theFrame.width, height: theFrame.height / 3.0))
+            gameScoreView.backgroundColor = UIColor.blueJeansDark
+            gameScoreView.layer.cornerRadius = 10.0
+        
+        var levelAverageView = UIView(frame: CGRect(x: 0, y: theFrame.height / 3.0, width: theFrame.width, height: theFrame.height / 3.0))
+            levelAverageView.backgroundColor = UIColor.bitterSweetDark
+            levelAverageView.layer.cornerRadius = 10.0
+        
+        var personalAverageView: UIView = UIView(frame: CGRect(x: 0, y: theFrame.height * 2.0 / 3.0, width: theFrame.width, height: theFrame.height / 3.0))
+            personalAverageView.backgroundColor = UIColor.lavendarDark
+            personalAverageView.layer.cornerRadius = 10.0
+        personalBackgroundView.addSubview(gameScoreView)
+        personalBackgroundView.addSubview(levelAverageView)
+        personalBackgroundView.addSubview(personalAverageView)
     }
     
     func loadScoresFromCloudkit() {
