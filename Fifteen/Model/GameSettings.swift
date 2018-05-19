@@ -17,6 +17,9 @@ class GameSettings {
         }
     }
     var shuffleCount = 10
+    
+    // this is formatted as rows x columns difficulty, ie "4 x 3 black belt"
+    var difficultyLevel:String = ""
 
     
     init() {
@@ -25,6 +28,7 @@ class GameSettings {
         difficulty = "medium"
         shuffleCount = 10
         updateShuffleCount()
+        difficultyLevel = "\(rows) x \(columns) \(difficulty)"
         
     }
     
@@ -32,6 +36,7 @@ class GameSettings {
         self.rows = rows
         self.columns = columns
         self.difficulty = difficulty
+        difficultyLevel = "\(rows) x \(columns) \(difficulty)"
 
         self.shuffleCount = shuffleCount
         updateShuffleCount()

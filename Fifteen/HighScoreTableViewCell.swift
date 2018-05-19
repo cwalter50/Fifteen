@@ -11,6 +11,7 @@ import UIKit
 
 class HighScoreTableViewCell: UITableViewCell {
 
+    // figure out and rewrite all of this so that it can be loaded programmatically.
     @IBOutlet weak var movesLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!

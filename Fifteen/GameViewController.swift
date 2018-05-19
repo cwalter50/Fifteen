@@ -30,6 +30,7 @@ class GameViewController: UIViewController {
 
     var board: Board = Board(rows: 4, columns: 4)
     var savedBoard: Board?
+    var gameScore: Score? // this will be used to pass winning game to highScoresVC
     
     var gameWon = false // this is used to prevent the user from keep moving the board around with swipes after the game is won
     
@@ -129,8 +130,8 @@ class GameViewController: UIViewController {
             if board.isSolved() {
                 print("board solved!!!")
                 timer.invalidate()
-                self.performSegue(withIdentifier: "HighScoresSegue", sender: self)
-//                solvedBoardAlert(moves: board.moves)
+//                self.performSegue(withIdentifier: "HighScoresSegue", sender: self)
+                solvedBoardAlert(moves: board.moves)
             }
         }
     }
@@ -144,7 +145,6 @@ class GameViewController: UIViewController {
             self.timerLabel.text = timeText
         })
     }
-    
     
     // this method is called whenever the focused item changes
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
@@ -251,7 +251,7 @@ class GameViewController: UIViewController {
     
     
     func saveScoreInCloudKit(name: String) {
-        let newScore = Score(name: name, moves: board.moves, time: board.time, difficultyLevel: "Easy")
+        let newScore = Score(name: name, moves: board.moves, time: board.time, difficultyLevel: gameSettings.difficultyLevel)
         newScore.delegate = self // set the delegate so that we can alert this view when cloud data is saved or if there is an error
         newScore.saveToCloudkit() // I created a method to save to cloudkit within the class Score
         //        scores.append(newScore)
@@ -270,7 +270,10 @@ class GameViewController: UIViewController {
             let nameTF = alert.textFields![0] // force unwrap because we know it's there
             let name = nameTF.text ?? "Hulk"
             // uncomment after testing
-            self.saveScoreInCloudKit(name: name)
+            self.gameScore = Score(name: name, moves: self.board.moves, time: self.board.time, difficultyLevel: self.gameSettings.difficultyLevel)
+            self.performSegue(withIdentifier: "HighScoresSegue", sender: self)
+//            self.saveScoreInCloudKit(name: name)
+            
  
             
             
@@ -289,6 +292,7 @@ class GameViewController: UIViewController {
         if segue.identifier == "HighScoresSegue" {
             let destVC = segue.destination as! HighScoresViewController
             // pass data here
+            destVC.gameScore = self.gameScore
             //            destVC.scores = scores
         }
     }

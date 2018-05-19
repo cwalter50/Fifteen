@@ -14,10 +14,11 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
     // MARK: Properties
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
-    var highScoresTableView: UITableView = UITableView()
-    var personalTableView: UITableView = UITableView()
-    var personalBackgroundView: PersonalScoresView = PersonalScoresView(theFrame: CGRect.zero)
+    var highTableView: UITableView = UITableView() // this will display all the high scores
+    var myTableView: UITableView = UITableView() // this will display personal scores
+    var backgroundView: UIView = UIView()
     var scores: [Score] = []
+    var gameScore: Score?
     
     var playAgainButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 300, height: 100))
@@ -79,52 +80,99 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
     func setUpViews() {
 //        personalBackgroundView = UIView(frame: CGRect(x: 0, y: 0, width: width / 4.0 - 10, height: height * 0.7))
         
-        personalTableView = UITableView(frame: CGRect(x: 0, y: 0, width: width / 4.0, height: height * 0.7), style: UITableViewStyle.plain)
-        personalTableView.center = CGPoint(x: width * 0.25, y: height * 0.5)
-        personalTableView.delegate = self
-        personalTableView.dataSource = self
-        personalTableView.register(HighScoreTableViewCell.self, forCellReuseIdentifier: "personalCell")
-        self.view.addSubview(self.personalTableView)
-        personalTableView.backgroundColor = UIColor.white
-        personalTableView.layer.cornerRadius = 10.0
-        personalTableView.tableFooterView = UIView(frame: CGRect.zero)
+        myTableView = UITableView(frame: CGRect(x: 0, y: 0, width: width / 4.0, height: height * 0.7), style: UITableViewStyle.plain)
+        myTableView.center = CGPoint(x: width * 0.25, y: height * 0.5)
+        myTableView.delegate = self
+        myTableView.dataSource = self
+        myTableView.register(HighScoreTableViewCell.self, forCellReuseIdentifier: "myCell")
+        self.view.addSubview(self.myTableView)
+        myTableView.backgroundColor = UIColor.white
+        myTableView.layer.cornerRadius = 10.0
+        myTableView.tableFooterView = UIView(frame: CGRect.zero)
         
-        highScoresTableView = UITableView(frame: CGRect(x: 0, y: 0, width: width / 4.0, height: height * 0.7), style: UITableViewStyle.plain)
-        highScoresTableView.center = CGPoint(x: width * 0.75, y: height * 0.5)
-        highScoresTableView.delegate = self
-        highScoresTableView.dataSource = self
-        highScoresTableView.register(HighScoreTableViewCell.self, forCellReuseIdentifier: "highCell")
-        self.view.addSubview(self.highScoresTableView)
-        highScoresTableView.tableFooterView = UIView(frame: CGRect.zero)
-        highScoresTableView.backgroundColor = UIColor.white
-        highScoresTableView.layer.cornerRadius = 10.0
+        highTableView = UITableView(frame: CGRect(x: 0, y: 0, width: width / 4.0, height: height * 0.7), style: UITableViewStyle.plain)
+        highTableView.center = CGPoint(x: width * 0.75, y: height * 0.5)
+        highTableView.delegate = self
+        highTableView.dataSource = self
+        highTableView.register(HighScoreTableViewCell.self, forCellReuseIdentifier: "highCell")
+        self.view.addSubview(self.highTableView)
+        highTableView.tableFooterView = UIView(frame: CGRect.zero)
+        highTableView.backgroundColor = UIColor.white
+        highTableView.layer.cornerRadius = 10.0
         
         self.view.addSubview(playAgainButton)
         playAgainButton.center = CGPoint(x: width * 0.6, y: height * 0.07)
         self.view.addSubview(mainMenuButton)
         mainMenuButton.center = CGPoint(x: width * 0.4, y: height * 0.07)
         
-        personalBackgroundView = PersonalScoresView(theFrame: CGRect(x: 0, y: 0, width: width / 4.0 - 10, height: height * 0.7))
-        personalBackgroundView.center = view.center
-        personalBackgroundView.backgroundColor = UIColor.mintDark
-        personalBackgroundView.layer.cornerRadius = 10.0
-        self.view.addSubview(personalBackgroundView)
+        backgroundView = PersonalScoresView(theFrame: CGRect(x: 0, y: 0, width: width / 4.0 - 10, height: height * 0.7))
+        backgroundView.center = view.center
+        backgroundView.backgroundColor = UIColor.mintDark
+        backgroundView.layer.cornerRadius = 10.0
+        self.view.addSubview(backgroundView)
         
-        let theFrame = personalBackgroundView.frame
-        var gameScoreView = UIView(frame: CGRect(x: 0, y: 0, width: theFrame.width, height: theFrame.height / 3.0))
+        let theFrame = backgroundView.frame
+        let gameScoreView = UIView(frame: CGRect(x: 0, y: 0, width: theFrame.width, height: theFrame.height / 3.0))
             gameScoreView.backgroundColor = UIColor.blueJeansDark
             gameScoreView.layer.cornerRadius = 10.0
         
-        var levelAverageView = UIView(frame: CGRect(x: 0, y: theFrame.height / 3.0, width: theFrame.width, height: theFrame.height / 3.0))
-            levelAverageView.backgroundColor = UIColor.bitterSweetDark
+        var congratsString = "You won!  Congrats!"
+        var congratsRange = NSRange(location: 0, length: congratsString.count)
+        var levelString = "Level Stats"
+        var levelRange = NSRange(location: 0, length: levelString.count)
+        var averageString = "Overall Stats"
+        var averageRange = NSRange(location: 0, length: averageString.count)
+        if let score = gameScore {
+            let displayTime = getDisplayTime(time: score.time)
+            congratsString = "Congrats \(score.name)!\nYou completed \(score.difficultyLevel)\nMoves: \(score.moves)  Time: \(displayTime)"
+            congratsRange = NSRange(location: 0, length: 10 + score.name.count)
+            levelString = "\(score.difficultyLevel) Stats\nBest: \(score.moves) moves in \(getDisplayTime(time: score.time))\nAverage: \(score.moves) moves in \(getDisplayTime(time: score.time))"
+            levelRange = NSRange(location: 0, length: 6 + score.difficultyLevel.count)
+            averageString = "Overall Stats\nBest: \(score.moves) moves in \(getDisplayTime(time: score.time))\nAverage: \(score.moves) moves in \(getDisplayTime(time: score.time))"
+            averageRange = NSRange(location: 0, length: 13)
+        }
+        
+        gameScoreView.addSubview(getDisplayLabel(frame: theFrame, string: congratsString, range: congratsRange))
+        
+        let levelAverageView = UIView(frame: CGRect(x: 0, y: theFrame.height / 3.0, width: theFrame.width, height: theFrame.height / 3.0))
+            levelAverageView.backgroundColor = UIColor.sunFlowerDark
             levelAverageView.layer.cornerRadius = 10.0
         
-        var personalAverageView: UIView = UIView(frame: CGRect(x: 0, y: theFrame.height * 2.0 / 3.0, width: theFrame.width, height: theFrame.height / 3.0))
-            personalAverageView.backgroundColor = UIColor.lavendarDark
+        levelAverageView.addSubview(getDisplayLabel(frame: theFrame, string: levelString, range: levelRange))
+        
+        let personalAverageView: UIView = UIView(frame: CGRect(x: 0, y: theFrame.height * 2.0 / 3.0, width: theFrame.width, height: theFrame.height / 3.0))
+            personalAverageView.backgroundColor = UIColor.aquaDark
             personalAverageView.layer.cornerRadius = 10.0
-        personalBackgroundView.addSubview(gameScoreView)
-        personalBackgroundView.addSubview(levelAverageView)
-        personalBackgroundView.addSubview(personalAverageView)
+        
+        personalAverageView.addSubview(getDisplayLabel(frame: theFrame, string: averageString, range: averageRange))
+        
+        backgroundView.addSubview(gameScoreView)
+        backgroundView.addSubview(levelAverageView)
+        backgroundView.addSubview(personalAverageView)
+    }
+    
+    func getDisplayLabel(frame: CGRect, string: String, range: NSRange) -> UILabel {
+        
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height / 3.0))
+        label.font = UIFont(name: "Avenir", size: 50.0)
+        label.numberOfLines = 3
+        label.adjustsFontSizeToFitWidth = true
+        label.textAlignment = NSTextAlignment.center
+        label.textColor = UIColor.white
+        // create attributedString for label
+        let attributes = [NSAttributedStringKey.font:UIFont(name: "Avenir", size: 80)!]
+        let displayString = NSMutableAttributedString(string: string)
+        
+        displayString.addAttributes(attributes, range: range)
+        label.attributedText = displayString
+        return label
+        
+    }
+    func getDisplayTime(time: Int) -> String {
+        let min = time / 60
+        let sec = time % 60
+        let timeText = String(format:"%i:%02i",min, sec)
+        return timeText
     }
     
     func loadScoresFromCloudkit() {
@@ -158,7 +206,7 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
                 }
              
                 DispatchQueue.main.async(execute: {
-                    self.highScoresTableView.reloadData()
+                    self.highTableView.reloadData()
                 })
             }
         }
@@ -178,17 +226,17 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if tableView == personalTableView {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "personalCell", for: indexPath) as! HighScoreTableViewCell
-            let myScore = scores[indexPath.row]
-            cell.score = myScore
-            cell.rankLabel.text = "\(indexPath.row + 1)"
-            return cell
-        } else {
+        if tableView == myTableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as! HighScoreTableViewCell
             let myScore = scores[indexPath.row]
-            cell.score = myScore
-            cell.rankLabel.text = "\(indexPath.row + 1)"
+//            cell.score = myScore
+//            cell.rankLabel.text = "\(indexPath.row + 1)"
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "highCell", for: indexPath) as! HighScoreTableViewCell
+            let myScore = scores[indexPath.row]
+//            cell.score = myScore
+//            cell.rankLabel.text = "\(indexPath.row + 1)"
             
             return cell
         }
