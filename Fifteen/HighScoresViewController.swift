@@ -86,10 +86,12 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         myTableView.dataSource = self
         myTableView.register(HighScoreTableViewCell.self, forCellReuseIdentifier: "myCell")
         self.view.addSubview(self.myTableView)
-        myTableView.backgroundColor = UIColor.white
+        myTableView.backgroundColor = UIColor.clear
         myTableView.layer.cornerRadius = 10.0
         myTableView.tableFooterView = UIView(frame: CGRect.zero)
-        
+        // created a custom function to get headerView
+        myTableView.tableHeaderView = getHeaderView(text: "Personal Best Scores")
+
         highTableView = UITableView(frame: CGRect(x: 0, y: 0, width: width / 4.0, height: height * 0.7), style: UITableViewStyle.plain)
         highTableView.center = CGPoint(x: width * 0.75, y: height * 0.5)
         highTableView.delegate = self
@@ -97,8 +99,9 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         highTableView.register(HighScoreTableViewCell.self, forCellReuseIdentifier: "highCell")
         self.view.addSubview(self.highTableView)
         highTableView.tableFooterView = UIView(frame: CGRect.zero)
-        highTableView.backgroundColor = UIColor.white
+        highTableView.backgroundColor = UIColor.clear
         highTableView.layer.cornerRadius = 10.0
+        highTableView.tableHeaderView = getHeaderView(text: "All-Time Best Scores")
         
         self.view.addSubview(playAgainButton)
         playAgainButton.center = CGPoint(x: width * 0.6, y: height * 0.07)
@@ -149,6 +152,20 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         backgroundView.addSubview(gameScoreView)
         backgroundView.addSubview(levelAverageView)
         backgroundView.addSubview(personalAverageView)
+    }
+    
+    func getHeaderView(text: String) -> UIView {
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: myTableView.frame.width, height: 100))
+        headerView.backgroundColor = UIColor.blueJeansDark
+        headerView.layer.cornerRadius = 10.0
+        let headerLabel = UILabel(frame: headerView.frame)
+        headerLabel.font = UIFont(name: "Avenir", size: 60)
+        headerLabel.textColor = UIColor.white
+        headerLabel.textAlignment = .center
+        headerLabel.adjustsFontSizeToFitWidth = true
+        headerLabel.text = text
+        headerView.addSubview(headerLabel)
+        return headerView
     }
     
     func getDisplayLabel(frame: CGRect, string: String, range: NSRange) -> UILabel {
@@ -207,6 +224,8 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
              
                 DispatchQueue.main.async(execute: {
                     self.highTableView.reloadData()
+                    self.myTableView.reloadData()
+                    print("tables should be reloaded")
                 })
             }
         }
@@ -229,14 +248,14 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         if tableView == myTableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as! HighScoreTableViewCell
             let myScore = scores[indexPath.row]
-//            cell.score = myScore
-//            cell.rankLabel.text = "\(indexPath.row + 1)"
+            cell.score = myScore
+            cell.rankLabel.text = "\(indexPath.row + 1)"
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "highCell", for: indexPath) as! HighScoreTableViewCell
             let myScore = scores[indexPath.row]
-//            cell.score = myScore
-//            cell.rankLabel.text = "\(indexPath.row + 1)"
+            cell.score = myScore
+            cell.rankLabel.text = "\(indexPath.row + 1)"
             
             return cell
         }
