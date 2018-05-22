@@ -271,11 +271,8 @@ class GameViewController: UIViewController {
             let name = nameTF.text ?? "Hulk"
             // uncomment after testing
             self.gameScore = Score(name: name, moves: self.board.moves, time: self.board.time, difficultyLevel: self.gameSettings.difficultyLevel)
-            self.performSegue(withIdentifier: "HighScoresSegue", sender: self)
-//            self.saveScoreInCloudKit(name: name)
-            
- 
-            
+//            self.performSegue(withIdentifier: "HighScoresSegue", sender: self)
+            self.saveScoreInCloudKit(name: name)
             
             //            self.board.shuffle(numberOfMoves: 1)
             //            self.board.moves = 0
@@ -300,8 +297,10 @@ class GameViewController: UIViewController {
 
 extension GameViewController: newScoreAddedDelegate {
     // this function will get called after theScore is saved in cloudkit
-    func showHighScores() {
+    func showHighScores(score: Score) {
+        self.gameScore = score
         self.performSegue(withIdentifier: "HighScoresSegue", sender: self)
+        print("new Scores have been added")
     }
     // this will be called if there is an error in saving the score to cloudkit
     func errorAlert(message: String) {

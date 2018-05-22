@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		38140F2B20AF1AAA0039173C /* PersonalScoresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38140F2A20AF1AAA0039173C /* PersonalScoresView.swift */; };
 		381CF82A20A3411C00D4A4B5 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381CF82920A3411C00D4A4B5 /* MenuViewController.swift */; };
 		381CF82C20A5DE7200D4A4B5 /* CustomGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381CF82B20A5DE7200D4A4B5 /* CustomGameViewController.swift */; };
 		383DD76E207FA48700737D42 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 383DD76D207FA48700737D42 /* CloudKit.framework */; };
@@ -21,13 +20,13 @@
 		835E91A42083D7E30072D221 /* HighScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E91A32083D7E30072D221 /* HighScoreTableViewCell.swift */; };
 		835E91A620A8C3370072D221 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E91A520A8C3370072D221 /* MenuButton.swift */; };
 		835E91A820A8CD6A0072D221 /* GameSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E91A720A8CD6A0072D221 /* GameSettings.swift */; };
+		835E91AC20B39C610072D221 /* HighScoreStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E91AB20B39C610072D221 /* HighScoreStats.swift */; };
 		83B3FDAC207305B000D66EE5 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3FDAB207305B000D66EE5 /* Board.swift */; };
 		83B3FDAE207305D000D66EE5 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3FDAD207305D000D66EE5 /* Tile.swift */; };
 		83B3FDB02074513800D66EE5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3FDAF2074513800D66EE5 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		38140F2A20AF1AAA0039173C /* PersonalScoresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalScoresView.swift; sourceTree = "<group>"; };
 		381CF82920A3411C00D4A4B5 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		381CF82B20A5DE7200D4A4B5 /* CustomGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGameViewController.swift; sourceTree = "<group>"; };
 		383DD76B207FA48400737D42 /* Fifteen.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Fifteen.entitlements; sourceTree = "<group>"; };
@@ -44,6 +43,7 @@
 		835E91A32083D7E30072D221 /* HighScoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighScoreTableViewCell.swift; sourceTree = "<group>"; };
 		835E91A520A8C3370072D221 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		835E91A720A8CD6A0072D221 /* GameSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettings.swift; sourceTree = "<group>"; };
+		835E91AB20B39C610072D221 /* HighScoreStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighScoreStats.swift; sourceTree = "<group>"; };
 		83B3FDAB207305B000D66EE5 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		83B3FDAD207305D000D66EE5 /* Tile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
 		83B3FDAF2074513800D66EE5 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -64,12 +64,12 @@
 		381CF82F20A5DFF200D4A4B5 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				38140F2A20AF1AAA0039173C /* PersonalScoresView.swift */,
 				383DD76F207FA75E00737D42 /* Score.swift */,
 				83B3FDAB207305B000D66EE5 /* Board.swift */,
 				83B3FDAD207305D000D66EE5 /* Tile.swift */,
 				835E91A520A8C3370072D221 /* MenuButton.swift */,
 				835E91A720A8CD6A0072D221 /* GameSettings.swift */,
+				835E91AB20B39C610072D221 /* HighScoreStats.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -201,7 +201,7 @@
 				383DD770207FA75E00737D42 /* Score.swift in Sources */,
 				381CF82A20A3411C00D4A4B5 /* MenuViewController.swift in Sources */,
 				835E91A820A8CD6A0072D221 /* GameSettings.swift in Sources */,
-				38140F2B20AF1AAA0039173C /* PersonalScoresView.swift in Sources */,
+				835E91AC20B39C610072D221 /* HighScoreStats.swift in Sources */,
 				834224D72072FC9D005D3144 /* GameViewController.swift in Sources */,
 				83B3FDB02074513800D66EE5 /* Extensions.swift in Sources */,
 				834224D52072FC9D005D3144 /* AppDelegate.swift in Sources */,

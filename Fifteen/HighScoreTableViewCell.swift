@@ -50,7 +50,7 @@ class HighScoreTableViewCell: UITableViewCell {
             
             rankLabel.frame = CGRect(x: 10, y: 5, width: 50, height: 100)
             aboutLabel.frame = CGRect(x: 60, y: 5, width: frame.width - 60, height: 60)
-            dateLabel.frame = CGRect(x: 60, y: 65, width: frame.width - 60, height: 30)
+            dateLabel.frame = CGRect(x: 60, y: 65, width: frame.width - 60, height: 35)
             guard let theScore = score else {return}
 
             let min = theScore.time / 60
@@ -82,9 +82,9 @@ class HighScoreTableViewCell: UITableViewCell {
         self.layer.cornerRadius = 10.0
 //        self.layer.borderColor = UIColor.darkGray.cgColor
 //        self.layer.borderWidth = 2.0
-        rankLabel.frame = CGRect(x: 10, y: 5, width: 50, height: 100)
-        aboutLabel.frame = CGRect(x: 60, y: 5, width: frame.width - 60, height: 60)
-        dateLabel.frame = CGRect(x: 60, y: 65, width: frame.width - 60, height: 30)
+//        rankLabel.frame = CGRect(x: 10, y: 5, width: 50, height: 100)
+//        aboutLabel.frame = CGRect(x: 60, y: 5, width: frame.width - 60, height: 60)
+//        dateLabel.frame = CGRect(x: 60, y: 65, width: frame.width - 60, height: 30)
         self.addSubview(rankLabel)
         self.addSubview(aboutLabel)
         self.addSubview(dateLabel)

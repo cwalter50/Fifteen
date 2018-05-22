@@ -10,7 +10,7 @@ import UIKit
 import CloudKit
 
 protocol newScoreAddedDelegate {
-    func showHighScores()
+    func showHighScores(score: Score)
     func errorAlert(message: String)
 }
 class Score {
@@ -72,9 +72,28 @@ class Score {
             print("record saved!!!")
             self.record = newScoreRecord // record was nil until its saved in cloudkit
             DispatchQueue.main.async(execute: {
-                self.delegate?.showHighScores()
+                self.delegate?.showHighScores(score: self)
             })
 
+        }
+        let privateDatabase = myContainer.privateCloudDatabase
+        privateDatabase.save(newScoreRecord) {
+            (record, error) in
+            if let error = error {
+                print(error)
+                DispatchQueue.main.async(execute: {
+                    self.delegate?.errorAlert(message: error.localizedDescription)
+                })
+                
+                return
+            }
+            // insert successfully saved record code... reload table, etc...
+            print("record saved!!!")
+            self.record = newScoreRecord // record was nil until its saved in cloudkit
+            DispatchQueue.main.async(execute: {
+                self.delegate?.showHighScores(score: self)
+            })
+            
         }
     }
 }
