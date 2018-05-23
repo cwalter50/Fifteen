@@ -32,20 +32,21 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
     var gameScore: Score?
 
     
-    
     var playAgainButton: UIButton = {
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 400, height: 100))
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 300, height: 100))
         button.backgroundColor = UIColor.mintDark
         button.titleLabel?.font = UIFont(name: "Avenir", size: 50.0)
         button.setTitle("Play Again", for: UIControlState.normal)
+
         button.addTarget(self, action: #selector(playAgainTapped), for: .primaryActionTriggered)
         return button
     }()
     var mainMenuButton: UIButton = {
-        let button = UIButton(frame: CGRect(x: 100, y: 0, width: 400, height: 100))
+        let button = UIButton(frame: CGRect(x: 100, y: 0, width: 300, height: 100))
         button.backgroundColor = UIColor.grapefruitDark
         button.titleLabel?.font = UIFont(name: "Avenir", size: 50.0)
         button.setTitle("Main Menu", for: UIControlState.normal)
+
         button.addTarget(self, action: #selector(mainMenuTapped), for: .primaryActionTriggered)
         return button
     }()
@@ -65,6 +66,7 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViews()
+
         if let score = gameScore {
             stats = Stats(scores: [score], difficultyLevel: score.difficultyLevel)
             self.reloadBackgroundViewLabels(stats: stats)
@@ -79,6 +81,7 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         super.didUpdateFocus(in: context, with: coordinator)
         let button = context.nextFocusedView
+    
         button?.layer.shadowOffset = CGSize(width: 0, height: 10)
         button?.layer.shadowOpacity = 0.6
         button?.layer.shadowRadius = 15
@@ -105,7 +108,7 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
     func setUpViews() {
 
         myTableView = UITableView(frame: CGRect(x: 0, y: 0, width: width / 4.0, height: height * 0.7), style: UITableViewStyle.plain)
-        myTableView.center = CGPoint(x: width * 0.25 - 10, y: height * 0.5)
+        myTableView.center = CGPoint(x: width * 0.25 - 10, y: height * 0.5 + 10.0)
         myTableView.delegate = self
         myTableView.dataSource = self
         myTableView.register(HighScoreTableViewCell.self, forCellReuseIdentifier: "myCell")
@@ -117,7 +120,7 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         myTableView.tableHeaderView = getHeaderView(text: "Personal Best Scores")
 
         highTableView = UITableView(frame: CGRect(x: 0, y: 0, width: width / 4.0, height: height * 0.7), style: UITableViewStyle.plain)
-        highTableView.center = CGPoint(x: width * 0.75 + 10.0, y: height * 0.5)
+        highTableView.center = CGPoint(x: width * 0.75 + 10.0, y: height * 0.5 + 10)
         highTableView.delegate = self
         highTableView.dataSource = self
         highTableView.register(HighScoreTableViewCell.self, forCellReuseIdentifier: "highCell")
@@ -128,13 +131,14 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         highTableView.tableHeaderView = getHeaderView(text: "All-Time Best Scores")
         
         self.view.addSubview(playAgainButton)
-        playAgainButton.center = CGPoint(x: width * 0.75, y: height * 0.07)
+        playAgainButton.center = CGPoint(x: width * 0.6, y: height * 0.1)
+
         self.view.addSubview(mainMenuButton)
-        mainMenuButton.center = CGPoint(x: width * 0.25, y: height * 0.07)
+        mainMenuButton.center = CGPoint(x: width * 0.4, y: height * 0.1)
         
         backgroundView = UIView(frame:CGRect(x: 0, y: 0, width: width / 4.0 - 10, height: height * 0.7))
         
-        backgroundView.center = view.center
+        backgroundView.center = CGPoint(x: view.center.x, y: view.center.y + 10)
         backgroundView.backgroundColor = UIColor.clear
         backgroundView.layer.cornerRadius = 10.0
         self.view.addSubview(backgroundView)
