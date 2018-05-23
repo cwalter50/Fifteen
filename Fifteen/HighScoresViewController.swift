@@ -22,7 +22,7 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
     var personalAverageLabel: UILabel = UILabel()
     var allScores: [Score] = []
     var personalScores: [Score] = []
-    var stats: HighScoreStats = HighScoreStats(scores: [], difficultyLevel: "easy")
+    var stats: Stats = Stats(scores: [], difficultyLevel: "easy")
     var gameScore: Score?
     
     
@@ -59,8 +59,8 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         super.viewDidLoad()
         setUpViews()
         if let score = gameScore {
-            stats = HighScoreStats(scores: [score], difficultyLevel: score.difficultyLevel)
-            self.reloadBackgroundView(stats: stats)
+            stats = Stats(scores: [score], difficultyLevel: score.difficultyLevel)
+            self.reloadBackgroundViewLabels(stats: stats)
         }
         
         loadAllScoresFromCloudkit()
@@ -80,18 +80,19 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
     
     @objc func playAgainTapped(sender: UIButton) {
         // add more logic, to make sure that we playAgain
-        self.dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
     
     @objc func mainMenuTapped(sender: UIButton) {
         // figure out how to dismiss to rootVC.
-        self.dismiss(animated: true, completion: nil)
+    
+        navigationController?.popToRootViewController(animated: true)
+        
     }
 
     
     func setUpViews() {
-//        personalBackgroundView = UIView(frame: CGRect(x: 0, y: 0, width: width / 4.0 - 10, height: height * 0.7))
-        
+
         myTableView = UITableView(frame: CGRect(x: 0, y: 0, width: width / 4.0, height: height * 0.7), style: UITableViewStyle.plain)
         myTableView.center = CGPoint(x: width * 0.25 - 10, y: height * 0.5)
         myTableView.delegate = self
@@ -132,41 +133,27 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
             gameScoreView.backgroundColor = UIColor.blueJeansDark
             gameScoreView.layer.cornerRadius = 10.0
         
-        var congratsString = "You won!  Congrats!"
-        var congratsRange = NSRange(location: 0, length: congratsString.count)
-        var levelString = "Level Stats"
-        var levelRange = NSRange(location: 0, length: levelString.count)
-        var averageString = "Overall Stats"
-        var averageRange = NSRange(location: 0, length: averageString.count)
-        if let score = gameScore {
-            let displayTime = getDisplayTime(time: score.time)
-            congratsString = "Congrats \(score.name)!\nYou completed \(score.difficultyLevel)\nMoves: \(score.moves)  Time: \(displayTime)"
-            congratsRange = NSRange(location: 0, length: 10 + score.name.count)
-            
-            levelString = "\(score.difficultyLevel) Stats\nBest: \(stats.leastMovesLevel) moves, \(getDisplayTime(time: stats.bestTimeLevel)) time\nAverage: \(stats.averageLevelMoves) moves in \(getDisplayTime(time: stats.averageLevelTime))\nGames Won: \(stats.gamesPlayedLevel)"
-            levelRange = NSRange(location: 0, length: 6 + score.difficultyLevel.count)
-            
-            averageString = "Overall Stats\nBest: \(stats.leastMoves) moves, \(getDisplayTime(time: stats.bestTime)) time\nAverage: \(stats.averageTotalMoves) moves in \(getDisplayTime(time: stats.averageLevelTime))\nGames Won: \(stats.gamesPlayedTotal)"
-            averageRange = NSRange(location: 0, length: 13)
-        }
-        gameScoreLabel = getDisplayLabel(frame: theFrame, string: congratsString, range: congratsRange, numberOfLines: 3)
+        gameScoreLabel = getDisplayLabel(frame: theFrame, numberOfLines: 3)
         gameScoreView.addSubview(gameScoreLabel)
         
         let levelAverageView = UIView(frame: CGRect(x: 0, y: theFrame.height / 3.0, width: theFrame.width, height: theFrame.height / 3.0 - 5.0))
             levelAverageView.backgroundColor = UIColor.sunFlowerDark
             levelAverageView.layer.cornerRadius = 10.0
-        levelAverageLabel = getDisplayLabel(frame: theFrame, string: levelString, range: levelRange, numberOfLines: 4)
+        levelAverageLabel = getDisplayLabel(frame: theFrame, numberOfLines: 4)
         levelAverageView.addSubview(levelAverageLabel)
         
         let personalAverageView: UIView = UIView(frame: CGRect(x: 0, y: theFrame.height * 2.0 / 3.0, width: theFrame.width, height: theFrame.height / 3.0 - 5.0))
             personalAverageView.backgroundColor = UIColor.aquaDark
             personalAverageView.layer.cornerRadius = 10.0
-        personalAverageLabel = getDisplayLabel(frame: theFrame, string: averageString, range: averageRange, numberOfLines: 4)
+        personalAverageLabel = getDisplayLabel(frame: theFrame, numberOfLines: 4)
         personalAverageView.addSubview(personalAverageLabel)
+        
         
         backgroundView.addSubview(gameScoreView)
         backgroundView.addSubview(levelAverageView)
         backgroundView.addSubview(personalAverageView)
+        
+        reloadBackgroundViewLabels(stats: stats)
     }
     
     func getHeaderView(text: String) -> UIView {
@@ -183,7 +170,7 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         return headerView
     }
     
-    func getDisplayLabel(frame: CGRect, string: String, range: NSRange, numberOfLines: Int) -> UILabel {
+    func getDisplayLabel(frame: CGRect, numberOfLines: Int) -> UILabel {
         
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height / 3.0))
         label.font = UIFont(name: "Avenir", size: 50.0)
@@ -192,8 +179,7 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         label.textAlignment = NSTextAlignment.center
         label.textColor = UIColor.black
         // create attributedString for label
-        
-        label.attributedText = getLabelsAttributedText(string: string, range: range)
+        label.text = ""
         return label
         
     }
@@ -213,7 +199,7 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         return displayString
     }
     
-    func reloadBackgroundView(stats: HighScoreStats) {
+    func reloadBackgroundViewLabels(stats: Stats) {
         
         var congratsString = "You won!  Congrats!"
         var congratsRange = NSRange(location: 0, length: congratsString.count)
@@ -242,8 +228,10 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
     func loadPersonalScoresFromCloudkit() {
         let privateDatabase = CKContainer.default().privateCloudDatabase
 
-//        let predicate = NSPredicate(format: "difficultyLevel == %@", theScore.difficultyLevel)
-        let predicate = NSPredicate(value: true) // this will grab all scores
+        var predicate = NSPredicate(value: true) // this will grab all scores
+        if let score = gameScore {
+            predicate = NSPredicate(format: "difficultyLevel == %@", score.difficultyLevel)
+        }
         let query = CKQuery(recordType: "Score", predicate: predicate)
         
         query.sortDescriptors = [NSSortDescriptor(key: "moves", ascending: true)]
@@ -269,8 +257,8 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
                 }
                 DispatchQueue.main.async(execute: {
                     if let theScore = self.gameScore {
-                        let newStats = HighScoreStats(scores: self.personalScores, difficultyLevel: theScore.difficultyLevel)
-                        self.reloadBackgroundView(stats: newStats)
+                        let newStats = Stats(scores: self.personalScores, difficultyLevel: theScore.difficultyLevel)
+                        self.reloadBackgroundViewLabels(stats: newStats)
                         self.myTableView.reloadData()
                         print("personalTable should be reloaded")
                     }
@@ -294,7 +282,11 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         
         // Configure Query.  Figure out a better way to sort.  Maybe sort by created?
         query.sortDescriptors = [NSSortDescriptor(key: "moves", ascending: true)]
-        
+
+//        var queryOperation = CKQueryOperation(query: query)
+//        queryOperation.resultsLimit = 10
+
+            
         publicDatabase.perform(query, inZoneWith: nil) {
             (records, error) in
             guard let records = records else {
@@ -336,8 +328,6 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         } else {
             return allScores.count
         }
-        
-//        return 5
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

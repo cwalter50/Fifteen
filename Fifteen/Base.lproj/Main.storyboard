@@ -69,7 +69,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Pa3-Yv-Sjt"/>
                     <connections>
-                        <segue destination="hqO-0n-PnW" kind="presentation" identifier="HighScoresSegue" modalPresentationStyle="fullScreen" id="ezS-sN-y5u"/>
+                        <segue destination="hqO-0n-PnW" kind="show" identifier="HighScoresSegue" id="ezS-sN-y5u"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

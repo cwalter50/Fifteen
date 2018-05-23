@@ -9,7 +9,7 @@
 import UIKit
 
 // this class is created to quickly calculate averages, fastest, shortestMoves, etc. for personalScores
-class HighScoreStats {
+class Stats {
 //    var allScores: [Score] = []
 //    var allLevelScores: [Score] = []
     var personalScores: [Score] = []

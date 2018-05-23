@@ -22,7 +22,6 @@ class CustomGameViewController: UIViewController {
     let height = UIScreen.main.bounds.height
     
     var delegate: CustomGameDelegate?
-    
     var gameSettings = GameSettings()
     
     var rowButtons: [MenuButton] = [MenuButton]()
@@ -205,6 +204,7 @@ class CustomGameViewController: UIViewController {
     
     @objc func playGameTapped(sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
+        print("playing customGame with \(gameSettings.difficultyLevel)")
         delegate?.playGame(newGameSettings: gameSettings)
     }
     

@@ -20,7 +20,7 @@
 		835E91A42083D7E30072D221 /* HighScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E91A32083D7E30072D221 /* HighScoreTableViewCell.swift */; };
 		835E91A620A8C3370072D221 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E91A520A8C3370072D221 /* MenuButton.swift */; };
 		835E91A820A8CD6A0072D221 /* GameSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E91A720A8CD6A0072D221 /* GameSettings.swift */; };
-		835E91AC20B39C610072D221 /* HighScoreStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E91AB20B39C610072D221 /* HighScoreStats.swift */; };
+		835E91AC20B39C610072D221 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E91AB20B39C610072D221 /* Stats.swift */; };
 		83B3FDAC207305B000D66EE5 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3FDAB207305B000D66EE5 /* Board.swift */; };
 		83B3FDAE207305D000D66EE5 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3FDAD207305D000D66EE5 /* Tile.swift */; };
 		83B3FDB02074513800D66EE5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3FDAF2074513800D66EE5 /* Extensions.swift */; };
@@ -43,7 +43,7 @@
 		835E91A32083D7E30072D221 /* HighScoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighScoreTableViewCell.swift; sourceTree = "<group>"; };
 		835E91A520A8C3370072D221 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		835E91A720A8CD6A0072D221 /* GameSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettings.swift; sourceTree = "<group>"; };
-		835E91AB20B39C610072D221 /* HighScoreStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighScoreStats.swift; sourceTree = "<group>"; };
+		835E91AB20B39C610072D221 /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
 		83B3FDAB207305B000D66EE5 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		83B3FDAD207305D000D66EE5 /* Tile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
 		83B3FDAF2074513800D66EE5 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -69,7 +69,7 @@
 				83B3FDAD207305D000D66EE5 /* Tile.swift */,
 				835E91A520A8C3370072D221 /* MenuButton.swift */,
 				835E91A720A8CD6A0072D221 /* GameSettings.swift */,
-				835E91AB20B39C610072D221 /* HighScoreStats.swift */,
+				835E91AB20B39C610072D221 /* Stats.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -201,7 +201,7 @@
 				383DD770207FA75E00737D42 /* Score.swift in Sources */,
 				381CF82A20A3411C00D4A4B5 /* MenuViewController.swift in Sources */,
 				835E91A820A8CD6A0072D221 /* GameSettings.swift in Sources */,
-				835E91AC20B39C610072D221 /* HighScoreStats.swift in Sources */,
+				835E91AC20B39C610072D221 /* Stats.swift in Sources */,
 				834224D72072FC9D005D3144 /* GameViewController.swift in Sources */,
 				83B3FDB02074513800D66EE5 /* Extensions.swift in Sources */,
 				834224D52072FC9D005D3144 /* AppDelegate.swift in Sources */,

@@ -9,11 +9,20 @@
 import UIKit
 
 class GameSettings {
-    var rows = 4
-    var columns = 4
+    var rows = 4 {
+        didSet {
+            updateDifficultyLevel()
+        }
+    }
+    var columns = 4 {
+        didSet {
+            updateDifficultyLevel()
+        }
+    }
     var difficulty = "medium" {
         didSet {
             updateShuffleCount()
+            updateDifficultyLevel()
         }
     }
     var shuffleCount = 10
@@ -60,5 +69,9 @@ class GameSettings {
         self.shuffleCount = 1
 //        self.shuffleCount = rows * columns * shuffleMultiplier
         print("changed shuffleCount to \(shuffleCount)")
+    }
+    
+    func updateDifficultyLevel() {
+        self.difficultyLevel = "\(rows) x \(columns) \(difficulty)"
     }
 }

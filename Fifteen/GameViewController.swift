@@ -130,7 +130,6 @@ class GameViewController: UIViewController {
             if board.isSolved() {
                 print("board solved!!!")
                 timer.invalidate()
-//                self.performSegue(withIdentifier: "HighScoresSegue", sender: self)
                 solvedBoardAlert(moves: board.moves)
             }
         }
@@ -300,7 +299,7 @@ extension GameViewController: newScoreAddedDelegate {
     func showHighScores(score: Score) {
         self.gameScore = score
         self.performSegue(withIdentifier: "HighScoresSegue", sender: self)
-        print("new Scores have been added")
+        print("new Score has been added with difficulty level \(gameScore!.difficultyLevel)")
     }
     // this will be called if there is an error in saving the score to cloudkit
     func errorAlert(message: String) {
