@@ -9,9 +9,15 @@
 import UIKit
 import CloudKit
 
+protocol PlayAgainDelegate {
+    func playNewGame()
+}
+
 class HighScoresViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     // MARK: Properties
+    
+    var delegate: PlayAgainDelegate?
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
     var highTableView: UITableView = UITableView() // this will display all the high scores
@@ -24,10 +30,11 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
     var personalScores: [Score] = []
     var stats: Stats = Stats(scores: [], difficultyLevel: "easy")
     var gameScore: Score?
+
     
     
     var playAgainButton: UIButton = {
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 300, height: 100))
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 400, height: 100))
         button.backgroundColor = UIColor.mintDark
         button.titleLabel?.font = UIFont(name: "Avenir", size: 50.0)
         button.setTitle("Play Again", for: UIControlState.normal)
@@ -35,7 +42,7 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         return button
     }()
     var mainMenuButton: UIButton = {
-        let button = UIButton(frame: CGRect(x: 100, y: 0, width: 300, height: 100))
+        let button = UIButton(frame: CGRect(x: 100, y: 0, width: 400, height: 100))
         button.backgroundColor = UIColor.grapefruitDark
         button.titleLabel?.font = UIFont(name: "Avenir", size: 50.0)
         button.setTitle("Main Menu", for: UIControlState.normal)
@@ -67,6 +74,7 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         loadPersonalScoresFromCloudkit()
     }
     
+    
     // this method is called whenever the focused item changes
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         super.didUpdateFocus(in: context, with: coordinator)
@@ -80,7 +88,10 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
     
     @objc func playAgainTapped(sender: UIButton) {
         // add more logic, to make sure that we playAgain
+        
         navigationController?.popViewController(animated: true)
+
+        delegate?.playNewGame()
     }
     
     @objc func mainMenuTapped(sender: UIButton) {
@@ -117,9 +128,9 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         highTableView.tableHeaderView = getHeaderView(text: "All-Time Best Scores")
         
         self.view.addSubview(playAgainButton)
-        playAgainButton.center = CGPoint(x: width * 0.6, y: height * 0.07)
+        playAgainButton.center = CGPoint(x: width * 0.75, y: height * 0.07)
         self.view.addSubview(mainMenuButton)
-        mainMenuButton.center = CGPoint(x: width * 0.4, y: height * 0.07)
+        mainMenuButton.center = CGPoint(x: width * 0.25, y: height * 0.07)
         
         backgroundView = UIView(frame:CGRect(x: 0, y: 0, width: width / 4.0 - 10, height: height * 0.7))
         

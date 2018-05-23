@@ -17,7 +17,9 @@ import UIKit
 import CloudKit
 
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, PlayAgainDelegate {
+
+    
     
     // MARK: Properties
     let width = UIScreen.main.bounds.width
@@ -264,7 +266,7 @@ class GameViewController: UIViewController {
             textField.autocapitalizationType = .words
             
         }
-        let yesAction = UIAlertAction(title: "Save", style: .default, handler: {action in
+        let saveAction = UIAlertAction(title: "Save", style: .default, handler: {action in
             
             let nameTF = alert.textFields![0] // force unwrap because we know it's there
             let name = nameTF.text ?? "Hulk"
@@ -273,14 +275,27 @@ class GameViewController: UIViewController {
 //            self.performSegue(withIdentifier: "HighScoresSegue", sender: self)
             self.saveScoreInCloudKit(name: name)
             
-            //            self.board.shuffle(numberOfMoves: 1)
-            //            self.board.moves = 0
-            
         })
-//        let noAction = UIAlertAction(title: "No", style: .cancel, handler: nil)
-        alert.addAction(yesAction)
+        let quitAction = UIAlertAction(title: "Quit", style: .cancel, handler: {
+            action in
+            self.navigationController?.popViewController(animated: true)
+        })
+        alert.addAction(saveAction)
+        alert.addAction(quitAction)
         //        alert.addAction(noAction)
         present(alert, animated: true, completion: nil)
+    }
+    
+    // this is called from highScoresVC if the user taps Play Again.
+    func playNewGame() {
+        // reload the game and playAgain
+        
+        board.shuffle(numberOfMoves: gameSettings.shuffleCount)
+        board.moves = 0
+        timer.invalidate()
+        self.board.time = 0
+        startTimer()
+        updateMovesLabel()
     }
     
     
@@ -289,6 +304,7 @@ class GameViewController: UIViewController {
             let destVC = segue.destination as! HighScoresViewController
             // pass data here
             destVC.gameScore = self.gameScore
+            destVC.delegate = self
             //            destVC.scores = scores
         }
     }
