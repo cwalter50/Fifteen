@@ -91,9 +91,8 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
     
     @objc func playAgainTapped(sender: UIButton) {
         // add more logic, to make sure that we playAgain
-        
-        navigationController?.popViewController(animated: true)
 
+        navigationController?.popViewController(animated: true)
         delegate?.playNewGame()
     }
     
@@ -277,7 +276,6 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
                         self.myTableView.reloadData()
                         print("personalTable should be reloaded")
                     }
-                    
                 })
             }
         }

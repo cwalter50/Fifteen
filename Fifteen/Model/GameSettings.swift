@@ -66,8 +66,8 @@ class GameSettings {
             shuffleMultiplier = 8
         }
         // this line is just for testing.  Uncomment below to update after testing is complete
-        self.shuffleCount = 1
-//        self.shuffleCount = rows * columns * shuffleMultiplier
+//        self.shuffleCount = 3
+        self.shuffleCount = rows * columns * shuffleMultiplier
         print("changed shuffleCount to \(shuffleCount)")
     }
     

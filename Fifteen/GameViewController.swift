@@ -289,7 +289,6 @@ class GameViewController: UIViewController, PlayAgainDelegate {
     // this is called from highScoresVC if the user taps Play Again.
     func playNewGame() {
         // reload the game and playAgain
-        
         board.shuffle(numberOfMoves: gameSettings.shuffleCount)
         board.moves = 0
         timer.invalidate()
