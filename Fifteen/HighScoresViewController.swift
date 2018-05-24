@@ -71,9 +71,12 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
             stats = Stats(scores: [score], difficultyLevel: score.difficultyLevel)
             self.reloadBackgroundViewLabels(stats: stats)
         }
-        
         loadAllScoresFromCloudkit()
         loadPersonalScoresFromCloudkit()
+
+    }
+    override func viewDidAppear(_ animated: Bool) {
+
     }
     
     
@@ -269,9 +272,15 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
                     let foundScore = Score(record: record)
                     self.personalScores.append(foundScore)
                 }
+
                 DispatchQueue.main.async(execute: {
-                    if let theScore = self.gameScore {
-                        let newStats = Stats(scores: self.personalScores, difficultyLevel: theScore.difficultyLevel)
+                 // add in current gameScore manually.  I need to do this because Cloudkit saved records take time before they will show up in queries. And its not showing up fast enough.
+                    if let score = self.gameScore {
+                        self.personalScores.append(score)
+                        // sort all Scores
+                        self.personalScores.sort(by: {$0.moves < $1.moves})
+                        
+                        let newStats = Stats(scores: self.personalScores, difficultyLevel: score.difficultyLevel)
                         self.reloadBackgroundViewLabels(stats: newStats)
                         self.myTableView.reloadData()
                         print("personalTable should be reloaded")
@@ -320,6 +329,13 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
                     self.allScores.append(foundScore)
                 }
              
+                // add in current gameScore manually.  I need to do this because Cloudkit saved records take time before they will show up in queries. And its not showing up fast enough.
+                if let score = self.gameScore {
+                    self.allScores.append(score)
+                    // sort all Scores
+                    self.allScores.sort(by: {$0.moves < $1.moves})
+                }
+
                 DispatchQueue.main.async(execute: {
                     self.highTableView.reloadData()
                     print("reloaded HighTableView")

@@ -56,7 +56,8 @@ class Score {
         newScoreRecord["time"] = self.time as CKRecordValue
         newScoreRecord["difficultyLevel"] = self.difficultyLevel as NSString
         
-        var publicSaved = false // these Bools are used to make sure that I am not calling High Score VC twice.
+        // these Bools are used to make sure that I am not calling HighScoreVC twice.
+        var publicSaved = false
         var privateSaved = false
         
         let myContainer = CKContainer.default()
@@ -75,11 +76,12 @@ class Score {
             print("record saved!!!")
             self.record = newScoreRecord // record was nil until its saved in cloudkit
             publicSaved = true
+
             DispatchQueue.main.async(execute: {
                 if publicSaved && privateSaved {
                     self.delegate?.showHighScores(score: self)
                 }
-                
+
             })
 
         }
@@ -98,12 +100,14 @@ class Score {
             print("record saved!!!")
             self.record = newScoreRecord // record was nil until its saved in cloudkit
             privateSaved = true
+//            if publicSaved && privateSaved {
+//                self.delegate?.showHighScores(score: self)
+//            }
             DispatchQueue.main.async(execute: {
                 // this is used to make sure that I am not opening High Scores VC twice
                 if publicSaved && privateSaved {
                     self.delegate?.showHighScores(score: self)
                 }
-                
             })
             
         }
