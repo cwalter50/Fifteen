@@ -18,8 +18,6 @@ import CloudKit
 
 
 class GameViewController: UIViewController, PlayAgainDelegate {
-
-    
     
     // MARK: Properties
     let width = UIScreen.main.bounds.width

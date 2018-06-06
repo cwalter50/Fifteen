@@ -28,6 +28,7 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
     var personalAverageLabel: UILabel = UILabel()
     var allScores: [Score] = []
     var personalScores: [Score] = []
+    var personalLevelScores: [Score] = []
     var stats: Stats = Stats(scores: [], difficultyLevel: "easy")
     var gameScore: Score?
 
@@ -70,6 +71,10 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         if let score = gameScore {
             stats = Stats(scores: [score], difficultyLevel: score.difficultyLevel)
             self.reloadBackgroundViewLabels(stats: stats)
+        }
+        if let score = gameScore {
+            personalScores.append(score)
+            allScores.append(score)
         }
         loadAllScoresFromCloudkit()
         loadPersonalScoresFromCloudkit()
@@ -194,7 +199,7 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         label.numberOfLines = numberOfLines
         label.adjustsFontSizeToFitWidth = true
         label.textAlignment = NSTextAlignment.center
-        label.textColor = UIColor.black
+        label.textColor = UIColor.white
         // create attributedString for label
         label.text = ""
         return label
@@ -245,10 +250,11 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
     func loadPersonalScoresFromCloudkit() {
         let privateDatabase = CKContainer.default().privateCloudDatabase
 
-        var predicate = NSPredicate(value: true) // this will grab all scores
-        if let score = gameScore {
-            predicate = NSPredicate(format: "difficultyLevel == %@", score.difficultyLevel)
-        }
+        let predicate = NSPredicate(value: true) // this will grab all scores
+//        if let score = gameScore {
+//            predicate = NSPredicate(format: "difficultyLevel == %@", score.difficultyLevel)
+//
+//        }
         let query = CKQuery(recordType: "Score", predicate: predicate)
         
         query.sortDescriptors = [NSSortDescriptor(key: "moves", ascending: true)]
@@ -266,22 +272,28 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
                 // populate scores with just the default score
                 self.personalScores = [score]
             } else {
-                
+                self.personalScores.removeAll()
                 for record in records {
                     // create a score from the record...
                     let foundScore = Score(record: record)
                     self.personalScores.append(foundScore)
+                    if foundScore.difficultyLevel == self.gameScore?.difficultyLevel  {
+                        self.personalLevelScores.append(foundScore)
+                    }
                 }
 
                 DispatchQueue.main.async(execute: {
                  // add in current gameScore manually.  I need to do this because Cloudkit saved records take time before they will show up in queries. And its not showing up fast enough.
                     if let score = self.gameScore {
                         self.personalScores.append(score)
+                        self.personalLevelScores.append(score)
                         // sort all Scores
                         self.personalScores.sort(by: {$0.moves < $1.moves})
+                        self.personalLevelScores.sort(by: {$0.moves < $1.moves})
                         
                         let newStats = Stats(scores: self.personalScores, difficultyLevel: score.difficultyLevel)
                         self.reloadBackgroundViewLabels(stats: newStats)
+                        
                         self.myTableView.reloadData()
                         print("personalTable should be reloaded")
                     }
@@ -322,7 +334,7 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
                 // populate scores with just the default score
                 self.allScores = [score]
             } else {
-                
+                self.allScores.removeAll()
                 for record in records {
                     // create a score from the record...
                     let foundScore = Score(record: record)
@@ -353,7 +365,7 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == myTableView {
-            return personalScores.count
+            return personalLevelScores.count
         } else {
             return allScores.count
         }
@@ -366,7 +378,7 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == myTableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as! HighScoreTableViewCell
-            let myScore = personalScores[indexPath.row]
+            let myScore = personalLevelScores[indexPath.row]
             cell.score = myScore
             cell.rankLabel.text = "\(indexPath.row + 1)"
             return cell

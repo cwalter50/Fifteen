@@ -80,7 +80,7 @@ class Board: NSObject, NSCoding {
             // select a random one of the possible moves and move
             let randIndex = Int(arc4random_uniform(UInt32(possibleTiles.count)))
             let tileToMove = possibleTiles[randIndex]
-            self.move(startPosition: tileToMove.position)
+            self.moveNoAnimation(startPosition: tileToMove.position)
         }
         // reset moves to 0, because you are shuffling and starting over
         self.moves = 0
@@ -93,9 +93,10 @@ class Board: NSObject, NSCoding {
         }
     }
     // this function will move swap the tile in the start position with the emptyTile.  The check if its valid happens in the game.
-    func move(startPosition: TilePosition) {
+    func moveNoAnimation(startPosition: TilePosition) {
         // get the tile you want to move
         if let tile = self.tileAt(position: startPosition) {
+            // this works with no animation.  uncomment if animation doesnt work.
             let holdingFrame = emptyTile.frame
             let holdingPosition = emptyTile.position
 
@@ -103,10 +104,46 @@ class Board: NSObject, NSCoding {
             emptyTile.frame = tile.frame
             emptyTile.position = tile.position
             emptyTile.currentFrame = tile.frame // this is used to help save and load game
-            
+
             tile.frame = holdingFrame
             tile.position = holdingPosition
             tile.currentFrame = holdingFrame // this is used to help save and load game
+
+
+            moves += 1
+            
+        }
+    }
+    
+    func moveWithAnimation(startPosition: TilePosition) {
+        if let tile = self.tileAt(position: startPosition) {
+            // create a blank tile and place behind moving tile and empty tile.  They will be removed on completion of animation
+            let holdingTile = Tile(position: tile.position, name: 0, frame: tile.frame)
+            let holdingTile2 = Tile(position: emptyTile.position, name: 0, frame: emptyTile.frame)
+            let holdingPosition = emptyTile.position
+            self.backgroundView.addSubview(holdingTile)
+            self.backgroundView.addSubview(holdingTile2)
+            backgroundView.sendSubview(toBack: holdingTile)
+            backgroundView.sendSubview(toBack: holdingTile2)
+            backgroundView.bringSubview(toFront: tile)
+//            UIView.animate(withDuration: 0.25, animations: {
+//                tile.frame = self.emptyTile.currentFrame
+//                tile.currentFrame = tile.frame
+//                })
+            UIView.animate(withDuration: 0.2,
+                           animations: {
+                            tile.frame = self.emptyTile.currentFrame
+                            tile.currentFrame = tile.frame },
+                           completion: { (action) in
+
+                            holdingTile2.removeFromSuperview()
+                            holdingTile.removeFromSuperview()
+                            })
+            self.emptyTile.frame = holdingTile.frame
+            self.emptyTile.position = holdingTile.position
+            self.emptyTile.currentFrame = holdingTile.frame
+            
+            tile.position = holdingPosition
             moves += 1
         }
     }
@@ -129,7 +166,8 @@ class Board: NSObject, NSCoding {
         }
         
         if let foundTile = tileToMove {
-            move(startPosition:foundTile.position)
+        
+            moveWithAnimation(startPosition:foundTile.position)
         } else {
             print("not a valid swipe direction for current position")
         }
