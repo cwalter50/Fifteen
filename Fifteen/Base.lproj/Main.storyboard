@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="14109" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="UrP-cN-o6R">
+<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="14113" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="UrP-cN-o6R">
     <device id="appleTV" orientation="landscape">
         <adaptation id="light"/>
     </device>
@@ -47,6 +47,7 @@
                         <segue destination="1xY-Na-CIf" kind="presentation" identifier="customGameSettingsSegue" id="Djd-f3-GHv"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="playCustomGame" id="Gm3-LW-ueE"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="resumeGameSegue" id="fyD-Ej-ZX9"/>
+                        <segue destination="Lqy-Do-Qnh" kind="presentation" identifier="HowToSegue" id="cca-f9-gnk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y7y-Fa-MMC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -70,11 +71,30 @@
                     <navigationItem key="navigationItem" id="Pa3-Yv-Sjt"/>
                     <connections>
                         <segue destination="hqO-0n-PnW" kind="show" identifier="HighScoresSegue" id="ezS-sN-y5u"/>
+                        <segue destination="Lqy-Do-Qnh" kind="presentation" identifier="HowToSegue" modalPresentationStyle="fullScreen" id="iwH-QZ-fQD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4344" y="134"/>
+        </scene>
+        <!--How To Play View Controller-->
+        <scene sceneID="ktv-BZ-fAn">
+            <objects>
+                <viewController id="Lqy-Do-Qnh" customClass="HowToPlayViewController" customModule="Fifteen" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6Ue-Ud-J9Y"/>
+                        <viewControllerLayoutGuide type="bottom" id="4dy-kO-aZX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xaw-KI-tXT">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="sCk-s7-uXw"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tFB-xp-eTi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4344" y="1729"/>
         </scene>
         <!--High Scores View Controller-->
         <scene sceneID="5pL-wA-Gvq">
@@ -114,6 +134,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="cca-f9-gnk"/>
         <segue reference="fyD-Ej-ZX9"/>
     </inferredMetricsTieBreakers>
 </document>

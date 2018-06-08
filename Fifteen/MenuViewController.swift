@@ -29,7 +29,7 @@ class MenuViewController: UIViewController, CustomGameDelegate {
     
     var customGameButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 100, y: 0, width: 400, height: 100))
-        button.backgroundColor = UIColor.blueJeansDark
+        button.backgroundColor = UIColor.sunFlowerDark
         button.setTitle("Custom Game", for: .normal)
         button.addTarget(self, action: #selector(customGame), for: .primaryActionTriggered)
         button.titleLabel?.font = UIFont(name: "Avenir", size: 60.0)
@@ -44,6 +44,15 @@ class MenuViewController: UIViewController, CustomGameDelegate {
         button.addTarget(self, action: #selector(resumeGame), for: .primaryActionTriggered)
         button.titleLabel?.font = UIFont(name: "Avenir", size: 60.0)
         
+        return button
+    }()
+    
+    var howToButton: UIButton = {
+        let button = UIButton(frame: CGRect(x: 100, y: 0, width: 400, height: 100))
+        button.backgroundColor = UIColor.grapefruitDark
+        button.titleLabel?.font = UIFont(name: "Avenir", size: 60.0)
+        button.setTitle("How to Play", for: UIControlState.normal)
+        button.addTarget(self, action: #selector(howToPlay), for: .primaryActionTriggered)
         return button
     }()
     
@@ -66,13 +75,17 @@ class MenuViewController: UIViewController, CustomGameDelegate {
     }
     
     func createLabelsAndButtons() {
+        self.view.backgroundColor = UIColor.blueJeansLight
         self.view.addSubview(quickGameButton)
         self.view.addSubview(customGameButton)
         self.view.addSubview(resumeGameButton)
+        self.view.addSubview(howToButton)
         
-        quickGameButton.center = CGPoint(x: view.center.x, y: view.center.y - 200)
-        customGameButton.center = CGPoint(x: view.center.x, y: view.center.y)
-        resumeGameButton.center = CGPoint(x: view.center.x, y: view.center.y + 200)
+        quickGameButton.center = CGPoint(x: view.center.x, y: view.center.y - 300)
+        customGameButton.center = CGPoint(x: view.center.x, y: view.center.y - 100)
+        resumeGameButton.center = CGPoint(x: view.center.x, y: view.center.y + 100)
+        howToButton.center = CGPoint(x: view.center.x, y: view.center.y + 300)
+        
     }
     
     @objc func customGame() {
@@ -81,6 +94,10 @@ class MenuViewController: UIViewController, CustomGameDelegate {
 
     @objc func quickGame() {
         performSegue(withIdentifier: "quickGameSegue", sender: self)
+    }
+    
+    @objc func howToPlay() {
+        performSegue(withIdentifier: "HowToSegue", sender: self)
     }
     
     var savedBoard: Board?

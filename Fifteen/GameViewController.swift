@@ -57,6 +57,15 @@ class GameViewController: UIViewController, PlayAgainDelegate {
         return label
     }()
     
+    var howToButton: UIButton = {
+        let button = UIButton(frame: CGRect(x: 100, y: 0, width: 300, height: 100))
+        button.backgroundColor = UIColor.mintDark
+        button.titleLabel?.font = UIFont(name: "Avenir", size: 50.0)
+        button.setTitle("How to Play", for: UIControlState.normal)
+        button.addTarget(self, action: #selector(howToPlay), for: .primaryActionTriggered)
+        return button
+    }()
+    
     var quitButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 100, y: 0, width: 300, height: 100))
         button.backgroundColor = UIColor.grapefruitDark
@@ -157,19 +166,22 @@ class GameViewController: UIViewController, PlayAgainDelegate {
     }
     
     func createLabelsAndButtons() {
+
         self.view.addSubview(timerLabel)
         timerLabel.center = CGPoint(x: width * 0.43, y: height * 0.07)
 
         self.view.addSubview(movesLabel)
         movesLabel.center = CGPoint(x: width * 0.6, y: height * 0.07)
+        self.view.addSubview(howToButton)
+        howToButton.center = CGPoint(x: width * 0.1, y: height * 0.94)
         self.view.addSubview(quitButton)
-        quitButton.center = CGPoint(x: width * 0.2, y: height * 0.94)
+        quitButton.center = CGPoint(x: width * 0.3, y: height * 0.94)
         self.view.addSubview(resetButton)
-        resetButton.center = CGPoint(x: width * 0.4, y: height * 0.94)
+        resetButton.center = CGPoint(x: width * 0.5, y: height * 0.94)
         self.view.addSubview(pauseButton)
-        pauseButton.center = CGPoint(x: width * 0.6, y: height * 0.94)
+        pauseButton.center = CGPoint(x: width * 0.7, y: height * 0.94)
         self.view.addSubview(saveButton)
-        saveButton.center = CGPoint(x: width * 0.8, y: height * 0.94)  
+        saveButton.center = CGPoint(x: width * 0.9, y: height * 0.94)
     }
     func updateMovesLabel() {
         movesLabel.text = "Moves: \(board.moves)"
@@ -196,6 +208,10 @@ class GameViewController: UIViewController, PlayAgainDelegate {
         
     }
     
+    @objc func howToPlay() {
+        print("howToPlayTapped")
+        performSegue(withIdentifier: "HowToSegue", sender: self)
+    }
     @objc func quitGame() {
         print("quitGame tapped")
         navigationController?.popViewController(animated: true)
