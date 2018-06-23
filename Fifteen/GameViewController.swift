@@ -105,7 +105,7 @@ class GameViewController: UIViewController, PlayAgainDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+//        view.backgroundColor = UIColor.white
         setUpSwipeGestures()
         createOrLoadGameBoard()
         createLabelsAndButtons()

@@ -62,12 +62,11 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         return label
     }()
     
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViews()
 
+//        view.backgroundColor = UIColor.white
         if let score = gameScore {
             stats = Stats(scores: [score], difficultyLevel: score.difficultyLevel)
             self.reloadBackgroundViewLabels(stats: stats)

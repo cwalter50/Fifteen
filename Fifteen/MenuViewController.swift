@@ -75,7 +75,7 @@ class MenuViewController: UIViewController, CustomGameDelegate {
     }
     
     func createLabelsAndButtons() {
-        self.view.backgroundColor = UIColor.blueJeansLight
+//        self.view.backgroundColor = UIColor.white
         self.view.addSubview(quickGameButton)
         self.view.addSubview(customGameButton)
         self.view.addSubview(resumeGameButton)
@@ -103,9 +103,12 @@ class MenuViewController: UIViewController, CustomGameDelegate {
     var savedBoard: Board?
     @objc func resumeGame() {
         // load savedBoard if it exists.
-        let decodedData = UserDefaults.standard.object(forKey: "savedBoard") as! Data
-        savedBoard = NSKeyedUnarchiver.unarchiveObject(with: decodedData) as? Board
+        let decodedData = UserDefaults.standard.object(forKey: "savedBoard") as? Data
         
+        if decodedData != nil {
+            savedBoard = NSKeyedUnarchiver.unarchiveObject(with: decodedData!) as? Board
+        }
+            
         if savedBoard != nil {
             // pass savedBoard with segue
            
@@ -116,7 +119,7 @@ class MenuViewController: UIViewController, CustomGameDelegate {
             let yesQuick = UIAlertAction(title: "Yes, Play Quick Game", style: .default, handler: {action in
                 self.quickGame()
             })
-            let yesCustom = UIAlertAction(title: "Yes, Play Default Game", style: .default, handler: {action in
+            let yesCustom = UIAlertAction(title: "Yes, Play Custom Game", style: .default, handler: {action in
                 self.customGame()
             })
             let no = UIAlertAction(title: "No", style: .default, handler: nil)
@@ -125,6 +128,7 @@ class MenuViewController: UIViewController, CustomGameDelegate {
             alert.addAction(no)
             self.present(alert, animated: true, completion: nil)
         }
+        
     }
     
     func playGame(newGameSettings: GameSettings) {

@@ -100,6 +100,7 @@ class CustomGameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+//        view.backgroundColor = UIColor.white
 //        createCollectionViews()
         
         createButtonsAndLabels()
