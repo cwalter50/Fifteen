@@ -61,7 +61,7 @@ class GameViewController: UIViewController, PlayAgainDelegate {
         let button = UIButton(frame: CGRect(x: 100, y: 0, width: 300, height: 100))
         button.backgroundColor = UIColor.mintDark
         button.titleLabel?.font = UIFont(name: "Avenir", size: 50.0)
-        button.setTitle("How to Play", for: UIControlState.normal)
+        button.setTitle("How to Play", for: UIControl.State.normal)
         button.addTarget(self, action: #selector(howToPlay), for: .primaryActionTriggered)
         return button
     }()
@@ -70,7 +70,7 @@ class GameViewController: UIViewController, PlayAgainDelegate {
         let button = UIButton(frame: CGRect(x: 100, y: 0, width: 300, height: 100))
         button.backgroundColor = UIColor.grapefruitDark
         button.titleLabel?.font = UIFont(name: "Avenir", size: 50.0)
-        button.setTitle("Quit", for: UIControlState.normal)
+        button.setTitle("Quit", for: UIControl.State.normal)
         button.addTarget(self, action: #selector(quitGame), for: .primaryActionTriggered)
         return button
     }()
@@ -79,7 +79,7 @@ class GameViewController: UIViewController, PlayAgainDelegate {
         let button = UIButton(frame: CGRect(x: 100, y: 0, width: 300, height: 100))
         button.backgroundColor = UIColor.grapefruitDark
         button.titleLabel?.font = UIFont(name: "Avenir", size: 50.0)
-        button.setTitle("Reset", for: UIControlState.normal)
+        button.setTitle("Reset", for: UIControl.State.normal)
         button.addTarget(self, action: #selector(resetBoard), for: .primaryActionTriggered)
         return button
     }()
@@ -88,7 +88,7 @@ class GameViewController: UIViewController, PlayAgainDelegate {
         let button = UIButton(frame: CGRect(x: 100, y: 0, width: 300, height: 100))
         button.backgroundColor = UIColor.sunFlowerDark
         button.titleLabel?.font = UIFont(name: "Avenir", size: 50.0)
-        button.setTitle("Pause", for: UIControlState.normal)
+        button.setTitle("Pause", for: UIControl.State.normal)
         button.titleLabel?.font = UIFont(name: "Avenir", size: 60.0)
         button.addTarget(self, action: #selector(pauseGame), for: .primaryActionTriggered)
         return button
@@ -98,7 +98,7 @@ class GameViewController: UIViewController, PlayAgainDelegate {
         let button = UIButton(frame: CGRect(x: 100, y: 0, width: 300, height: 100))
         button.backgroundColor = UIColor.mintDark
         button.titleLabel?.font = UIFont(name: "Avenir", size: 50.0)
-        button.setTitle("Save", for: UIControlState.normal)
+        button.setTitle("Save", for: UIControl.State.normal)
         button.addTarget(self, action: #selector(saveGame), for: .primaryActionTriggered)
         return button
     }()

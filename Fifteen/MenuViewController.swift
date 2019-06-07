@@ -51,7 +51,7 @@ class MenuViewController: UIViewController, CustomGameDelegate {
         let button = UIButton(frame: CGRect(x: 100, y: 0, width: 400, height: 100))
         button.backgroundColor = UIColor.grapefruitDark
         button.titleLabel?.font = UIFont(name: "Avenir", size: 60.0)
-        button.setTitle("How to Play", for: UIControlState.normal)
+        button.setTitle("How to Play", for: UIControl.State.normal)
         button.addTarget(self, action: #selector(howToPlay), for: .primaryActionTriggered)
         return button
     }()

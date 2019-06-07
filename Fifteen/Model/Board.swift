@@ -123,9 +123,9 @@ class Board: NSObject, NSCoding {
             let holdingPosition = emptyTile.position
             self.backgroundView.addSubview(holdingTile)
             self.backgroundView.addSubview(holdingTile2)
-            backgroundView.sendSubview(toBack: holdingTile)
-            backgroundView.sendSubview(toBack: holdingTile2)
-            backgroundView.bringSubview(toFront: tile)
+            backgroundView.sendSubviewToBack(holdingTile)
+            backgroundView.sendSubviewToBack(holdingTile2)
+            backgroundView.bringSubviewToFront(tile)
 //            UIView.animate(withDuration: 0.25, animations: {
 //                tile.frame = self.emptyTile.currentFrame
 //                tile.currentFrame = tile.frame
@@ -148,7 +148,7 @@ class Board: NSObject, NSCoding {
         }
     }
     
-    func moveDirection(direction: UISwipeGestureRecognizerDirection) {
+    func moveDirection(direction: UISwipeGestureRecognizer.Direction) {
         
         // get tile next to position
         var tileToMove: Tile?

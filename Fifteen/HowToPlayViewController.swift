@@ -19,7 +19,7 @@ class HowToPlayViewController: UIViewController {
         let button = UIButton(frame: CGRect(x: 100, y: 0, width: 300, height: 100))
         button.backgroundColor = UIColor.grapefruitDark
         button.titleLabel?.font = UIFont(name: "Avenir", size: 50.0)
-        button.setTitle("Back", for: UIControlState.normal)
+        button.setTitle("Back", for: UIControl.State.normal)
         button.addTarget(self, action: #selector(backToGame), for: .primaryActionTriggered)
         return button
     }()
