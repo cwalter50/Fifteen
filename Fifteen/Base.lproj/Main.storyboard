@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="14113" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="UrP-cN-o6R">
+<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="14490.70" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="UrP-cN-o6R">
     <device id="appleTV" orientation="landscape">
         <adaptation id="light"/>
     </device>
     <dependencies>
         <deployment identifier="tvOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,12 +26,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Yc-Un-rgu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2114" y="-1150"/>
+            <point key="canvasLocation" x="4344" y="-2368"/>
         </scene>
-        <!--Menu View Controller-->
+        <!--MenuVC-->
         <scene sceneID="9vC-fZ-xsW">
             <objects>
-                <viewController id="FUD-9Q-h7x" customClass="MenuViewController" customModule="Fifteen" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="FUD-9Q-h7x" customClass="MenuVC" customModule="Fifteen" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qP2-yx-Vfr"/>
                         <viewControllerLayoutGuide type="bottom" id="GJf-HE-UyH"/>
@@ -76,7 +76,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4344" y="134"/>
+            <point key="canvasLocation" x="5742" y="-879"/>
         </scene>
         <!--How To Play View Controller-->
         <scene sceneID="ktv-BZ-fAn">
@@ -94,7 +94,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tFB-xp-eTi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4344" y="1729"/>
+            <point key="canvasLocation" x="4344" y="2680"/>
         </scene>
         <!--High Scores View Controller-->
         <scene sceneID="5pL-wA-Gvq">
@@ -112,7 +112,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Kx-Xk-trd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6470" y="134"/>
+            <point key="canvasLocation" x="7786" y="1810"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="bh5-eR-F6B">
