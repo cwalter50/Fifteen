@@ -68,15 +68,23 @@ class MenuVC: UIViewController, CustomGameDelegate {
         
         createLabelsAndButtons()
         
-        if #available(tvOS 9.0,*)
-        {
-            print("Code that executes only on tvOS 9.0 or later.")
-        }
+//        if #available(tvOS 9.0,*)
+//        {
+//            print("Code that executes only on tvOS 9.0 or later.")
+//        }
+//
+//        if #available(iOS 10.0,*)
+//        {
+//            print("Code that executes only on iOS 10.0 or later.")
+//        }
         
-        if #available(iOS 10.0,*)
-        {
-            print("Code that executes only on iOS 10.0 or later.")
-        }
+        #if os(iOS)
+            print("running on iOS")
+        #elseif os(tvOS)
+            print("running on tvOS")
+        #else
+            print("OMG, it's that mythical new Apple product!!!")
+        #endif
         
         
     }

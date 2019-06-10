@@ -130,11 +130,11 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8gS-8I-QIy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="47" y="134"/>
+            <point key="canvasLocation" x="-1283" y="134"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="cca-f9-gnk"/>
-        <segue reference="fyD-Ej-ZX9"/>
+        <segue reference="LEM-ET-BPB"/>
     </inferredMetricsTieBreakers>
 </document>

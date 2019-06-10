@@ -108,7 +108,18 @@ class GameViewController: UIViewController, PlayAgainDelegate {
 //        view.backgroundColor = UIColor.white
         setUpSwipeGestures()
         createOrLoadGameBoard()
-        createLabelsAndButtons()
+        #if os(iOS)
+            print("running on iOS")
+            createLabelsAndButtonsiOS()
+        
+        #elseif os(tvOS)
+            print("running on tvOS")
+            createLabelsAndButtonstvOS()
+        
+        #else
+        print("OMG, it's that mythical new Apple product!!!")
+        #endif
+        
         updateMovesLabel()
         
         // start timer
@@ -165,7 +176,7 @@ class GameViewController: UIViewController, PlayAgainDelegate {
         context.previouslyFocusedView?.layer.shadowOpacity = 0
     }
     
-    func createLabelsAndButtons() {
+    func createLabelsAndButtonstvOS() {
 
         self.view.addSubview(timerLabel)
         timerLabel.center = CGPoint(x: width * 0.43, y: height * 0.07)
@@ -182,6 +193,83 @@ class GameViewController: UIViewController, PlayAgainDelegate {
         pauseButton.center = CGPoint(x: width * 0.7, y: height * 0.94)
         self.view.addSubview(saveButton)
         saveButton.center = CGPoint(x: width * 0.9, y: height * 0.94)
+    }
+    func createLabelsAndButtonsiOS() {
+        
+        self.view.addSubview(timerLabel)
+        
+        self.view.addSubview(movesLabel)
+
+        let topStack = UIStackView(arrangedSubviews: [timerLabel, movesLabel])
+        topStack.axis = .horizontal
+        topStack.distribution = .fillEqually
+        topStack.alignment = .fill
+        topStack.spacing = 5
+        topStack.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(topStack)
+        
+        topStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
+        topStack.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
+        topStack.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
+        topStack.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        
+        // bottom buttons
+        self.view.addSubview(howToButton)
+        self.view.addSubview(quitButton)
+        self.view.addSubview(resetButton)
+        self.view.addSubview(pauseButton)
+        self.view.addSubview(saveButton)
+        
+        let bottomStackA = UIStackView(arrangedSubviews: [howToButton, quitButton, resetButton])
+        bottomStackA.axis = .horizontal
+        bottomStackA.distribution = .fillEqually
+        bottomStackA.alignment = .fill
+        bottomStackA.spacing = 5
+        bottomStackA.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bottomStackA)
+        
+        let bottomStackB = UIStackView(arrangedSubviews: [pauseButton, saveButton])
+        bottomStackB.axis = .horizontal
+        bottomStackB.distribution = .fillEqually
+        bottomStackB.alignment = .fill
+        bottomStackB.spacing = 5
+        bottomStackB.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bottomStackB)
+        
+        bottomStackB.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
+        bottomStackB.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
+        bottomStackB.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
+        bottomStackB.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        bottomStackA.bottomAnchor.constraint(equalTo: bottomStackB.topAnchor, constant: -10).isActive = true
+        bottomStackA.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
+        bottomStackA.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
+        bottomStackA.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+//        let mainStack = UIStackView(arrangedSubviews: [topStack, board.backgroundView, bottomStackA, bottomStackB])
+//        mainStack.axis = .vertical
+//        mainStack.distribution = .fillEqually
+//        mainStack.alignment = .fill
+//        mainStack.spacing = 5
+//        mainStack.translatesAutoresizingMaskIntoConstraints = false
+//        view.addSubview(mainStack)
+//
+//        mainStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+//        mainStack.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
+//        mainStack.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
+//        mainStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+
     }
     func updateMovesLabel() {
         movesLabel.text = "Moves: \(board.moves)"
