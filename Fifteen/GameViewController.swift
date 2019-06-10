@@ -44,6 +44,7 @@ class GameViewController: UIViewController, PlayAgainDelegate {
         label.text = "0:00"
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
+        label.layer.cornerRadius = 5.0
         return label
     }()
     
@@ -54,6 +55,7 @@ class GameViewController: UIViewController, PlayAgainDelegate {
         label.text = "Moves: 0"
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
+        label.layer.cornerRadius = 5.0
         return label
     }()
     
@@ -61,8 +63,10 @@ class GameViewController: UIViewController, PlayAgainDelegate {
         let button = UIButton(frame: CGRect(x: 100, y: 0, width: 300, height: 100))
         button.backgroundColor = UIColor.mintDark
         button.titleLabel?.font = UIFont(name: "Avenir", size: 50.0)
-        button.setTitle("How to Play", for: UIControl.State.normal)
+        button.setTitle("Rules", for: UIControl.State.normal)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.addTarget(self, action: #selector(howToPlay), for: .primaryActionTriggered)
+        button.layer.cornerRadius = 5.0
         return button
     }()
     
@@ -71,7 +75,9 @@ class GameViewController: UIViewController, PlayAgainDelegate {
         button.backgroundColor = UIColor.grapefruitDark
         button.titleLabel?.font = UIFont(name: "Avenir", size: 50.0)
         button.setTitle("Quit", for: UIControl.State.normal)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.addTarget(self, action: #selector(quitGame), for: .primaryActionTriggered)
+        button.layer.cornerRadius = 5.0
         return button
     }()
     
@@ -80,7 +86,9 @@ class GameViewController: UIViewController, PlayAgainDelegate {
         button.backgroundColor = UIColor.grapefruitDark
         button.titleLabel?.font = UIFont(name: "Avenir", size: 50.0)
         button.setTitle("Reset", for: UIControl.State.normal)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.addTarget(self, action: #selector(resetBoard), for: .primaryActionTriggered)
+        button.layer.cornerRadius = 5.0
         return button
     }()
     
@@ -89,8 +97,10 @@ class GameViewController: UIViewController, PlayAgainDelegate {
         button.backgroundColor = UIColor.sunFlowerDark
         button.titleLabel?.font = UIFont(name: "Avenir", size: 50.0)
         button.setTitle("Pause", for: UIControl.State.normal)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.titleLabel?.font = UIFont(name: "Avenir", size: 60.0)
         button.addTarget(self, action: #selector(pauseGame), for: .primaryActionTriggered)
+        button.layer.cornerRadius = 5.0
         return button
     }()
     
@@ -100,12 +110,15 @@ class GameViewController: UIViewController, PlayAgainDelegate {
         button.titleLabel?.font = UIFont(name: "Avenir", size: 50.0)
         button.setTitle("Save", for: UIControl.State.normal)
         button.addTarget(self, action: #selector(saveGame), for: .primaryActionTriggered)
+        button.layer.cornerRadius = 5.0
         return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        view.backgroundColor = UIColor.white
+        view.backgroundColor = UIColor.white
+        self.title = "Slidearoo"
+        
         setUpSwipeGestures()
         createOrLoadGameBoard()
         #if os(iOS)
@@ -202,16 +215,16 @@ class GameViewController: UIViewController, PlayAgainDelegate {
 
         let topStack = UIStackView(arrangedSubviews: [timerLabel, movesLabel])
         topStack.axis = .horizontal
-        topStack.distribution = .fillEqually
-        topStack.alignment = .fill
+        topStack.distribution = .equalSpacing
+        topStack.alignment = .firstBaseline
         topStack.spacing = 5
         topStack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(topStack)
         
-        topStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
+        topStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
         topStack.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
         topStack.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
-        topStack.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        topStack.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         
         // bottom buttons
@@ -221,7 +234,7 @@ class GameViewController: UIViewController, PlayAgainDelegate {
         self.view.addSubview(pauseButton)
         self.view.addSubview(saveButton)
         
-        let bottomStackA = UIStackView(arrangedSubviews: [howToButton, quitButton, resetButton])
+        let bottomStackA = UIStackView(arrangedSubviews: [howToButton, quitButton, pauseButton])
         bottomStackA.axis = .horizontal
         bottomStackA.distribution = .fillEqually
         bottomStackA.alignment = .fill
@@ -229,7 +242,7 @@ class GameViewController: UIViewController, PlayAgainDelegate {
         bottomStackA.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bottomStackA)
         
-        let bottomStackB = UIStackView(arrangedSubviews: [pauseButton, saveButton])
+        let bottomStackB = UIStackView(arrangedSubviews: [resetButton, saveButton])
         bottomStackB.axis = .horizontal
         bottomStackB.distribution = .fillEqually
         bottomStackB.alignment = .fill
@@ -240,35 +253,12 @@ class GameViewController: UIViewController, PlayAgainDelegate {
         bottomStackB.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
         bottomStackB.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
         bottomStackB.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
-        bottomStackB.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        bottomStackB.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         bottomStackA.bottomAnchor.constraint(equalTo: bottomStackB.topAnchor, constant: -10).isActive = true
         bottomStackA.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
         bottomStackA.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
-        bottomStackA.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
-//        let mainStack = UIStackView(arrangedSubviews: [topStack, board.backgroundView, bottomStackA, bottomStackB])
-//        mainStack.axis = .vertical
-//        mainStack.distribution = .fillEqually
-//        mainStack.alignment = .fill
-//        mainStack.spacing = 5
-//        mainStack.translatesAutoresizingMaskIntoConstraints = false
-//        view.addSubview(mainStack)
-//
-//        mainStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-//        mainStack.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
-//        mainStack.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
-//        mainStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
+        bottomStackA.heightAnchor.constraint(equalToConstant: 50).isActive = true
 
     }
     func updateMovesLabel() {
