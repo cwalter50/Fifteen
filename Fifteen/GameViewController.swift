@@ -221,11 +221,10 @@ class GameViewController: UIViewController, PlayAgainDelegate {
         topStack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(topStack)
         
-        topStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
-        topStack.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
-        topStack.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
+        topStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 120).isActive = true
+        topStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
+        topStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
         topStack.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
         
         // bottom buttons
         self.view.addSubview(howToButton)
@@ -250,14 +249,14 @@ class GameViewController: UIViewController, PlayAgainDelegate {
         bottomStackB.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bottomStackB)
         
-        bottomStackB.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
-        bottomStackB.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
-        bottomStackB.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
+        bottomStackB.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10).isActive = true
+        bottomStackB.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
+        bottomStackB.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
         bottomStackB.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         bottomStackA.bottomAnchor.constraint(equalTo: bottomStackB.topAnchor, constant: -10).isActive = true
-        bottomStackA.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
-        bottomStackA.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
+        bottomStackA.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
+        bottomStackA.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
         bottomStackA.heightAnchor.constraint(equalToConstant: 50).isActive = true
 
     }

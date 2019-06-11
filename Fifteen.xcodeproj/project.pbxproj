@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		381CF82A20A3411C00D4A4B5 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381CF82920A3411C00D4A4B5 /* MenuViewController.swift */; };
 		381CF82C20A5DE7200D4A4B5 /* CustomGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381CF82B20A5DE7200D4A4B5 /* CustomGameViewController.swift */; };
 		383DD76E207FA48700737D42 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 383DD76D207FA48700737D42 /* CloudKit.framework */; };
 		383DD770207FA75E00737D42 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383DD76F207FA75E00737D42 /* Score.swift */; };
@@ -27,7 +26,6 @@
 		38EAC1BD22AA9E6B002ECA78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 834224DE2072FC9D005D3144 /* Assets.xcassets */; };
 		38EAC1BE22AA9EC0002ECA78 /* CustomGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381CF82B20A5DE7200D4A4B5 /* CustomGameViewController.swift */; };
 		38EAC1BF22AA9ED9002ECA78 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834224D62072FC9D005D3144 /* GameViewController.swift */; };
-		38EAC1C022AA9EE3002ECA78 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381CF82920A3411C00D4A4B5 /* MenuViewController.swift */; };
 		38EAC1C122AA9EEC002ECA78 /* HowToPlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8384A89520C8A9270045D5D3 /* HowToPlayViewController.swift */; };
 		38EAC1C222AA9EEE002ECA78 /* HighScoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E91A120838EDB0072D221 /* HighScoresViewController.swift */; };
 		38EAC1C322AA9EF1002ECA78 /* HighScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E91A32083D7E30072D221 /* HighScoreTableViewCell.swift */; };
@@ -50,7 +48,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		381CF82920A3411C00D4A4B5 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		381CF82B20A5DE7200D4A4B5 /* CustomGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGameViewController.swift; sourceTree = "<group>"; };
 		383DD76B207FA48400737D42 /* Fifteen.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Fifteen.entitlements; sourceTree = "<group>"; };
 		383DD76D207FA48700737D42 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -126,7 +123,6 @@
 			isa = PBXGroup;
 			children = (
 				38EAC19C22AA9D10002ECA78 /* AppDelegate.swift */,
-				38EAC1BA22AA9E34002ECA78 /* MenuVC.swift */,
 				38EAC1C522AAAD5D002ECA78 /* GameVC.swift */,
 				38EAC1A022AA9D10002ECA78 /* Main.storyboard */,
 				38EAC1A622AA9D14002ECA78 /* Assets.xcassets */,
@@ -161,7 +157,7 @@
 			children = (
 				381CF82F20A5DFF200D4A4B5 /* Model */,
 				834224D42072FC9D005D3144 /* AppDelegate.swift */,
-				381CF82920A3411C00D4A4B5 /* MenuViewController.swift */,
+				38EAC1BA22AA9E34002ECA78 /* MenuVC.swift */,
 				381CF82B20A5DE7200D4A4B5 /* CustomGameViewController.swift */,
 				834224D62072FC9D005D3144 /* GameViewController.swift */,
 				8384A89520C8A9270045D5D3 /* HowToPlayViewController.swift */,
@@ -300,7 +296,6 @@
 				38EAC1C322AA9EF1002ECA78 /* HighScoreTableViewCell.swift in Sources */,
 				38EAC1B022AA9D21002ECA78 /* Board.swift in Sources */,
 				38EAC1B122AA9D23002ECA78 /* Tile.swift in Sources */,
-				38EAC1C022AA9EE3002ECA78 /* MenuViewController.swift in Sources */,
 				38EAC1AF22AA9D1E002ECA78 /* Score.swift in Sources */,
 				38EAC19D22AA9D10002ECA78 /* AppDelegate.swift in Sources */,
 				38EAC1C122AA9EEC002ECA78 /* HowToPlayViewController.swift in Sources */,
@@ -315,7 +310,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				383DD770207FA75E00737D42 /* Score.swift in Sources */,
-				381CF82A20A3411C00D4A4B5 /* MenuViewController.swift in Sources */,
 				835E91A820A8CD6A0072D221 /* GameSettings.swift in Sources */,
 				835E91AC20B39C610072D221 /* Stats.swift in Sources */,
 				834224D72072FC9D005D3144 /* GameViewController.swift in Sources */,
