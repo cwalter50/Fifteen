@@ -10,6 +10,7 @@
 		381CF82C20A5DE7200D4A4B5 /* CustomGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381CF82B20A5DE7200D4A4B5 /* CustomGameViewController.swift */; };
 		383DD76E207FA48700737D42 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 383DD76D207FA48700737D42 /* CloudKit.framework */; };
 		383DD770207FA75E00737D42 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383DD76F207FA75E00737D42 /* Score.swift */; };
+		38C539C022B16AA300B403F4 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38C539BF22B16AA300B403F4 /* CloudKit.framework */; };
 		38EAC19D22AA9D10002ECA78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38EAC19C22AA9D10002ECA78 /* AppDelegate.swift */; };
 		38EAC1A222AA9D10002ECA78 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38EAC1A022AA9D10002ECA78 /* Main.storyboard */; };
 		38EAC1A522AA9D10002ECA78 /* Slidearoo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 38EAC1A322AA9D10002ECA78 /* Slidearoo.xcdatamodeld */; };
@@ -51,6 +52,8 @@
 		383DD76B207FA48400737D42 /* Fifteen.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Fifteen.entitlements; sourceTree = "<group>"; };
 		383DD76D207FA48700737D42 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		383DD76F207FA75E00737D42 /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
+		38C539BE22B16A9100B403F4 /* Slidearoo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Slidearoo.entitlements; sourceTree = "<group>"; };
+		38C539BF22B16AA300B403F4 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		38EAC19A22AA9D10002ECA78 /* Slidearoo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Slidearoo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38EAC19C22AA9D10002ECA78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		38EAC1A122AA9D10002ECA78 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -82,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38C539C022B16AA300B403F4 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +116,7 @@
 		383DD76C207FA48700737D42 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				38C539BF22B16AA300B403F4 /* CloudKit.framework */,
 				383DD76D207FA48700737D42 /* CloudKit.framework */,
 			);
 			name = Frameworks;
@@ -120,6 +125,7 @@
 		38EAC19B22AA9D10002ECA78 /* Slidearoo */ = {
 			isa = PBXGroup;
 			children = (
+				38C539BE22B16A9100B403F4 /* Slidearoo.entitlements */,
 				38EAC19C22AA9D10002ECA78 /* AppDelegate.swift */,
 				38EAC1A022AA9D10002ECA78 /* Main.storyboard */,
 				38EAC1A622AA9D14002ECA78 /* Assets.xcassets */,
@@ -220,6 +226,14 @@
 					38EAC19922AA9D10002ECA78 = {
 						CreatedOnToolsVersion = 10.2.1;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 					834224D02072FC9D005D3144 = {
 						CreatedOnToolsVersion = 9.2;
@@ -358,6 +372,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = Slidearoo/Slidearoo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 84LWTY6T5F;
@@ -379,6 +394,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = Slidearoo/Slidearoo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 84LWTY6T5F;

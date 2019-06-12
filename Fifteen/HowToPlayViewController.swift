@@ -45,11 +45,12 @@ class HowToPlayViewController: UIViewController {
         super.viewDidLoad()
         
         #if os(iOS)
-        setUpViewsiOS()
+            setUpViewsiOS()
         #elseif os(tvOS)
-        setUpViewstvOS()
+            setUpViewstvOS()
         #else
-        print("OMG, it's that mythical new Apple product!!!")
+            print("OMG, it's that mythical new Apple product!!!")
+            setUpViewsiOS()
         #endif
 
 

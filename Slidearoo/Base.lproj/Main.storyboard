@@ -26,7 +26,8 @@
                         <segue destination="Wav-Qv-v23" kind="presentation" identifier="customGameSettingsSegue" id="dbh-0p-pbZ"/>
                         <segue destination="9Nd-MA-j7P" kind="show" identifier="resumeGameSegue" id="3Ss-4k-fte"/>
                         <segue destination="9Nd-MA-j7P" kind="show" identifier="quickGameSegue" id="fMb-c1-7ic"/>
-                        <segue destination="9Nd-MA-j7P" kind="show" identifier="customGameSegue" id="3yR-Zb-oj6"/>
+                        <segue destination="9Nd-MA-j7P" kind="show" identifier="playCustomGame" id="3yR-Zb-oj6"/>
+                        <segue destination="Ok1-rV-KmI" kind="show" identifier="HighScoresSegue" id="ecy-D4-2ii"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -80,7 +81,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QhR-r4-ct6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3688" y="46"/>
+            <point key="canvasLocation" x="3028" y="889"/>
         </scene>
         <!--How To Play View Controller-->
         <scene sceneID="GkQ-Ln-6hp">
@@ -117,7 +118,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="U2y-Eh-fJg"/>
-        <segue reference="3yR-Zb-oj6"/>
+        <segue reference="iLy-Vf-ohr"/>
+        <segue reference="ecy-D4-2ii"/>
+        <segue reference="3Ss-4k-fte"/>
     </inferredMetricsTieBreakers>
 </document>

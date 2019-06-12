@@ -108,16 +108,17 @@ class CustomGameViewController: UIViewController {
         view.backgroundColor = UIColor.white
         
         #if os(iOS)
-        print("running on iOS")
-        createButtonsAndLabelsiOS()
-        self.title = "Slidearoo"
+            print("running on iOS")
+            createButtonsAndLabelsiOS()
+            self.title = "Slidearoo"
         
         #elseif os(tvOS)
-        print("running on tvOS")
-        createButtonsAndLabelstvOS()
+            print("running on tvOS")
+            createButtonsAndLabelstvOS()
         
         #else
-        print("OMG, it's that mythical new Apple product!!!")
+            print("OMG, it's that mythical new Apple product!!!")
+            createButtonsAndLabelsiOS()
         #endif
         
     }

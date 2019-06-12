@@ -16,8 +16,6 @@ class MenuVC: UIViewController, CustomGameDelegate {
     
     var gameSettings: GameSettings = GameSettings() // use default initializer for gameSettings which is 4 x 4 medium
     
-    
-    var stackView = UIStackView()
     var quickGameButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 100, y: 0, width: 400, height: 100))
         button.backgroundColor = UIColor.mintDark
@@ -62,6 +60,17 @@ class MenuVC: UIViewController, CustomGameDelegate {
         return button
     }()
     
+    var highScoresButton: UIButton = {
+        let button = UIButton(frame: CGRect(x: 100, y: 0, width: 400, height: 100))
+        button.backgroundColor = UIColor.blueJeansDark
+        button.titleLabel?.font = UIFont(name: "Avenir", size: 60.0)
+        button.setTitle("High Scores", for: UIControl.State.normal)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.addTarget(self, action: #selector(highScores), for: .primaryActionTriggered)
+        button.layer.cornerRadius = 10
+        return button
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,13 +87,13 @@ class MenuVC: UIViewController, CustomGameDelegate {
 //            print("Code that executes only on iOS 10.0 or later.")
 //        }
         
-        #if os(iOS)
-            print("running on iOS")
-        #elseif os(tvOS)
-            print("running on tvOS")
-        #else
-            print("OMG, it's that mythical new Apple product!!!")
-        #endif
+//        #if os(iOS)
+//            print("running on iOS")
+//        #elseif os(tvOS)
+//            print("running on tvOS")
+//        #else
+//            print("OMG, it's that mythical new Apple product!!!")
+//        #endif
         
         
     }
@@ -103,12 +112,13 @@ class MenuVC: UIViewController, CustomGameDelegate {
     
     func createLabelsAndButtons() {
         //        self.view.backgroundColor = UIColor.white
-        self.view.addSubview(quickGameButton)
-        self.view.addSubview(customGameButton)
-        self.view.addSubview(resumeGameButton)
-        self.view.addSubview(howToButton)
+        view.addSubview(quickGameButton)
+        view.addSubview(customGameButton)
+        view.addSubview(resumeGameButton)
+        view.addSubview(howToButton)
+        view.addSubview(highScoresButton)
         
-        stackView = UIStackView(arrangedSubviews: [quickGameButton, customGameButton, resumeGameButton, howToButton])
+        let stackView = UIStackView(arrangedSubviews: [quickGameButton, customGameButton, resumeGameButton, howToButton, highScoresButton])
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
         stackView.alignment = .fill
@@ -118,15 +128,10 @@ class MenuVC: UIViewController, CustomGameDelegate {
         view.addSubview(stackView)
         
         // add Constraints
-        stackView.heightAnchor.constraint(lessThanOrEqualToConstant: UIScreen.main.bounds.height/2).isActive = true
+        stackView.heightAnchor.constraint(lessThanOrEqualToConstant: UIScreen.main.bounds.height*2/3).isActive = true
         stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         stackView.widthAnchor.constraint(lessThanOrEqualToConstant: UIScreen.main.bounds.width*2/3).isActive = true
-//        stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
-//        stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40).isActive = true
-//        stackView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 40).isActive = true
-//        stackView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -40).isActive = true
-        
         
     }
     
@@ -140,6 +145,10 @@ class MenuVC: UIViewController, CustomGameDelegate {
     
     @objc func howToPlay() {
         performSegue(withIdentifier: "HowToSegue", sender: self)
+    }
+    
+    @objc func highScores() {
+        performSegue(withIdentifier: "HighScoresSegue", sender: self)
     }
     
     var savedBoard: Board?

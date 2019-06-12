@@ -131,7 +131,8 @@ class GameViewController: UIViewController, PlayAgainDelegate {
             createLabelsAndButtonstvOS()
         
         #else
-        print("OMG, it's that mythical new Apple product!!!")
+            print("OMG, it's that mythical new Apple product!!!")
+            createLabelsAndButtonsiOS()
         #endif
         
         updateMovesLabel()
@@ -222,7 +223,7 @@ class GameViewController: UIViewController, PlayAgainDelegate {
         topStack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(topStack)
         
-        topStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 120).isActive = true
+        topStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 80).isActive = true
         topStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
         topStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
         topStack.heightAnchor.constraint(equalToConstant: 50).isActive = true
@@ -233,6 +234,12 @@ class GameViewController: UIViewController, PlayAgainDelegate {
         self.view.addSubview(resetButton)
         self.view.addSubview(pauseButton)
         self.view.addSubview(saveButton)
+        
+        howToButton.titleLabel?.font = UIFont(name: "Avenir", size: 30)
+        quitButton.titleLabel?.font = UIFont(name: "Avenir", size: 30)
+        resetButton.titleLabel?.font = UIFont(name: "Avenir", size: 30)
+        pauseButton.titleLabel?.font = UIFont(name: "Avenir", size: 30)
+        saveButton.titleLabel?.font = UIFont(name: "Avenir", size: 30)
         
         let bottomStackA = UIStackView(arrangedSubviews: [howToButton, quitButton, pauseButton])
         bottomStackA.axis = .horizontal
