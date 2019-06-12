@@ -117,13 +117,14 @@ class GameViewController: UIViewController, PlayAgainDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
-        self.title = "Slidearoo"
+        
         
         setUpSwipeGestures()
         createOrLoadGameBoard()
         #if os(iOS)
             print("running on iOS")
             createLabelsAndButtonsiOS()
+            self.title = "Slidearoo"
         
         #elseif os(tvOS)
             print("running on tvOS")

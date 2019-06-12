@@ -33,10 +33,10 @@
             </objects>
             <point key="canvasLocation" x="1047.8260869565217" y="95.758928571428569"/>
         </scene>
-        <!--View Controller-->
+        <!--Custom Game View Controller-->
         <scene sceneID="Swx-uo-B4d">
             <objects>
-                <viewController id="Wav-Qv-v23" sceneMemberID="viewController">
+                <viewController id="Wav-Qv-v23" customClass="CustomGameViewController" customModule="Slidearoo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hAC-0q-VlD">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -117,7 +117,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="iLy-Vf-ohr"/>
+        <segue reference="U2y-Eh-fJg"/>
         <segue reference="3yR-Zb-oj6"/>
     </inferredMetricsTieBreakers>
 </document>

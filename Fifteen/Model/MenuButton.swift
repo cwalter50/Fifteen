@@ -23,6 +23,7 @@ class MenuButton: UIButton {
         self.setTitle(name, for: .normal)
         self.setTitleColor(.white, for: .normal)
         self.titleLabel?.font = UIFont(name: "Avenir", size: 60.0)
+        self.titleLabel?.adjustsFontSizeToFitWidth = true
         
     }
     

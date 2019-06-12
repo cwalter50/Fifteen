@@ -21,7 +21,6 @@ class HowToPlayViewController: UIViewController {
         button.titleLabel?.font = UIFont(name: "Avenir", size: 50.0)
         button.setTitle("Back", for: UIControl.State.normal)
         button.addTarget(self, action: #selector(backToGame), for: .primaryActionTriggered)
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.layer.cornerRadius = 10.0
         return button
@@ -32,7 +31,6 @@ class HowToPlayViewController: UIViewController {
         textView.textColor = UIColor.white
         textView.font = UIFont(name: "Avenir", size: 40.0)
         textView.text = "Slide the tiles around until you reach the solved puzzle.  A solved puzzle will always have the empty tile in the bottom right.  Number Puzzles will start with a \"1\" in the top left, followed by increasing consecutive numbers, and the empty tile in the bottom right.  Below is an example of a solved board with the numbers 1-15."
-        textView.translatesAutoresizingMaskIntoConstraints = false
         textView.backgroundColor = UIColor.clear
         return textView
     }()
@@ -41,7 +39,6 @@ class HowToPlayViewController: UIViewController {
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 600, height: 600))
         imageView.image = #imageLiteral(resourceName: "SolvedBoard")
         imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     override func viewDidLoad() {
@@ -76,6 +73,10 @@ class HowToPlayViewController: UIViewController {
         self.view.addSubview(backButton)
         self.view.addSubview(rulesTextView)
         self.view.addSubview(solvedBoardImageView)
+        
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        rulesTextView.translatesAutoresizingMaskIntoConstraints = false
+        solvedBoardImageView.translatesAutoresizingMaskIntoConstraints = false
         
         rulesTextView.font = UIFont(name: "Avenir", size: 25.0)
         

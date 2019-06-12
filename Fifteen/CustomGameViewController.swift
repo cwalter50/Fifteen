@@ -42,6 +42,7 @@ class CustomGameViewController: UIViewController {
         label.layer.borderColor = UIColor.darkGray.cgColor
         label.layer.borderWidth = 2.0
         label.layer.masksToBounds = true
+        label.adjustsFontSizeToFitWidth = true
         
         return label
     }()
@@ -57,6 +58,7 @@ class CustomGameViewController: UIViewController {
         label.layer.borderColor = UIColor.darkGray.cgColor
         label.layer.borderWidth = 2.0
         label.layer.masksToBounds = true
+        label.adjustsFontSizeToFitWidth = true
         
         return label
     }()
@@ -72,6 +74,7 @@ class CustomGameViewController: UIViewController {
         label.layer.borderColor = UIColor.darkGray.cgColor
         label.layer.borderWidth = 2.0
         label.layer.masksToBounds = true
+        label.adjustsFontSizeToFitWidth = true
 
         return label
     }()
@@ -82,6 +85,7 @@ class CustomGameViewController: UIViewController {
         button.setTitle("Play", for: .normal)
         button.titleLabel?.font = UIFont(name: "Avenir", size: 60.0)
         button.addTarget(self, action: #selector(playGameTapped), for: .primaryActionTriggered)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
 
         
         return button
@@ -93,6 +97,7 @@ class CustomGameViewController: UIViewController {
         button.setTitle("Cancel", for: .normal)
         button.titleLabel?.font = UIFont(name: "Avenir", size: 60.0)
         button.addTarget(self, action: #selector(backButtonTapped), for: .primaryActionTriggered)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
 
         return button
     }()
@@ -100,10 +105,20 @@ class CustomGameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        view.backgroundColor = UIColor.white
-//        createCollectionViews()
+        view.backgroundColor = UIColor.white
         
-        createButtonsAndLabels()
+        #if os(iOS)
+        print("running on iOS")
+        createButtonsAndLabelsiOS()
+        self.title = "Slidearoo"
+        
+        #elseif os(tvOS)
+        print("running on tvOS")
+        createButtonsAndLabelstvOS()
+        
+        #else
+        print("OMG, it's that mythical new Apple product!!!")
+        #endif
         
     }
     
@@ -118,7 +133,7 @@ class CustomGameViewController: UIViewController {
         context.previouslyFocusedView?.layer.shadowOpacity = 0
     }
     
-    func createButtonsAndLabels() {
+    func createButtonsAndLabelstvOS() {
         view.addSubview(rowLabel)
         rowLabel.center = CGPoint(x: width * 0.2, y: height * 0.1)
         view.addSubview(columnLabel)
@@ -169,8 +184,133 @@ class CustomGameViewController: UIViewController {
         }
     }
     
+    func createButtonsAndLabelsiOS() {
+        view.addSubview(rowLabel)
+        view.addSubview(columnLabel)
+        view.addSubview(difficultyLabel)
+        view.addSubview(playGameButton)
+        view.addSubview(backButton)
+        
+        playGameButton.translatesAutoresizingMaskIntoConstraints = false
+        backButton.translatesAutoresizingMaskIntoConstraints = false
 
+        rowLabel.font = UIFont(name: "Avenir", size: 30)
+        columnLabel.font = UIFont(name: "Avenir", size: 30)
+        difficultyLabel.font = UIFont(name: "Avenir", size: 30)
+        backButton.titleLabel?.font = UIFont(name: "Avenir", size: 30)
+        playGameButton.titleLabel?.font = UIFont(name: "Avenir", size: 30)
+        
+        // create 4 row, 4 column, and 4 difficulty MenuButtons
+        
+        for i in 3...6 {
+            let rowButton = MenuButton(name: "\(i)", frame: CGRect(x: 0, y: 0, width: 350, height: 150))
+            
+            rowButton.addTarget(self, action: #selector(rowButtonTapped), for: .primaryActionTriggered)
+            self.view.addSubview(rowButton)
+            rowButtons.append(rowButton)
+            rowButton.center = CGPoint(x: width*0.2, y: height * 0.1 + 160 * (CGFloat(i) - 2.0))
+            // these are the columns buttons
+            let button = MenuButton(name: "\(i)", frame: CGRect(x: 0, y: 0, width: 350, height: 150))
+            
+            button.addTarget(self, action: #selector(columnButtonTapped), for: .primaryActionTriggered)
+            self.view.addSubview(button)
+            columnButtons.append(button)
+            button.center = CGPoint(x: width*0.5, y: height * 0.1 + 160 * (CGFloat(i) - 2.0))
+            if gameSettings.rows == i {
+                rowButton.isSelected = true
+            }
+            if gameSettings.columns == i {
+                button.isSelected = true
+            }
+        }
+        
+        var difficultyNames = ["easy", "medium", "hard", "black belt"]
+        for i in 0..<difficultyNames.count {
+            
+            let button = MenuButton(name: "\(difficultyNames[i])", frame: CGRect(x: 0, y: 0, width: 350, height: 150))
+            
+            button.addTarget(self, action: #selector(difficultyButtonTapped), for: .primaryActionTriggered)
+            button.titleLabel?.font = UIFont(name: "Avenir", size: 30)
+            self.view.addSubview(button)
+            difficultyButtons.append(button)
+            button.center = CGPoint(x: width*0.8, y: height * 0.1 + 160 * (CGFloat(i) + 1.0))
+            if gameSettings.difficulty == difficultyNames[i] {
+                button.isSelected = true
+            }
+        }
+        
+        // create 3 vertical stackviews for rows, columns, difficulty. then place all three in 1 horizontal stackview
+        // add playgame button and back button at the bottom
+        let rowStack = UIStackView(arrangedSubviews: [rowLabel])
+        for button in rowButtons
+        {
+            rowStack.addArrangedSubview(button)
+        }
+        rowStack.axis = .vertical
+        rowStack.distribution = .fillEqually
+        rowStack.alignment = .fill
+        rowStack.spacing = 5
+        rowStack.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(rowStack)
+        
+        let columnStack = UIStackView(arrangedSubviews: [columnLabel])
+        for button in columnButtons
+        {
+            columnStack.addArrangedSubview(button)
+        }
+        columnStack.axis = .vertical
+        columnStack.distribution = .fillEqually
+        columnStack.alignment = .fill
+        columnStack.spacing = 5
+        columnStack.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(columnStack)
+        
+        let difficultyStack = UIStackView(arrangedSubviews: [difficultyLabel])
+        for button in difficultyButtons
+        {
+            difficultyStack.addArrangedSubview(button)
+        }
+        difficultyStack.axis = .vertical
+        difficultyStack.distribution = .fillEqually
+        difficultyStack.alignment = .fill
+        difficultyStack.spacing = 5
+        difficultyStack.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(difficultyStack)
+        
+        let bottomStack = UIStackView(arrangedSubviews: [backButton, playGameButton])
+        bottomStack.axis = .horizontal
+        bottomStack.distribution = .fillEqually
+        bottomStack.alignment = .fill
+        bottomStack.spacing = 5
+        bottomStack.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bottomStack)
+        
+        let tableStack = UIStackView(arrangedSubviews: [rowStack, columnStack, difficultyStack])
+        tableStack.axis = .horizontal
+        tableStack.distribution = .fillEqually
+        tableStack.alignment = .fill
+        tableStack.spacing = 5
+        tableStack.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(tableStack)
+        
+        let mainStack = UIStackView(arrangedSubviews: [tableStack, bottomStack])
+        mainStack.axis = .vertical
+        mainStack.distribution = .equalCentering
+        mainStack.alignment = .fill
+        mainStack.spacing = 5
+        mainStack.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(mainStack)
+        
+        
+        // add constraints
+        bottomStack.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        mainStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 120).isActive = true
+        mainStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 24).isActive = true
+        mainStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -24).isActive = true
+        mainStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100).isActive = true
+    }
     
+
     @objc func difficultyButtonTapped(sender: UIButton) {
         for button in difficultyButtons {
             button.isSelected = false
