@@ -258,7 +258,7 @@ class LevelsVC: UIViewController {
         topStackC.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(topStackC)
         
-        topStackC.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
+        topStackC.topAnchor.constraint(equalTo: view.topAnchor, constant: 75).isActive = true
         topStackC.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
         topStackC.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
         topStackC.heightAnchor.constraint(equalToConstant: 140).isActive = true
@@ -292,15 +292,23 @@ class LevelsVC: UIViewController {
         bottomStackB.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bottomStackB)
         
-        bottomStackB.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
+        bottomStackB.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -15).isActive = true
         bottomStackB.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
         bottomStackB.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
-        bottomStackB.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        bottomStackB.heightAnchor.constraint(equalToConstant: 35).isActive = true
         
-        bottomStackA.bottomAnchor.constraint(equalTo: bottomStackB.topAnchor, constant: -10).isActive = true
+        bottomStackA.bottomAnchor.constraint(equalTo: bottomStackB.topAnchor, constant: -5).isActive = true
         bottomStackA.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
         bottomStackA.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
-        bottomStackA.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        bottomStackA.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        
+        board.backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        board.backgroundView.topAnchor.constraint(equalTo: topStackC.bottomAnchor, constant: 10).isActive = true
+        board.backgroundView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
+        board.backgroundView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
+        board.backgroundView.bottomAnchor.constraint(equalTo: bottomStackA.topAnchor, constant: 10).isActive = true
+        
+        
         
     }
     func updateMovesLabel() {
@@ -318,7 +326,9 @@ class LevelsVC: UIViewController {
             let timeText = String(format:"%i:%02i",min, sec)
             self.timerLabel.text = timeText
         } else {
-            board = Board(rows: gameSettings.rows, columns: gameSettings.columns)
+//            board = Board(rows: gameSettings.rows, columns: gameSettings.columns)
+            
+            board = Board(rows: gameSettings.rows, columns: gameSettings.columns, image: UIImage(named: "Test"))
             // figure out a setting to shuffle board for easy/ medium, or hard
             board.shuffle(numberOfMoves: gameSettings.shuffleCount)
             

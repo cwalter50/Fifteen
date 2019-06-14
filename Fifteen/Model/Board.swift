@@ -19,6 +19,7 @@ class Board: NSObject, NSCoding {
     var backgroundView: UIView
     var moves: Int = 0
     var time: Int = 0
+    var solutionImage: UIImage?
 
     init(rows: Int, columns: Int)
     {
@@ -56,6 +57,53 @@ class Board: NSObject, NSCoding {
         backgroundView.addSubview(emptyTile)
         moves = 0
         time = 0
+        
+    }
+    
+    convenience init (rows: Int, columns: Int, image: UIImage?)
+    {
+        self.init(rows: rows, columns: columns)
+        solutionImage = image
+        
+        // figure out how to set the tiles image to the cropped version of the solution image
+        
+        
+        for tile in tiles
+        {
+            // get width, height, x, and y for cropped image.
+            if tile.name != 0
+            {
+                if let theImage = solutionImage
+                {
+                    let width = theImage.size.width / CGFloat(columns)
+                    let height = theImage.size.height / CGFloat(rows)
+                    // the width on the frame, will be different than the width on the UIImage. ie the frame might have a height of 100 pixels, but the image will be 1024 X 1024 pixels
+                    let x = CGFloat(tile.initialPosition.column - 1) * (width)
+                    let y = CGFloat(tile.initialPosition.row - 1) * (height)
+                    
+                    tile.imageView.image = cropImage(image: solutionImage, toRect: CGRect(x: x, y: y, width: width, height: height))
+                }
+                else
+                {
+                    print("Error. THere is no solution image...")
+                }
+            }
+            
+            
+        }
+    }
+    
+    // helper method to crop the image
+    func cropImage(image: UIImage?, toRect: CGRect) -> UIImage? {
+        // Cropping is available trhough CGGraphics
+        if let theImage = image, let cgImage: CGImage = theImage.cgImage, let croppedCGImage: CGImage = cgImage.cropping(to: toRect)
+        {
+            return UIImage(cgImage: croppedCGImage)
+        }
+        else
+        {
+            return UIImage(named: "Test")
+        }
         
     }
     
