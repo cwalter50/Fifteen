@@ -71,6 +71,17 @@ class MenuVC: UIViewController, CustomGameDelegate {
         return button
     }()
     
+    var levelsButton: UIButton = {
+        let button = UIButton(frame: CGRect(x: 100, y: 0, width: 400, height: 100))
+        button.backgroundColor = UIColor.grassDark
+        button.titleLabel?.font = UIFont(name: "Avenir", size: 60.0)
+        button.setTitle("Levels", for: UIControl.State.normal)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.addTarget(self, action: #selector(levels), for: .primaryActionTriggered)
+        button.layer.cornerRadius = 10
+        return button
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -117,8 +128,9 @@ class MenuVC: UIViewController, CustomGameDelegate {
         view.addSubview(resumeGameButton)
         view.addSubview(howToButton)
         view.addSubview(highScoresButton)
+        view.addSubview(levelsButton)
         
-        let stackView = UIStackView(arrangedSubviews: [quickGameButton, customGameButton, resumeGameButton, howToButton, highScoresButton])
+        let stackView = UIStackView(arrangedSubviews: [quickGameButton, customGameButton, resumeGameButton, howToButton, highScoresButton, levelsButton])
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
         stackView.alignment = .fill
@@ -149,6 +161,9 @@ class MenuVC: UIViewController, CustomGameDelegate {
     
     @objc func highScores() {
         performSegue(withIdentifier: "HighScoresSegue", sender: self)
+    }
+    @objc func levels() {
+        performSegue(withIdentifier: "LevelsSegue", sender: self)
     }
     
     var savedBoard: Board?
