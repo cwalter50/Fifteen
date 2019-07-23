@@ -19,6 +19,7 @@ class Board: NSObject, NSCoding {
     var backgroundView: UIView
     var moves: Int = 0
     var time: Int = 0
+    var solutionImage: UIImage?
 
     init(rows: Int, columns: Int)
     {
@@ -28,7 +29,13 @@ class Board: NSObject, NSCoding {
         
         let width = UIScreen.main.bounds.width
         let height = UIScreen.main.bounds.height
-        let blockWidth = (height - 300.0) / CGFloat(rows)
+        var blockWidth: CGFloat = 10
+        if height > width { // this would be iOS
+            blockWidth = (width - 48.0) / CGFloat(rows) // small buffer for ios for boundaries
+        }
+        else {
+            blockWidth = (height - 300.0) / CGFloat(rows) // for tvOS.. larger buffer
+        }
         let center = CGPoint(x: width * 0.5, y: height * 0.5)
         self.backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: (blockWidth + 2.0) * CGFloat(columns), height: (blockWidth + 2.0) * CGFloat(rows)))
 //        self.backgroundView.backgroundColor = UIColor.grapefruitDark
@@ -50,6 +57,53 @@ class Board: NSObject, NSCoding {
         backgroundView.addSubview(emptyTile)
         moves = 0
         time = 0
+        
+    }
+    
+    convenience init (rows: Int, columns: Int, image: UIImage?)
+    {
+        self.init(rows: rows, columns: columns)
+        solutionImage = image
+        
+        // figure out how to set the tiles image to the cropped version of the solution image
+        
+        
+        for tile in tiles
+        {
+            // get width, height, x, and y for cropped image.
+            if tile.name != 0
+            {
+                if let theImage = solutionImage
+                {
+                    let width = theImage.size.width / CGFloat(columns)
+                    let height = theImage.size.height / CGFloat(rows)
+                    // the width on the frame, will be different than the width on the UIImage. ie the frame might have a height of 100 pixels, but the image will be 1024 X 1024 pixels
+                    let x = CGFloat(tile.initialPosition.column - 1) * (width)
+                    let y = CGFloat(tile.initialPosition.row - 1) * (height)
+                    
+                    tile.imageView.image = cropImage(image: solutionImage, toRect: CGRect(x: x, y: y, width: width, height: height))
+                }
+                else
+                {
+                    print("Error. THere is no solution image...")
+                }
+            }
+            
+            
+        }
+    }
+    
+    // helper method to crop the image
+    func cropImage(image: UIImage?, toRect: CGRect) -> UIImage? {
+        // Cropping is available trhough CGGraphics
+        if let theImage = image, let cgImage: CGImage = theImage.cgImage, let croppedCGImage: CGImage = cgImage.cropping(to: toRect)
+        {
+            return UIImage(cgImage: croppedCGImage)
+        }
+        else
+        {
+            return UIImage(named: "Test")
+        }
         
     }
     
@@ -123,9 +177,9 @@ class Board: NSObject, NSCoding {
             let holdingPosition = emptyTile.position
             self.backgroundView.addSubview(holdingTile)
             self.backgroundView.addSubview(holdingTile2)
-            backgroundView.sendSubview(toBack: holdingTile)
-            backgroundView.sendSubview(toBack: holdingTile2)
-            backgroundView.bringSubview(toFront: tile)
+            backgroundView.sendSubviewToBack(holdingTile)
+            backgroundView.sendSubviewToBack(holdingTile2)
+            backgroundView.bringSubviewToFront(tile)
 //            UIView.animate(withDuration: 0.25, animations: {
 //                tile.frame = self.emptyTile.currentFrame
 //                tile.currentFrame = tile.frame
@@ -148,7 +202,7 @@ class Board: NSObject, NSCoding {
         }
     }
     
-    func moveDirection(direction: UISwipeGestureRecognizerDirection) {
+    func moveDirection(direction: UISwipeGestureRecognizer.Direction) {
         
         // get tile next to position
         var tileToMove: Tile?

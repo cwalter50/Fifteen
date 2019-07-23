@@ -37,8 +37,8 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 300, height: 100))
         button.backgroundColor = UIColor.mintDark
         button.titleLabel?.font = UIFont(name: "Avenir", size: 50.0)
-        button.setTitle("Play Again", for: UIControlState.normal)
-
+        button.setTitle("Play Again", for: UIControl.State.normal)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.addTarget(self, action: #selector(playAgainTapped), for: .primaryActionTriggered)
         return button
     }()
@@ -46,25 +46,57 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         let button = UIButton(frame: CGRect(x: 100, y: 0, width: 300, height: 100))
         button.backgroundColor = UIColor.grapefruitDark
         button.titleLabel?.font = UIFont(name: "Avenir", size: 50.0)
-        button.setTitle("Main Menu", for: UIControlState.normal)
-
+        button.setTitle("Main Menu", for: UIControl.State.normal)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.addTarget(self, action: #selector(mainMenuTapped), for: .primaryActionTriggered)
         return button
     }()
     
-    var movesLabel: UILabel = {
-        let label = UILabel(frame: CGRect(x: 100, y: 0, width: 300, height: 100))
-        label.backgroundColor = UIColor.sunFlowerLight
-        label.font = UIFont(name: "Avenir", size: 50.0)
-        label.text = "Moves: 0"
-        label.textAlignment = .center
-        label.adjustsFontSizeToFitWidth = true
-        return label
+    var scoreTypeSegmentedControl: UISegmentedControl = {
+        
+        let items = ["My Scores" , "All Scores"]
+        let segmentedControl = UISegmentedControl(items : items)
+        segmentedControl.frame = CGRect.zero
+        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.addTarget(self, action: #selector(scoreTypeChanged(_:)), for: .valueChanged)
+        segmentedControl.layer.cornerRadius = 5.0
+        
+        segmentedControl.backgroundColor = UIColor.aquaDark
+        segmentedControl.tintColor = UIColor.white
+
+        return segmentedControl
     }()
+    
+    var sortBySegmentedControl: UISegmentedControl = {
+        
+        let items = ["Moves" , "Time"]
+        let segmentedControl = UISegmentedControl(items : items)
+        segmentedControl.frame = CGRect.zero
+        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.addTarget(self, action: #selector(sortByChanged(_:)), for: .valueChanged)
+        segmentedControl.layer.cornerRadius = 5.0
+        segmentedControl.backgroundColor = UIColor.aquaDark
+        segmentedControl.tintColor = UIColor.white
+        
+        return segmentedControl
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpViews()
+        #if os(iOS)
+            setUpViewsiOS()
+            self.title = "Slidearoo"
+        
+        #elseif os(tvOS)
+            print("running on tvOS")
+            setUpViewstvOS()
+        
+        #else
+            print("OMG, it's that mythical new Apple product!!!")
+            setUpViewsiOS()
+        #endif
+//        setUpViews()
 
 //        view.backgroundColor = UIColor.white
         if let score = gameScore {
@@ -77,13 +109,8 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         }
         loadAllScoresFromCloudkit()
         loadPersonalScoresFromCloudkit()
-
     }
-    override func viewDidAppear(_ animated: Bool) {
 
-    }
-    
-    
     // this method is called whenever the focused item changes
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         super.didUpdateFocus(in: context, with: coordinator)
@@ -109,11 +136,131 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         navigationController?.popToRootViewController(animated: true)
         
     }
+    
+    @objc func scoreTypeChanged(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex{
+        case 0:
+            print("My Scores Selected");
+        case 1:
+            print("All Scores Selected")
+        default:
+            break
+        }
+    }
+    
+    @objc func sortByChanged(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex{
+        case 0:
+            print("Moves");
+        case 1:
+            print("Time")
+        default:
+            break
+        }
+    }
 
     
-    func setUpViews() {
+    func setUpViewsiOS() {
 
-        myTableView = UITableView(frame: CGRect(x: 0, y: 0, width: width / 4.0, height: height * 0.7), style: UITableViewStyle.plain)
+        
+        let theFrame = CGRect(x: 0, y: 0, width: 100, height: 100) // this is a default frame and shouldn't matter for iOS because I am using constraints in iOS
+        let gameScoreView = UIView(frame: CGRect.zero)
+        gameScoreView.backgroundColor = UIColor.blueJeansDark
+        gameScoreView.layer.cornerRadius = 10.0
+        
+        gameScoreLabel = getDisplayLabel(frame: theFrame, numberOfLines: 3)
+        gameScoreView.addSubview(gameScoreLabel)
+        
+        let levelAverageView = UIView(frame: CGRect.zero)
+        levelAverageView.backgroundColor = UIColor.sunFlowerDark
+        levelAverageView.layer.cornerRadius = 10.0
+        levelAverageLabel = getDisplayLabel(frame: theFrame, numberOfLines: 4)
+        levelAverageView.addSubview(levelAverageLabel)
+        
+        let personalAverageView: UIView = UIView(frame: CGRect.zero)
+        personalAverageView.backgroundColor = UIColor.aquaDark
+        personalAverageView.layer.cornerRadius = 10.0
+        personalAverageLabel = getDisplayLabel(frame: theFrame, numberOfLines: 4)
+        personalAverageView.addSubview(personalAverageLabel)
+        
+        
+        backgroundView.addSubview(gameScoreView)
+        backgroundView.addSubview(levelAverageView)
+        backgroundView.addSubview(personalAverageView)
+        
+        let topStack = UIStackView(arrangedSubviews: [gameScoreView, levelAverageView, personalAverageView])
+        topStack.axis = .horizontal
+        topStack.distribution = .fillEqually
+        topStack.alignment = .fill
+        topStack.spacing = 5
+        topStack.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(topStack)
+        
+        view.addSubview(scoreTypeSegmentedControl)
+        view.addSubview(sortBySegmentedControl)
+        scoreTypeSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        
+        sortBySegmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        
+//        myTableView = UITableView(frame: CGRect(x: 0, y: 0, width: width / 4.0, height: height * 0.7), style: UITableView.Style.plain)
+//        myTableView.center = CGPoint(x: width * 0.25 - 10, y: height * 0.5 + 10.0)
+//        myTableView.delegate = self
+//        myTableView.dataSource = self
+//        myTableView.register(HighScoreTableViewCell.self, forCellReuseIdentifier: "myCell")
+//        self.view.addSubview(self.myTableView)
+//        myTableView.backgroundColor = UIColor.clear
+//        myTableView.layer.cornerRadius = 10.0
+//        myTableView.tableFooterView = UIView(frame: CGRect.zero)
+//        // created a custom function to get headerView
+//        myTableView.tableHeaderView = getHeaderView(text: "Personal Best Scores")
+
+        highTableView = UITableView(frame: CGRect(x: 0, y: 0, width: width / 4.0, height: height * 0.7), style: UITableView.Style.plain)
+        highTableView.center = CGPoint(x: width * 0.75 + 10.0, y: height * 0.5 + 10)
+        highTableView.delegate = self
+        highTableView.dataSource = self
+        highTableView.register(HighScoreTableViewCell.self, forCellReuseIdentifier: "highCell")
+        self.view.addSubview(self.highTableView)
+        highTableView.tableFooterView = UIView(frame: CGRect.zero)
+        highTableView.backgroundColor = UIColor.clear
+        highTableView.layer.cornerRadius = 10.0
+        highTableView.tableHeaderView = getHeaderView(text: "All-Time Best Scores")
+        
+        view.addSubview(playAgainButton)
+        view.addSubview(mainMenuButton)
+        
+        
+        let bottomStack = UIStackView(arrangedSubviews: [playAgainButton, mainMenuButton])
+        bottomStack.axis = .horizontal
+        bottomStack.distribution = .fillEqually
+        bottomStack.alignment = .fill
+        bottomStack.spacing = 5
+        bottomStack.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(topStack)
+        
+        reloadBackgroundViewLabels(stats: stats)
+        
+        let mainStack = UIStackView(arrangedSubviews: [topStack, scoreTypeSegmentedControl, sortBySegmentedControl,highTableView, bottomStack])
+        mainStack.axis = .vertical
+        mainStack.distribution = .fill
+        mainStack.alignment = .fill
+        mainStack.spacing = 5
+        mainStack.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(mainStack)
+        
+        // add constraints to main stack
+        topStack.heightAnchor.constraint(equalToConstant: view.frame.height/6).isActive = true
+        bottomStack.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        scoreTypeSegmentedControl.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        sortBySegmentedControl.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        mainStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
+        mainStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 24).isActive = true
+        mainStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -24).isActive = true
+        mainStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40).isActive = true
+    }
+    
+    func setUpViewstvOS() {
+        
+        myTableView = UITableView(frame: CGRect(x: 0, y: 0, width: width / 4.0, height: height * 0.7), style: UITableView.Style.plain)
         myTableView.center = CGPoint(x: width * 0.25 - 10, y: height * 0.5 + 10.0)
         myTableView.delegate = self
         myTableView.dataSource = self
@@ -124,8 +271,8 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         myTableView.tableFooterView = UIView(frame: CGRect.zero)
         // created a custom function to get headerView
         myTableView.tableHeaderView = getHeaderView(text: "Personal Best Scores")
-
-        highTableView = UITableView(frame: CGRect(x: 0, y: 0, width: width / 4.0, height: height * 0.7), style: UITableViewStyle.plain)
+        
+        highTableView = UITableView(frame: CGRect(x: 0, y: 0, width: width / 4.0, height: height * 0.7), style: UITableView.Style.plain)
         highTableView.center = CGPoint(x: width * 0.75 + 10.0, y: height * 0.5 + 10)
         highTableView.delegate = self
         highTableView.dataSource = self
@@ -138,7 +285,7 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         
         self.view.addSubview(playAgainButton)
         playAgainButton.center = CGPoint(x: width * 0.6, y: height * 0.1)
-
+        
         self.view.addSubview(mainMenuButton)
         mainMenuButton.center = CGPoint(x: width * 0.4, y: height * 0.1)
         
@@ -151,21 +298,21 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         
         let theFrame = backgroundView.frame
         let gameScoreView = UIView(frame: CGRect(x: 0, y: 0, width: theFrame.width, height: theFrame.height / 3.0 - 5.0))
-            gameScoreView.backgroundColor = UIColor.blueJeansDark
-            gameScoreView.layer.cornerRadius = 10.0
+        gameScoreView.backgroundColor = UIColor.blueJeansDark
+        gameScoreView.layer.cornerRadius = 10.0
         
         gameScoreLabel = getDisplayLabel(frame: theFrame, numberOfLines: 3)
         gameScoreView.addSubview(gameScoreLabel)
         
         let levelAverageView = UIView(frame: CGRect(x: 0, y: theFrame.height / 3.0, width: theFrame.width, height: theFrame.height / 3.0 - 5.0))
-            levelAverageView.backgroundColor = UIColor.sunFlowerDark
-            levelAverageView.layer.cornerRadius = 10.0
+        levelAverageView.backgroundColor = UIColor.sunFlowerDark
+        levelAverageView.layer.cornerRadius = 10.0
         levelAverageLabel = getDisplayLabel(frame: theFrame, numberOfLines: 4)
         levelAverageView.addSubview(levelAverageLabel)
         
         let personalAverageView: UIView = UIView(frame: CGRect(x: 0, y: theFrame.height * 2.0 / 3.0, width: theFrame.width, height: theFrame.height / 3.0 - 5.0))
-            personalAverageView.backgroundColor = UIColor.aquaDark
-            personalAverageView.layer.cornerRadius = 10.0
+        personalAverageView.backgroundColor = UIColor.aquaDark
+        personalAverageView.layer.cornerRadius = 10.0
         personalAverageLabel = getDisplayLabel(frame: theFrame, numberOfLines: 4)
         personalAverageView.addSubview(personalAverageLabel)
         
@@ -213,7 +360,7 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
     
     func getLabelsAttributedText(string: String, range: NSRange) -> NSAttributedString {
         // create attributedString for label
-        let attributes = [NSAttributedStringKey.font:UIFont(name: "Avenir", size: 80)!]
+        let attributes = [NSAttributedString.Key.font:UIFont(name: "Avenir", size: 80)!]
         let displayString = NSMutableAttributedString(string: string)
         
         displayString.addAttributes(attributes, range: range)

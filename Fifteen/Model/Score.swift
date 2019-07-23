@@ -47,7 +47,7 @@ class Score {
     func saveToCloudkit() {
         // create the CKRecord that gets saved to the database
         let uid = UUID().uuidString // get a uniqueID
-        let recordID = CKRecordID(recordName: uid)
+        let recordID = CKRecord.ID(recordName: uid)
         
         let newScoreRecord = CKRecord(recordType: "Score", recordID: recordID)
 

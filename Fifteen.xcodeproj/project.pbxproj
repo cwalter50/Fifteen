@@ -7,10 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		381CF82A20A3411C00D4A4B5 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381CF82920A3411C00D4A4B5 /* MenuViewController.swift */; };
 		381CF82C20A5DE7200D4A4B5 /* CustomGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381CF82B20A5DE7200D4A4B5 /* CustomGameViewController.swift */; };
 		383DD76E207FA48700737D42 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 383DD76D207FA48700737D42 /* CloudKit.framework */; };
 		383DD770207FA75E00737D42 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383DD76F207FA75E00737D42 /* Score.swift */; };
+		38C539C022B16AA300B403F4 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38C539BF22B16AA300B403F4 /* CloudKit.framework */; };
+		38C539C522B2C13200B403F4 /* LevelsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C539C422B2C13200B403F4 /* LevelsVC.swift */; };
+		38C539C622B2C13200B403F4 /* LevelsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38C539C422B2C13200B403F4 /* LevelsVC.swift */; };
+		38EAC19D22AA9D10002ECA78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38EAC19C22AA9D10002ECA78 /* AppDelegate.swift */; };
+		38EAC1A222AA9D10002ECA78 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38EAC1A022AA9D10002ECA78 /* Main.storyboard */; };
+		38EAC1A522AA9D10002ECA78 /* Slidearoo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 38EAC1A322AA9D10002ECA78 /* Slidearoo.xcdatamodeld */; };
+		38EAC1A722AA9D14002ECA78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38EAC1A622AA9D14002ECA78 /* Assets.xcassets */; };
+		38EAC1AA22AA9D14002ECA78 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38EAC1A822AA9D14002ECA78 /* LaunchScreen.storyboard */; };
+		38EAC1AF22AA9D1E002ECA78 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383DD76F207FA75E00737D42 /* Score.swift */; };
+		38EAC1B022AA9D21002ECA78 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3FDAB207305B000D66EE5 /* Board.swift */; };
+		38EAC1B122AA9D23002ECA78 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3FDAD207305D000D66EE5 /* Tile.swift */; };
+		38EAC1B222AA9D26002ECA78 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E91A520A8C3370072D221 /* MenuButton.swift */; };
+		38EAC1B322AA9D29002ECA78 /* GameSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E91A720A8CD6A0072D221 /* GameSettings.swift */; };
+		38EAC1B422AA9D2D002ECA78 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E91AB20B39C610072D221 /* Stats.swift */; };
+		38EAC1BB22AA9E34002ECA78 /* MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38EAC1BA22AA9E34002ECA78 /* MenuVC.swift */; };
+		38EAC1BC22AA9E60002ECA78 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3FDAF2074513800D66EE5 /* Extensions.swift */; };
+		38EAC1BD22AA9E6B002ECA78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 834224DE2072FC9D005D3144 /* Assets.xcassets */; };
+		38EAC1BE22AA9EC0002ECA78 /* CustomGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381CF82B20A5DE7200D4A4B5 /* CustomGameViewController.swift */; };
+		38EAC1BF22AA9ED9002ECA78 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834224D62072FC9D005D3144 /* GameViewController.swift */; };
+		38EAC1C122AA9EEC002ECA78 /* HowToPlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8384A89520C8A9270045D5D3 /* HowToPlayViewController.swift */; };
+		38EAC1C222AA9EEE002ECA78 /* HighScoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E91A120838EDB0072D221 /* HighScoresViewController.swift */; };
+		38EAC1C322AA9EF1002ECA78 /* HighScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E91A32083D7E30072D221 /* HighScoreTableViewCell.swift */; };
+		38EAC1C422AAA8A4002ECA78 /* MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38EAC1BA22AA9E34002ECA78 /* MenuVC.swift */; };
 		834224D52072FC9D005D3144 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834224D42072FC9D005D3144 /* AppDelegate.swift */; };
 		834224D72072FC9D005D3144 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834224D62072FC9D005D3144 /* GameViewController.swift */; };
 		834224DA2072FC9D005D3144 /* Fifteen.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 834224D82072FC9D005D3144 /* Fifteen.xcdatamodeld */; };
@@ -28,11 +50,21 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		381CF82920A3411C00D4A4B5 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		381CF82B20A5DE7200D4A4B5 /* CustomGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGameViewController.swift; sourceTree = "<group>"; };
 		383DD76B207FA48400737D42 /* Fifteen.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Fifteen.entitlements; sourceTree = "<group>"; };
 		383DD76D207FA48700737D42 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		383DD76F207FA75E00737D42 /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
+		38C539BE22B16A9100B403F4 /* Slidearoo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Slidearoo.entitlements; sourceTree = "<group>"; };
+		38C539BF22B16AA300B403F4 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
+		38C539C422B2C13200B403F4 /* LevelsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelsVC.swift; sourceTree = "<group>"; };
+		38EAC19A22AA9D10002ECA78 /* Slidearoo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Slidearoo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		38EAC19C22AA9D10002ECA78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		38EAC1A122AA9D10002ECA78 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		38EAC1A422AA9D10002ECA78 /* Slidearoo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Slidearoo.xcdatamodel; sourceTree = "<group>"; };
+		38EAC1A622AA9D14002ECA78 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		38EAC1A922AA9D14002ECA78 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		38EAC1AB22AA9D14002ECA78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		38EAC1BA22AA9E34002ECA78 /* MenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuVC.swift; sourceTree = "<group>"; };
 		834224D12072FC9D005D3144 /* Fifteen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fifteen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		834224D42072FC9D005D3144 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		834224D62072FC9D005D3144 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -52,6 +84,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		38EAC19722AA9D10002ECA78 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				38C539C022B16AA300B403F4 /* CloudKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		834224CE2072FC9D005D3144 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -79,15 +119,31 @@
 		383DD76C207FA48700737D42 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				38C539BF22B16AA300B403F4 /* CloudKit.framework */,
 				383DD76D207FA48700737D42 /* CloudKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		38EAC19B22AA9D10002ECA78 /* Slidearoo */ = {
+			isa = PBXGroup;
+			children = (
+				38C539BE22B16A9100B403F4 /* Slidearoo.entitlements */,
+				38EAC19C22AA9D10002ECA78 /* AppDelegate.swift */,
+				38EAC1A022AA9D10002ECA78 /* Main.storyboard */,
+				38EAC1A622AA9D14002ECA78 /* Assets.xcassets */,
+				38EAC1A822AA9D14002ECA78 /* LaunchScreen.storyboard */,
+				38EAC1AB22AA9D14002ECA78 /* Info.plist */,
+				38EAC1A322AA9D10002ECA78 /* Slidearoo.xcdatamodeld */,
+			);
+			path = Slidearoo;
 			sourceTree = "<group>";
 		};
 		834224C82072FC9D005D3144 = {
 			isa = PBXGroup;
 			children = (
 				834224D32072FC9D005D3144 /* Fifteen */,
+				38EAC19B22AA9D10002ECA78 /* Slidearoo */,
 				834224D22072FC9D005D3144 /* Products */,
 				383DD76C207FA48700737D42 /* Frameworks */,
 			);
@@ -97,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				834224D12072FC9D005D3144 /* Fifteen.app */,
+				38EAC19A22AA9D10002ECA78 /* Slidearoo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -106,9 +163,10 @@
 			children = (
 				381CF82F20A5DFF200D4A4B5 /* Model */,
 				834224D42072FC9D005D3144 /* AppDelegate.swift */,
-				381CF82920A3411C00D4A4B5 /* MenuViewController.swift */,
+				38EAC1BA22AA9E34002ECA78 /* MenuVC.swift */,
 				381CF82B20A5DE7200D4A4B5 /* CustomGameViewController.swift */,
 				834224D62072FC9D005D3144 /* GameViewController.swift */,
+				38C539C422B2C13200B403F4 /* LevelsVC.swift */,
 				8384A89520C8A9270045D5D3 /* HowToPlayViewController.swift */,
 				835E91A120838EDB0072D221 /* HighScoresViewController.swift */,
 				835E91A32083D7E30072D221 /* HighScoreTableViewCell.swift */,
@@ -125,6 +183,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		38EAC19922AA9D10002ECA78 /* Slidearoo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 38EAC1AC22AA9D14002ECA78 /* Build configuration list for PBXNativeTarget "Slidearoo" */;
+			buildPhases = (
+				38EAC19622AA9D10002ECA78 /* Sources */,
+				38EAC19722AA9D10002ECA78 /* Frameworks */,
+				38EAC19822AA9D10002ECA78 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Slidearoo;
+			productName = Slidearoo;
+			productReference = 38EAC19A22AA9D10002ECA78 /* Slidearoo.app */;
+			productType = "com.apple.product-type.application";
+		};
 		834224D02072FC9D005D3144 /* Fifteen */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 834224E32072FC9D005D3144 /* Build configuration list for PBXNativeTarget "Fifteen" */;
@@ -148,12 +223,25 @@
 		834224C92072FC9D005D3144 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0920;
+				LastSwiftUpdateCheck = 1020;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = AssistStat;
 				TargetAttributes = {
+					38EAC19922AA9D10002ECA78 = {
+						CreatedOnToolsVersion = 10.2.1;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
+					};
 					834224D02072FC9D005D3144 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
@@ -180,11 +268,23 @@
 			projectRoot = "";
 			targets = (
 				834224D02072FC9D005D3144 /* Fifteen */,
+				38EAC19922AA9D10002ECA78 /* Slidearoo */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		38EAC19822AA9D10002ECA78 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				38EAC1AA22AA9D14002ECA78 /* LaunchScreen.storyboard in Resources */,
+				38EAC1A722AA9D14002ECA78 /* Assets.xcassets in Resources */,
+				38EAC1BD22AA9E6B002ECA78 /* Assets.xcassets in Resources */,
+				38EAC1A222AA9D10002ECA78 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		834224CF2072FC9D005D3144 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -197,15 +297,38 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		38EAC19622AA9D10002ECA78 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				38EAC1C222AA9EEE002ECA78 /* HighScoresViewController.swift in Sources */,
+				38EAC1B322AA9D29002ECA78 /* GameSettings.swift in Sources */,
+				38EAC1B422AA9D2D002ECA78 /* Stats.swift in Sources */,
+				38EAC1A522AA9D10002ECA78 /* Slidearoo.xcdatamodeld in Sources */,
+				38EAC1B222AA9D26002ECA78 /* MenuButton.swift in Sources */,
+				38EAC1BF22AA9ED9002ECA78 /* GameViewController.swift in Sources */,
+				38EAC1C322AA9EF1002ECA78 /* HighScoreTableViewCell.swift in Sources */,
+				38EAC1B022AA9D21002ECA78 /* Board.swift in Sources */,
+				38EAC1B122AA9D23002ECA78 /* Tile.swift in Sources */,
+				38EAC1AF22AA9D1E002ECA78 /* Score.swift in Sources */,
+				38EAC19D22AA9D10002ECA78 /* AppDelegate.swift in Sources */,
+				38EAC1C122AA9EEC002ECA78 /* HowToPlayViewController.swift in Sources */,
+				38EAC1BC22AA9E60002ECA78 /* Extensions.swift in Sources */,
+				38C539C622B2C13200B403F4 /* LevelsVC.swift in Sources */,
+				38EAC1BE22AA9EC0002ECA78 /* CustomGameViewController.swift in Sources */,
+				38EAC1BB22AA9E34002ECA78 /* MenuVC.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		834224CD2072FC9D005D3144 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				383DD770207FA75E00737D42 /* Score.swift in Sources */,
-				381CF82A20A3411C00D4A4B5 /* MenuViewController.swift in Sources */,
 				835E91A820A8CD6A0072D221 /* GameSettings.swift in Sources */,
 				835E91AC20B39C610072D221 /* Stats.swift in Sources */,
 				834224D72072FC9D005D3144 /* GameViewController.swift in Sources */,
+				38EAC1C422AAA8A4002ECA78 /* MenuVC.swift in Sources */,
 				83B3FDB02074513800D66EE5 /* Extensions.swift in Sources */,
 				834224D52072FC9D005D3144 /* AppDelegate.swift in Sources */,
 				83B3FDAE207305D000D66EE5 /* Tile.swift in Sources */,
@@ -214,6 +337,7 @@
 				835E91A620A8C3370072D221 /* MenuButton.swift in Sources */,
 				835E91A220838EDB0072D221 /* HighScoresViewController.swift in Sources */,
 				381CF82C20A5DE7200D4A4B5 /* CustomGameViewController.swift in Sources */,
+				38C539C522B2C13200B403F4 /* LevelsVC.swift in Sources */,
 				835E91A42083D7E30072D221 /* HighScoreTableViewCell.swift in Sources */,
 				8384A89620C8A9270045D5D3 /* HowToPlayViewController.swift in Sources */,
 			);
@@ -222,6 +346,22 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		38EAC1A022AA9D10002ECA78 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				38EAC1A122AA9D10002ECA78 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		38EAC1A822AA9D14002ECA78 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				38EAC1A922AA9D14002ECA78 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
 		834224DB2072FC9D005D3144 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -233,6 +373,49 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		38EAC1AD22AA9D14002ECA78 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = Slidearoo/Slidearoo.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 84LWTY6T5F;
+				INFOPLIST_FILE = Slidearoo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.DocsApps.Slidearoo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		38EAC1AE22AA9D14002ECA78 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = Slidearoo/Slidearoo.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 84LWTY6T5F;
+				INFOPLIST_FILE = Slidearoo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.DocsApps.Slidearoo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 		834224E12072FC9D005D3144 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -354,7 +537,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AssistStat.Fifteen;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 10.0;
 			};
@@ -372,7 +555,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AssistStat.Fifteen;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 10.0;
 			};
@@ -381,6 +564,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		38EAC1AC22AA9D14002ECA78 /* Build configuration list for PBXNativeTarget "Slidearoo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				38EAC1AD22AA9D14002ECA78 /* Debug */,
+				38EAC1AE22AA9D14002ECA78 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		834224CC2072FC9D005D3144 /* Build configuration list for PBXProject "Fifteen" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -402,6 +594,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
+		38EAC1A322AA9D10002ECA78 /* Slidearoo.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				38EAC1A422AA9D10002ECA78 /* Slidearoo.xcdatamodel */,
+			);
+			currentVersion = 38EAC1A422AA9D10002ECA78 /* Slidearoo.xcdatamodel */;
+			path = Slidearoo.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
 		834224D82072FC9D005D3144 /* Fifteen.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (

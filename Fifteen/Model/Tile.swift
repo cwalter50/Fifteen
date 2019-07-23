@@ -24,8 +24,14 @@ class Tile : UIView
         label.textAlignment = .center
         return label
     }()
+    var imageView: UIImageView = {
+        let imageView = UIImageView(frame: CGRect.zero)
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = nil
+        return imageView
+    }()
 
-    
+    // initializer used in board for Tiles with numbers
     init(position: TilePosition, name: Int, frame: CGRect) {
         self.position = position
         self.name = name
@@ -36,6 +42,15 @@ class Tile : UIView
 
         super.init(frame: frame)
         setTileLabelsAndViews()
+        
+    }
+    
+    // initializer used if there is an image
+    convenience init(position: TilePosition, name: Int, frame: CGRect, image: UIImage?)
+    {
+        self.init(position: position, name: name, frame: frame)
+        
+        imageView.image = image
         
     }
     
@@ -53,6 +68,7 @@ class Tile : UIView
     }
     
     func setTileLabelsAndViews() {
+        
         self.nameLabel.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
         //        nameLabel.center = self.center
         self.nameLabel.font = UIFont(name: "Avenir", size: frame.height*0.8)
@@ -64,6 +80,12 @@ class Tile : UIView
         self.layer.borderColor = UIColor.darkGray.cgColor
         self.layer.borderWidth = 2.0
         self.setTileTitle()
+        
+        // move this above the nameLabel if you want numbers and images...
+        imageView.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
+        self.addSubview(imageView)
+        
+        
     }
     
     func setTileTitle() {
@@ -76,6 +98,11 @@ class Tile : UIView
             self.nameLabel.text = "\(name)"
 //            self.setTitle("\(name)", for: .normal)
         }
+    }
+    
+    func setImage(image: UIImage?)
+    {
+        imageView.image = image
     }
     required convenience init(coder aDecoder: NSCoder) {
         // use these to get position
