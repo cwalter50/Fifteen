@@ -206,11 +206,18 @@ class MenuVC: UIViewController, CustomGameDelegate, ChoosePictureVCDelegate {
     // delegate call from customGameVC
     func playGame(newGameSettings: GameSettings) {
         self.gameSettings = newGameSettings
-        performSegue(withIdentifier: "playCustomGame", sender: self)
+        
+        if gameSettings.isWithImage {
+            performSegue(withIdentifier: "choosePictureSegue", sender: self)
+        }
+        else{
+            performSegue(withIdentifier: "playCustomGame", sender: self)
+        }
+        
     }
     
     // delegate call from ChoosePictureVC
-    func playGame(image: UIImage?) {
+    func playGame(image: UIImage?, gameSettings: GameSettings) {
         self.selectedImage = image
         
         if selectedImage != nil
@@ -253,6 +260,7 @@ class MenuVC: UIViewController, CustomGameDelegate, ChoosePictureVCDelegate {
         {
             let destVC = segue.destination as! ChoosePictureVC
             destVC.delegate = self
+            destVC.gameSettings = self.gameSettings
         }
 
         if segue.identifier == "pictureGameSegue"{

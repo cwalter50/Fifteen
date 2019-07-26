@@ -79,6 +79,7 @@ class CustomGameViewController: UIViewController {
         return label
     }()
     
+    
     var playGameButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 200, y: 200, width: 350, height: 150))
         button.backgroundColor = UIColor.blueJeansDark
@@ -98,6 +99,19 @@ class CustomGameViewController: UIViewController {
         button.titleLabel?.font = UIFont(name: "Avenir", size: 60.0)
         button.addTarget(self, action: #selector(backButtonTapped), for: .primaryActionTriggered)
         button.titleLabel?.adjustsFontSizeToFitWidth = true
+
+        return button
+    }()
+    
+    // this buttons will determine if we want to play with pictures or numbers...
+    var pictureButton: MenuButton = {
+        let button = MenuButton(name: "Pictures", frame: CGRect(x: 0, y: 0, width: 350, height: 150))
+        
+        return button
+    }()
+    
+    var numberButton: MenuButton = {
+        let button = MenuButton(name: "Numbers", frame: CGRect(x: 0, y: 0, width: 350, height: 150))
 
         return button
     }()
@@ -183,6 +197,8 @@ class CustomGameViewController: UIViewController {
                 button.isSelected = true
             }
         }
+        
+
     }
     
     func createButtonsAndLabelsiOS() {
@@ -191,6 +207,8 @@ class CustomGameViewController: UIViewController {
         view.addSubview(difficultyLabel)
         view.addSubview(playGameButton)
         view.addSubview(backButton)
+        
+
         
         playGameButton.translatesAutoresizingMaskIntoConstraints = false
         backButton.translatesAutoresizingMaskIntoConstraints = false
@@ -286,6 +304,7 @@ class CustomGameViewController: UIViewController {
         bottomStack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bottomStack)
         
+        
         let tableStack = UIStackView(arrangedSubviews: [rowStack, columnStack, difficultyStack])
         tableStack.axis = .horizontal
         tableStack.distribution = .fillEqually
@@ -294,7 +313,24 @@ class CustomGameViewController: UIViewController {
         tableStack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableStack)
         
-        let mainStack = UIStackView(arrangedSubviews: [tableStack, bottomStack])
+
+        view.addSubview(pictureButton)
+        view.addSubview(numberButton)
+        numberButton.isSelected = true // make this the default button selected...
+        gameSettings.isWithImage = false
+        gameSettings.image = nil
+        pictureButton.addTarget(self, action: #selector(pictureButtonTapped), for: .primaryActionTriggered)
+        numberButton.addTarget(self, action: #selector(numberButtonTapped), for: .primaryActionTriggered)
+        
+        let pictureStack = UIStackView(arrangedSubviews: [numberButton, pictureButton])
+        pictureStack.axis = .horizontal
+        pictureStack.distribution = .fillEqually
+        pictureStack.alignment = .fill
+        pictureStack.spacing = 5
+        pictureStack.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(pictureStack)
+        
+        let mainStack = UIStackView(arrangedSubviews: [tableStack, pictureStack, bottomStack])
         mainStack.axis = .vertical
         mainStack.distribution = .equalCentering
         mainStack.alignment = .fill
@@ -305,13 +341,34 @@ class CustomGameViewController: UIViewController {
         
         // add constraints
         bottomStack.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        pictureStack.heightAnchor.constraint(equalToConstant: 60).isActive = true
         mainStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 120).isActive = true
         mainStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 24).isActive = true
         mainStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -24).isActive = true
         mainStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100).isActive = true
+        
+        
+
     }
     
 
+    @objc func pictureButtonTapped(sender: MenuButton)
+    {
+        pictureButton.isSelected = true
+        numberButton.isSelected = false
+        gameSettings.isWithImage = true
+   
+
+    }
+    
+    @objc func numberButtonTapped(sender: MenuButton)
+    {
+        pictureButton.isSelected = false
+        numberButton.isSelected = true
+        gameSettings.isWithImage = false
+        
+        
+    }
     @objc func difficultyButtonTapped(sender: UIButton) {
         for button in difficultyButtons {
             button.isSelected = false

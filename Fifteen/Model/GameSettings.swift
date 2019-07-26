@@ -30,6 +30,8 @@ class GameSettings {
     // this is formatted as rows x columns difficulty, ie "4 x 3 black belt"
     var difficultyLevel:String = ""
     
+    var isWithImage: Bool = false
+    var image: UIImage?
 
     
     init() {
@@ -39,6 +41,8 @@ class GameSettings {
         shuffleCount = 10
         updateShuffleCount()
         difficultyLevel = "\(rows) x \(columns) \(difficulty)"
+        isWithImage = false
+        image = nil
         
     }
     
@@ -50,8 +54,16 @@ class GameSettings {
 
         self.shuffleCount = shuffleCount
         updateShuffleCount()
+        isWithImage = false
+        image = nil
     }
     
+    convenience init(rows: Int, columns: Int, difficulty: String, shuffleCount: Int, image: UIImage?) {
+        self.init(rows: rows, columns: columns, difficulty: difficulty, shuffleCount: shuffleCount)
+        
+        isWithImage = true
+        self.image = image
+    }
     func updateShuffleCount() {
         var shuffleMultiplier = 1
         switch difficulty {

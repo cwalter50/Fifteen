@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ChoosePictureVCDelegate {
-    func playGame(image: UIImage?)
+    func playGame(image: UIImage?, gameSettings: GameSettings)
 }
 
 class ChoosePictureVC: UIViewController {
@@ -133,12 +133,15 @@ class ChoosePictureVC: UIViewController {
     
     @objc func backButtonTapped()
     {
+        gameSettings.isWithImage = false
         self.dismiss(animated: true, completion: nil)
     }
     
     @objc func playGameTapped()
     {
-        delegate?.playGame(image: gameImageView.image)
+        gameSettings.isWithImage = true
+        gameSettings.image = gameImageView.image
+        delegate?.playGame(image: gameImageView.image, gameSettings: gameSettings)
         self.dismiss(animated: true, completion: nil)
     }
     
