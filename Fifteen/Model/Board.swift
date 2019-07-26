@@ -283,6 +283,7 @@ class Board: NSObject, NSCoding {
         for tile in tiles {
             tile.frame = tile.initialFrame
             tile.position = tile.initialPosition
+            tile.currentFrame = tile.initialFrame
         }
         moves = 0
         time = 0

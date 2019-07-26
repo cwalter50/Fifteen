@@ -284,7 +284,7 @@ class LevelsVC: UIViewController {
         bottomStackA.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bottomStackA)
         
-        let bottomStackB = UIStackView(arrangedSubviews: [quit, saveButton])
+        let bottomStackB = UIStackView(arrangedSubviews: [quitButton, saveButton])
         bottomStackB.axis = .horizontal
         bottomStackB.distribution = .fillEqually
         bottomStackB.alignment = .fill
