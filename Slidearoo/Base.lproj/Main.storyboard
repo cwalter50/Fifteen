@@ -29,11 +29,43 @@
                         <segue destination="9Nd-MA-j7P" kind="show" identifier="playCustomGame" id="3yR-Zb-oj6"/>
                         <segue destination="Ok1-rV-KmI" kind="show" identifier="HighScoresSegue" id="ecy-D4-2ii"/>
                         <segue destination="go4-Ot-V6R" kind="show" identifier="LevelsSegue" id="xIQ-d4-RWQ"/>
+                        <segue destination="hGX-62-tnO" kind="presentation" identifier="choosePictureSegue" id="ZYD-QJ-Mxi"/>
+                        <segue destination="T6d-oc-0ke" kind="show" identifier="pictureGameSegue" id="57e-ei-oWA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1047.8260869565217" y="95.758928571428569"/>
+        </scene>
+        <!--Choose PictureVC-->
+        <scene sceneID="Baz-X4-4VW">
+            <objects>
+                <viewController id="hGX-62-tnO" customClass="ChoosePictureVC" customModule="Slidearoo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pP7-FB-nnd">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="K3a-TK-Tsb"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h58-F2-cU6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1013" y="-654"/>
+        </scene>
+        <!--Picture GameVC-->
+        <scene sceneID="Crk-5c-Cme">
+            <objects>
+                <viewController id="T6d-oc-0ke" customClass="PictureGameVC" customModule="Slidearoo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2Ls-kT-9Z0">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Hsb-E9-L4f"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="exn-Mi-4CA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1912" y="-1002"/>
         </scene>
         <!--Custom Game View Controller-->
         <scene sceneID="Swx-uo-B4d">
@@ -119,7 +151,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="o9X-BB-KbH" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="GEn-fR-Mci">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="GEn-fR-Mci">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

@@ -241,7 +241,7 @@ class GameViewController: UIViewController, PlayAgainDelegate {
         pauseButton.titleLabel?.font = UIFont(name: "Avenir", size: 30)
         saveButton.titleLabel?.font = UIFont(name: "Avenir", size: 30)
         
-        let bottomStackA = UIStackView(arrangedSubviews: [howToButton, quitButton, pauseButton])
+        let bottomStackA = UIStackView(arrangedSubviews: [howToButton, resetButton, pauseButton])
         bottomStackA.axis = .horizontal
         bottomStackA.distribution = .fillEqually
         bottomStackA.alignment = .fill
@@ -249,7 +249,7 @@ class GameViewController: UIViewController, PlayAgainDelegate {
         bottomStackA.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bottomStackA)
         
-        let bottomStackB = UIStackView(arrangedSubviews: [resetButton, saveButton])
+        let bottomStackB = UIStackView(arrangedSubviews: [quitButton, saveButton])
         bottomStackB.axis = .horizontal
         bottomStackB.distribution = .fillEqually
         bottomStackB.alignment = .fill

@@ -66,8 +66,6 @@ class Board: NSObject, NSCoding {
         solutionImage = image
         
         // figure out how to set the tiles image to the cropped version of the solution image
-        
-        
         for tile in tiles
         {
             // get width, height, x, and y for cropped image.
@@ -85,7 +83,7 @@ class Board: NSObject, NSCoding {
                 }
                 else
                 {
-                    print("Error. THere is no solution image...")
+                    print("Error. There is no solution image...")
                 }
             }
             
@@ -119,7 +117,6 @@ class Board: NSObject, NSCoding {
         for tile in tiles {
             self.backgroundView.addSubview(tile)
         }
-        
     }
     
     func shuffle(numberOfMoves: Int) {

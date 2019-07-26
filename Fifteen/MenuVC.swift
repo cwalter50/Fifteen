@@ -8,7 +8,9 @@
 
 import UIKit
 
-class MenuVC: UIViewController, CustomGameDelegate {
+class MenuVC: UIViewController, CustomGameDelegate, ChoosePictureVCDelegate {
+
+    
     
     // MARK: Properties
     let width = UIScreen.main.bounds.width
@@ -16,11 +18,13 @@ class MenuVC: UIViewController, CustomGameDelegate {
     
     var gameSettings: GameSettings = GameSettings() // use default initializer for gameSettings which is 4 x 4 medium
     
-    var quickGameButton: UIButton = {
+    var selectedImage: UIImage?
+    
+    var quickNumberGameButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 100, y: 0, width: 400, height: 100))
         button.backgroundColor = UIColor.mintDark
-        button.setTitle("Quick Game", for: .normal)
-        button.titleLabel?.font = UIFont(name: "Avenir", size: 60)
+        button.setTitle("Quick Number Game", for: .normal)
+        button.titleLabel?.font = UIFont(name: "Avenir", size: 40)
         button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.addTarget(self, action: #selector(quickGame), for: .primaryActionTriggered)
         button.layer.cornerRadius = 10
@@ -33,7 +37,7 @@ class MenuVC: UIViewController, CustomGameDelegate {
         button.setTitle("Custom Game", for: .normal)
         button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.addTarget(self, action: #selector(customGame), for: .primaryActionTriggered)
-        button.titleLabel?.font = UIFont(name: "Avenir", size: 60.0)
+        button.titleLabel?.font = UIFont(name: "Avenir", size: 40.0)
         button.layer.cornerRadius = 10
         return button
     }()
@@ -44,7 +48,7 @@ class MenuVC: UIViewController, CustomGameDelegate {
         button.setTitle("Resume Game", for: .normal)
         button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.addTarget(self, action: #selector(resumeGame), for: .primaryActionTriggered)
-        button.titleLabel?.font = UIFont(name: "Avenir", size: 60.0)
+        button.titleLabel?.font = UIFont(name: "Avenir", size: 40.0)
         button.layer.cornerRadius = 10
         return button
     }()
@@ -52,7 +56,7 @@ class MenuVC: UIViewController, CustomGameDelegate {
     var howToButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 100, y: 0, width: 400, height: 100))
         button.backgroundColor = UIColor.grapefruitDark
-        button.titleLabel?.font = UIFont(name: "Avenir", size: 60.0)
+        button.titleLabel?.font = UIFont(name: "Avenir", size: 40.0)
         button.setTitle("How to Play", for: UIControl.State.normal)
         button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.addTarget(self, action: #selector(howToPlay), for: .primaryActionTriggered)
@@ -63,7 +67,7 @@ class MenuVC: UIViewController, CustomGameDelegate {
     var highScoresButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 100, y: 0, width: 400, height: 100))
         button.backgroundColor = UIColor.blueJeansDark
-        button.titleLabel?.font = UIFont(name: "Avenir", size: 60.0)
+        button.titleLabel?.font = UIFont(name: "Avenir", size: 40.0)
         button.setTitle("High Scores", for: UIControl.State.normal)
         button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.addTarget(self, action: #selector(highScores), for: .primaryActionTriggered)
@@ -71,13 +75,13 @@ class MenuVC: UIViewController, CustomGameDelegate {
         return button
     }()
     
-    var levelsButton: UIButton = {
+    var quickPictureGameButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 100, y: 0, width: 400, height: 100))
         button.backgroundColor = UIColor.grassDark
-        button.titleLabel?.font = UIFont(name: "Avenir", size: 60.0)
-        button.setTitle("Levels", for: UIControl.State.normal)
+        button.titleLabel?.font = UIFont(name: "Avenir", size: 40.0)
+        button.setTitle("Quick Picture Game", for: UIControl.State.normal)
         button.titleLabel?.adjustsFontSizeToFitWidth = true
-        button.addTarget(self, action: #selector(levels), for: .primaryActionTriggered)
+        button.addTarget(self, action: #selector(pictureGame), for: .primaryActionTriggered)
         button.layer.cornerRadius = 10
         return button
     }()
@@ -123,14 +127,14 @@ class MenuVC: UIViewController, CustomGameDelegate {
     
     func createLabelsAndButtons() {
         //        self.view.backgroundColor = UIColor.white
-        view.addSubview(quickGameButton)
+        view.addSubview(quickNumberGameButton)
         view.addSubview(customGameButton)
         view.addSubview(resumeGameButton)
         view.addSubview(howToButton)
         view.addSubview(highScoresButton)
-        view.addSubview(levelsButton)
+        view.addSubview(quickPictureGameButton)
         
-        let stackView = UIStackView(arrangedSubviews: [quickGameButton, customGameButton, resumeGameButton, howToButton, highScoresButton, levelsButton])
+        let stackView = UIStackView(arrangedSubviews: [quickNumberGameButton, quickPictureGameButton, customGameButton, resumeGameButton, howToButton, highScoresButton])
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
         stackView.alignment = .fill
@@ -162,8 +166,9 @@ class MenuVC: UIViewController, CustomGameDelegate {
     @objc func highScores() {
         performSegue(withIdentifier: "HighScoresSegue", sender: self)
     }
-    @objc func levels() {
-        performSegue(withIdentifier: "LevelsSegue", sender: self)
+    @objc func pictureGame() {
+        performSegue(withIdentifier: "choosePictureSegue", sender: self)
+//        performSegue(withIdentifier: "pictureGameSegue", sender: self)
     }
     
     var savedBoard: Board?
@@ -198,9 +203,25 @@ class MenuVC: UIViewController, CustomGameDelegate {
         
     }
     
+    // delegate call from customGameVC
     func playGame(newGameSettings: GameSettings) {
         self.gameSettings = newGameSettings
         performSegue(withIdentifier: "playCustomGame", sender: self)
+    }
+    
+    // delegate call from ChoosePictureVC
+    func playGame(image: UIImage?) {
+        self.selectedImage = image
+        
+        if selectedImage != nil
+        {
+            performSegue(withIdentifier: "pictureGameSegue", sender: self)
+        }
+        else
+        {
+            print("no image selected")
+            performSegue(withIdentifier: "quickGameSegue", sender: self)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -226,6 +247,19 @@ class MenuVC: UIViewController, CustomGameDelegate {
             // pass stuff here
             destVC.gameSettings = self.gameSettings
             destVC.savedBoard = savedBoard
+            // figure out how to save current game and pass game to continue.
+        }
+        if segue.identifier == "choosePictureSegue"
+        {
+            let destVC = segue.destination as! ChoosePictureVC
+            destVC.delegate = self
+        }
+
+        if segue.identifier == "pictureGameSegue"{
+            let destVC = segue.destination as! PictureGameVC
+            // pass stuff here
+            destVC.gameSettings = self.gameSettings
+            destVC.image = selectedImage
             // figure out how to save current game and pass game to continue.
         }
     }

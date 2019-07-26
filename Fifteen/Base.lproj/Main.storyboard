@@ -28,6 +28,42 @@
             </objects>
             <point key="canvasLocation" x="4344" y="-2368"/>
         </scene>
+        <!--Picture GameVC-->
+        <scene sceneID="ajS-s5-A1m">
+            <objects>
+                <viewController id="G3Z-wJ-Xub" customClass="PictureGameVC" customModule="Fifteen" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5uZ-hl-GDN"/>
+                        <viewControllerLayoutGuide type="bottom" id="bfi-JV-jgh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="v3T-6p-EOi">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="YEy-A8-pYi"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="R1m-pb-bSC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4168" y="-4548"/>
+        </scene>
+        <!--Choose PictureVC-->
+        <scene sceneID="tWE-ZU-13t">
+            <objects>
+                <viewController id="6o1-FL-1UE" customClass="ChoosePictureVC" customModule="Fifteen" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8wK-p5-1k1"/>
+                        <viewControllerLayoutGuide type="bottom" id="fOi-gg-3ZQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="HvS-eh-cIk">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="HmO-Gp-MDg"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0PS-qV-pnh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1514" y="-1582"/>
+        </scene>
         <!--MenuVC-->
         <scene sceneID="9vC-fZ-xsW">
             <objects>
@@ -49,7 +85,9 @@
                         <segue destination="BYZ-38-t0r" kind="show" identifier="resumeGameSegue" id="fyD-Ej-ZX9"/>
                         <segue destination="Lqy-Do-Qnh" kind="presentation" identifier="HowToSegue" id="cca-f9-gnk"/>
                         <segue destination="hqO-0n-PnW" kind="show" identifier="HighScoresSegue" id="zEC-3N-4Ro"/>
-                        <segue destination="w2W-09-OrM" kind="show" identifier="LevelsSegue" id="oR0-2r-KAw"/>
+                        <segue destination="w2W-09-OrM" kind="show" identifier="quickPictureGameSegue" id="oR0-2r-KAw"/>
+                        <segue destination="6o1-FL-1UE" kind="presentation" identifier="choosePictureSegue" id="NEF-gY-9rq"/>
+                        <segue destination="G3Z-wJ-Xub" kind="show" identifier="pictureGameSegue" id="2IA-xU-sRT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y7y-Fa-MMC" userLabel="First Responder" sceneMemberID="firstResponder"/>

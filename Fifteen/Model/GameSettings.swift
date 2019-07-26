@@ -29,6 +29,7 @@ class GameSettings {
     
     // this is formatted as rows x columns difficulty, ie "4 x 3 black belt"
     var difficultyLevel:String = ""
+    
 
     
     init() {

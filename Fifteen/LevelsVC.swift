@@ -109,7 +109,7 @@ class LevelsVC: UIViewController {
     
     var solutionView: UIImageView = {
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        imageView.image = UIImage(named: "Test")
+        imageView.image = UIImage(named: "Happy")
         imageView.contentMode = .scaleAspectFit
 //        imageView.layer.borderColor = UIColor.darkGray.cgColor
 //        imageView.layer.borderWidth = 2.0
@@ -276,7 +276,7 @@ class LevelsVC: UIViewController {
         pauseButton.titleLabel?.font = UIFont(name: "Avenir", size: 30)
         saveButton.titleLabel?.font = UIFont(name: "Avenir", size: 30)
         
-        let bottomStackA = UIStackView(arrangedSubviews: [howToButton, quitButton, pauseButton])
+        let bottomStackA = UIStackView(arrangedSubviews: [howToButton, resetButton, pauseButton])
         bottomStackA.axis = .horizontal
         bottomStackA.distribution = .fillEqually
         bottomStackA.alignment = .fill
@@ -284,7 +284,7 @@ class LevelsVC: UIViewController {
         bottomStackA.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bottomStackA)
         
-        let bottomStackB = UIStackView(arrangedSubviews: [resetButton, saveButton])
+        let bottomStackB = UIStackView(arrangedSubviews: [quit, saveButton])
         bottomStackB.axis = .horizontal
         bottomStackB.distribution = .fillEqually
         bottomStackB.alignment = .fill
@@ -328,7 +328,7 @@ class LevelsVC: UIViewController {
         } else {
 //            board = Board(rows: gameSettings.rows, columns: gameSettings.columns)
             
-            board = Board(rows: gameSettings.rows, columns: gameSettings.columns, image: UIImage(named: "Test"))
+            board = Board(rows: gameSettings.rows, columns: gameSettings.columns, image: UIImage(named: "Happy"))
             // figure out a setting to shuffle board for easy/ medium, or hard
             board.shuffle(numberOfMoves: gameSettings.shuffleCount)
             
