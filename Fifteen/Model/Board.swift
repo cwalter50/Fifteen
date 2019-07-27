@@ -26,15 +26,16 @@ class Board: NSObject, NSCoding {
         self.rows = rows
         self.columns = columns
         
+        let theMax = max(rows, columns) // this will make sure that the block width will fit horizontally or vertically
         
         let width = UIScreen.main.bounds.width
         let height = UIScreen.main.bounds.height
         var blockWidth: CGFloat = 10
         if height > width { // this would be iOS
-            blockWidth = (width - 48.0) / CGFloat(rows) // small buffer for ios for boundaries
+            blockWidth = (width - 48.0) / CGFloat(theMax) // small buffer for ios for boundaries
         }
         else {
-            blockWidth = (height - 300.0) / CGFloat(rows) // for tvOS.. larger buffer
+            blockWidth = (height - 300.0) / CGFloat(theMax) // for tvOS.. larger buffer
         }
         let center = CGPoint(x: width * 0.5, y: height * 0.5)
         self.backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: (blockWidth + 2.0) * CGFloat(columns), height: (blockWidth + 2.0) * CGFloat(rows)))
@@ -86,8 +87,6 @@ class Board: NSObject, NSCoding {
                     print("Error. There is no solution image...")
                 }
             }
-            
-            
         }
     }
     

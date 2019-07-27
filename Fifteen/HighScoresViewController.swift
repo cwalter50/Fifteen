@@ -394,7 +394,8 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         
     }
     func loadPersonalScoresFromCloudkit() {
-        let privateDatabase = CKContainer.default().privateCloudDatabase
+        let privateDatabase = CKContainer(identifier: "iCloud.com.AssistStat.Fifteen").privateCloudDatabase
+//        let privateDatabase = CKContainer.default().privateCloudDatabase
 
         let predicate = NSPredicate(value: true) // this will grab all scores
 //        if let score = gameScore {
@@ -450,7 +451,9 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
     
     
     func loadAllScoresFromCloudkit() {
-        let publicDatabase = CKContainer.default().publicCloudDatabase
+        let publicDatabase = CKContainer(identifier: "iCloud.com.AssistStat.Fifteen").publicCloudDatabase
+//        let publicDatabase = CKContainer.
+//        let publicDatabase = CKContainer.default().publicCloudDatabase
         
         // Initialize Query.  And load all classes.
         var predicate = NSPredicate(value: true) // this will grab all scores
@@ -473,7 +476,7 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
                 print("Error querying records: ", error as Any)
                 return
             }
-            print("Found \(records.count) records matching query")
+            print("Found \(records.count) records matching query in public Database")
             if records.count == 0 {
                 // we found no scores.  Display default score.
                 let score = Score(name: "No Scores yet", moves: 0, time: 0, difficultyLevel: "Easy")

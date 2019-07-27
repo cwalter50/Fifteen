@@ -122,6 +122,7 @@
 				835E91A720A8CD6A0072D221 /* GameSettings.swift */,
 				835E91AB20B39C610072D221 /* Stats.swift */,
 				83E8320122EB487200E61747 /* GameImageCell.swift */,
+				835E91A32083D7E30072D221 /* HighScoreTableViewCell.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -178,11 +179,10 @@
 				834224D62072FC9D005D3144 /* GameViewController.swift */,
 				83E831FB22EB446500E61747 /* PictureGameVC.swift */,
 				83E831FE22EB448300E61747 /* ChoosePictureVC.swift */,
-				38C539C422B2C13200B403F4 /* LevelsVC.swift */,
 				8384A89520C8A9270045D5D3 /* HowToPlayViewController.swift */,
 				835E91A120838EDB0072D221 /* HighScoresViewController.swift */,
-				835E91A32083D7E30072D221 /* HighScoreTableViewCell.swift */,
 				83B3FDAF2074513800D66EE5 /* Extensions.swift */,
+				38C539C422B2C13200B403F4 /* LevelsVC.swift */,
 				834224DB2072FC9D005D3144 /* Main.storyboard */,
 				834224DE2072FC9D005D3144 /* Assets.xcassets */,
 				834224E02072FC9D005D3144 /* Info.plist */,

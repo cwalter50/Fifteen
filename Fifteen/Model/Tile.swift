@@ -26,7 +26,7 @@ class Tile : UIView
     }()
     var imageView: UIImageView = {
         let imageView = UIImageView(frame: CGRect.zero)
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleToFill
         imageView.image = nil
         return imageView
     }()

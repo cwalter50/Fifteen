@@ -62,10 +62,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="Hsb-E9-L4f"/>
                     </view>
+                    <connections>
+                        <segue destination="I2t-oH-u2M" kind="presentation" identifier="HowToSegue" id="aSa-HI-KKd"/>
+                        <segue destination="Ok1-rV-KmI" kind="show" identifier="HighScoresSegue" id="KWe-39-IWy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="exn-Mi-4CA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1912" y="-1002"/>
+            <point key="canvasLocation" x="3578" y="1"/>
         </scene>
         <!--Custom Game View Controller-->
         <scene sceneID="Swx-uo-B4d">
@@ -166,8 +170,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="iLy-Vf-ohr"/>
-        <segue reference="ecy-D4-2ii"/>
-        <segue reference="3Ss-4k-fte"/>
+        <segue reference="aSa-HI-KKd"/>
+        <segue reference="KWe-39-IWy"/>
+        <segue reference="3yR-Zb-oj6"/>
     </inferredMetricsTieBreakers>
 </document>
