@@ -6,14 +6,16 @@
 //  Copyright © 2019 AssistStat. All rights reserved.
 //
 
+// Note: this class is a copy of the ChoosePickerVC for iOS version. Only difference, is that I removed the load picture feature... The Apple TV will not run with th UIImagePickerdelegate on the page...
+
 import UIKit
 
 protocol ChoosePictureVCDelegate {
     func playGame(image: UIImage?, gameSettings: GameSettings)
 }
 
-class ChoosePictureVC: UIViewController {
-
+class ChoosePictureVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
     // MARK: Properties
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
@@ -24,6 +26,7 @@ class ChoosePictureVC: UIViewController {
     var gameSettings: GameSettings = GameSettings() // use default initializer for gameSettings which is 4 x 4 medium
     
     var delegate: ChoosePictureVCDelegate?
+    
     
     var playGameButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 200, y: 200, width: 350, height: 150))
@@ -100,14 +103,13 @@ class ChoosePictureVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
         self.collectionView.register(GameImageCell.self, forCellWithReuseIdentifier: GameImageCell.identifier)
         self.collectionView.alwaysBounceHorizontal = true
         self.collectionView.backgroundColor = .clear
-
-
+        
     }
     
     // this method is called whenever the focused item changes with tvOS
@@ -123,7 +125,7 @@ class ChoosePictureVC: UIViewController {
     
     func createGameImages()
     {
-        imageStrings = ["ClownFish", "Test", "Happy", "Smile"]
+        imageStrings = ["Night","ClownFish", "Test", "AppIconiOSOriginal","Happy", "Smile", "OutOfTimeLogo3"]
         for word in imageStrings
         {
             let newImage = UIImage(named: word)
@@ -149,7 +151,8 @@ class ChoosePictureVC: UIViewController {
     {
         // ToDo: Load pictures from camera roll and save to cloudkit...
         print("loadPicture tapped... ToDo!!!")
-    
+//        cameraButtonTapped()
+        
     }
     @objc func getAndSetRandomImage()
     {
@@ -190,6 +193,8 @@ class ChoosePictureVC: UIViewController {
         view.addSubview(bottomStackMain)
         
         
+        loadPictureButton.isHidden = true
+        
         bottomStackMain.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40).isActive = true
         
         // change the bottom layout for tvOS vs iOS
@@ -220,7 +225,7 @@ class ChoosePictureVC: UIViewController {
         label.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
         label.heightAnchor.constraint(equalToConstant: 45).isActive = true
         
-
+        
         self.view.addSubview(collectionView)
         
         collectionView.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 10).isActive = true
@@ -232,7 +237,7 @@ class ChoosePictureVC: UIViewController {
         self.view.addSubview(gameImageView)
         
         getAndSetRandomImage()
-
+        
         
         // make gameImageview, fill the space between gameImageView and bottom stack. first figure out if that space is taller or wider, because game imageView needs to be a square
         let vert = UIScreen.main.bounds.height / 2 - 40
@@ -247,12 +252,9 @@ class ChoosePictureVC: UIViewController {
         
     }
     
-
-
-}
-
-extension ChoosePictureVC: UICollectionViewDataSource {
     
+    
+    // MARK: CollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
         return self.gameImages.count
@@ -266,10 +268,8 @@ extension ChoosePictureVC: UICollectionViewDataSource {
         
         return cell
     }
-}
-
-extension ChoosePictureVC: UICollectionViewDelegate {
     
+    // MARK: CollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell: GameImageCell = collectionView.cellForItem(at: indexPath) as? GameImageCell else { return }
         
@@ -279,10 +279,8 @@ extension ChoosePictureVC: UICollectionViewDelegate {
         print("tapped item at index \(indexPath.item)")
         
     }
-}
-
-extension ChoosePictureVC: UICollectionViewDelegateFlowLayout {
     
+    // MARK: CollectionviewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -306,15 +304,7 @@ extension ChoosePictureVC: UICollectionViewDelegateFlowLayout {
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 5
     }
+    
+    
 }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 

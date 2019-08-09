@@ -38,21 +38,27 @@
 		834224DA2072FC9D005D3144 /* Fifteen.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 834224D82072FC9D005D3144 /* Fifteen.xcdatamodeld */; };
 		834224DD2072FC9D005D3144 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 834224DB2072FC9D005D3144 /* Main.storyboard */; };
 		834224DF2072FC9D005D3144 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 834224DE2072FC9D005D3144 /* Assets.xcassets */; };
-		835E91A220838EDB0072D221 /* HighScoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E91A120838EDB0072D221 /* HighScoresViewController.swift */; };
 		835E91A42083D7E30072D221 /* HighScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E91A32083D7E30072D221 /* HighScoreTableViewCell.swift */; };
 		835E91A620A8C3370072D221 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E91A520A8C3370072D221 /* MenuButton.swift */; };
 		835E91A820A8CD6A0072D221 /* GameSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E91A720A8CD6A0072D221 /* GameSettings.swift */; };
 		835E91AC20B39C610072D221 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835E91AB20B39C610072D221 /* Stats.swift */; };
+		836CA8F422FC7196001591D3 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 836CA8F322FC7196001591D3 /* StoreKit.framework */; };
+		836CA8F722FC98B2001591D3 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836CA8F522FC973A001591D3 /* Product.swift */; };
 		8384A89620C8A9270045D5D3 /* HowToPlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8384A89520C8A9270045D5D3 /* HowToPlayViewController.swift */; };
+		83B33F4A22EF32BB00949094 /* ChoosePictureVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B33F4922EF32BB00949094 /* ChoosePictureVC.swift */; };
+		83B33F4E22EF4AE400949094 /* SelectDifficultyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B33F4D22EF4AE400949094 /* SelectDifficultyVC.swift */; };
+		83B33F4F22EF4AE400949094 /* SelectDifficultyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B33F4D22EF4AE400949094 /* SelectDifficultyVC.swift */; };
 		83B3FDAC207305B000D66EE5 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3FDAB207305B000D66EE5 /* Board.swift */; };
 		83B3FDAE207305D000D66EE5 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3FDAD207305D000D66EE5 /* Tile.swift */; };
 		83B3FDB02074513800D66EE5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3FDAF2074513800D66EE5 /* Extensions.swift */; };
 		83E831FC22EB446500E61747 /* PictureGameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E831FB22EB446500E61747 /* PictureGameVC.swift */; };
 		83E831FD22EB446500E61747 /* PictureGameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E831FB22EB446500E61747 /* PictureGameVC.swift */; };
-		83E831FF22EB448300E61747 /* ChoosePictureVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E831FE22EB448300E61747 /* ChoosePictureVC.swift */; };
 		83E8320022EB448300E61747 /* ChoosePictureVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E831FE22EB448300E61747 /* ChoosePictureVC.swift */; };
 		83E8320222EB487200E61747 /* GameImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E8320122EB487200E61747 /* GameImageCell.swift */; };
 		83E8320322EB487200E61747 /* GameImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E8320122EB487200E61747 /* GameImageCell.swift */; };
+		83F45B9922F87A7600D6DE97 /* HighScoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F45B9822F87A7600D6DE97 /* HighScoresViewController.swift */; };
+		83F45B9B22FA143900D6DE97 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F45B9A22FA143900D6DE97 /* IAPHelper.swift */; };
+		83F45B9F22FA172800D6DE97 /* SlidearooProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F45B9E22FA172800D6DE97 /* SlidearooProducts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,13 +89,20 @@
 		835E91A520A8C3370072D221 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		835E91A720A8CD6A0072D221 /* GameSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettings.swift; sourceTree = "<group>"; };
 		835E91AB20B39C610072D221 /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
+		836CA8F322FC7196001591D3 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.4.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
+		836CA8F522FC973A001591D3 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		8384A89520C8A9270045D5D3 /* HowToPlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToPlayViewController.swift; sourceTree = "<group>"; };
+		83B33F4922EF32BB00949094 /* ChoosePictureVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePictureVC.swift; sourceTree = "<group>"; };
+		83B33F4D22EF4AE400949094 /* SelectDifficultyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDifficultyVC.swift; sourceTree = "<group>"; };
 		83B3FDAB207305B000D66EE5 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		83B3FDAD207305D000D66EE5 /* Tile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
 		83B3FDAF2074513800D66EE5 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		83E831FB22EB446500E61747 /* PictureGameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureGameVC.swift; sourceTree = "<group>"; };
 		83E831FE22EB448300E61747 /* ChoosePictureVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePictureVC.swift; sourceTree = "<group>"; };
 		83E8320122EB487200E61747 /* GameImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameImageCell.swift; sourceTree = "<group>"; };
+		83F45B9822F87A7600D6DE97 /* HighScoresViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighScoresViewController.swift; sourceTree = "<group>"; };
+		83F45B9A22FA143900D6DE97 /* IAPHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
+		83F45B9E22FA172800D6DE97 /* SlidearooProducts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidearooProducts.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +111,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				38C539C022B16AA300B403F4 /* CloudKit.framework in Frameworks */,
+				836CA8F422FC7196001591D3 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,9 +132,9 @@
 				383DD76F207FA75E00737D42 /* Score.swift */,
 				83B3FDAB207305B000D66EE5 /* Board.swift */,
 				83B3FDAD207305D000D66EE5 /* Tile.swift */,
+				835E91AB20B39C610072D221 /* Stats.swift */,
 				835E91A520A8C3370072D221 /* MenuButton.swift */,
 				835E91A720A8CD6A0072D221 /* GameSettings.swift */,
-				835E91AB20B39C610072D221 /* Stats.swift */,
 				83E8320122EB487200E61747 /* GameImageCell.swift */,
 				835E91A32083D7E30072D221 /* HighScoreTableViewCell.swift */,
 			);
@@ -130,6 +144,7 @@
 		383DD76C207FA48700737D42 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				836CA8F322FC7196001591D3 /* StoreKit.framework */,
 				38C539BF22B16AA300B403F4 /* CloudKit.framework */,
 				383DD76D207FA48700737D42 /* CloudKit.framework */,
 			);
@@ -139,8 +154,11 @@
 		38EAC19B22AA9D10002ECA78 /* Slidearoo */ = {
 			isa = PBXGroup;
 			children = (
+				83F45B9D22FA16FA00D6DE97 /* InAppPurchases */,
 				38C539BE22B16A9100B403F4 /* Slidearoo.entitlements */,
 				38EAC19C22AA9D10002ECA78 /* AppDelegate.swift */,
+				83E831FE22EB448300E61747 /* ChoosePictureVC.swift */,
+				835E91A120838EDB0072D221 /* HighScoresViewController.swift */,
 				38EAC1A022AA9D10002ECA78 /* Main.storyboard */,
 				38EAC1A622AA9D14002ECA78 /* Assets.xcassets */,
 				38EAC1A822AA9D14002ECA78 /* LaunchScreen.storyboard */,
@@ -172,15 +190,10 @@
 		834224D32072FC9D005D3144 /* Fifteen */ = {
 			isa = PBXGroup;
 			children = (
+				83F45B9C22FA16C900D6DE97 /* Views */,
 				381CF82F20A5DFF200D4A4B5 /* Model */,
 				834224D42072FC9D005D3144 /* AppDelegate.swift */,
-				38EAC1BA22AA9E34002ECA78 /* MenuVC.swift */,
-				381CF82B20A5DE7200D4A4B5 /* CustomGameViewController.swift */,
-				834224D62072FC9D005D3144 /* GameViewController.swift */,
-				83E831FB22EB446500E61747 /* PictureGameVC.swift */,
-				83E831FE22EB448300E61747 /* ChoosePictureVC.swift */,
-				8384A89520C8A9270045D5D3 /* HowToPlayViewController.swift */,
-				835E91A120838EDB0072D221 /* HighScoresViewController.swift */,
+				83B33F4D22EF4AE400949094 /* SelectDifficultyVC.swift */,
 				83B3FDAF2074513800D66EE5 /* Extensions.swift */,
 				38C539C422B2C13200B403F4 /* LevelsVC.swift */,
 				834224DB2072FC9D005D3144 /* Main.storyboard */,
@@ -190,6 +203,30 @@
 				383DD76B207FA48400737D42 /* Fifteen.entitlements */,
 			);
 			path = Fifteen;
+			sourceTree = "<group>";
+		};
+		83F45B9C22FA16C900D6DE97 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				38EAC1BA22AA9E34002ECA78 /* MenuVC.swift */,
+				83B33F4922EF32BB00949094 /* ChoosePictureVC.swift */,
+				381CF82B20A5DE7200D4A4B5 /* CustomGameViewController.swift */,
+				834224D62072FC9D005D3144 /* GameViewController.swift */,
+				83E831FB22EB446500E61747 /* PictureGameVC.swift */,
+				83F45B9822F87A7600D6DE97 /* HighScoresViewController.swift */,
+				8384A89520C8A9270045D5D3 /* HowToPlayViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		83F45B9D22FA16FA00D6DE97 /* InAppPurchases */ = {
+			isa = PBXGroup;
+			children = (
+				83F45B9A22FA143900D6DE97 /* IAPHelper.swift */,
+				83F45B9E22FA172800D6DE97 /* SlidearooProducts.swift */,
+				836CA8F522FC973A001591D3 /* Product.swift */,
+			);
+			path = InAppPurchases;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -243,6 +280,9 @@
 						CreatedOnToolsVersion = 10.2.1;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -321,9 +361,11 @@
 				38EAC1B222AA9D26002ECA78 /* MenuButton.swift in Sources */,
 				38EAC1BF22AA9ED9002ECA78 /* GameViewController.swift in Sources */,
 				38EAC1C322AA9EF1002ECA78 /* HighScoreTableViewCell.swift in Sources */,
+				83F45B9F22FA172800D6DE97 /* SlidearooProducts.swift in Sources */,
 				38EAC1B022AA9D21002ECA78 /* Board.swift in Sources */,
 				38EAC1B122AA9D23002ECA78 /* Tile.swift in Sources */,
 				38EAC1AF22AA9D1E002ECA78 /* Score.swift in Sources */,
+				836CA8F722FC98B2001591D3 /* Product.swift in Sources */,
 				38EAC19D22AA9D10002ECA78 /* AppDelegate.swift in Sources */,
 				38EAC1C122AA9EEC002ECA78 /* HowToPlayViewController.swift in Sources */,
 				83E831FD22EB446500E61747 /* PictureGameVC.swift in Sources */,
@@ -332,6 +374,8 @@
 				38EAC1BE22AA9EC0002ECA78 /* CustomGameViewController.swift in Sources */,
 				83E8320022EB448300E61747 /* ChoosePictureVC.swift in Sources */,
 				38EAC1BB22AA9E34002ECA78 /* MenuVC.swift in Sources */,
+				83F45B9B22FA143900D6DE97 /* IAPHelper.swift in Sources */,
+				83B33F4F22EF4AE400949094 /* SelectDifficultyVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,13 +395,14 @@
 				83B3FDAC207305B000D66EE5 /* Board.swift in Sources */,
 				834224DA2072FC9D005D3144 /* Fifteen.xcdatamodeld in Sources */,
 				835E91A620A8C3370072D221 /* MenuButton.swift in Sources */,
-				835E91A220838EDB0072D221 /* HighScoresViewController.swift in Sources */,
+				83B33F4A22EF32BB00949094 /* ChoosePictureVC.swift in Sources */,
 				83E831FC22EB446500E61747 /* PictureGameVC.swift in Sources */,
 				381CF82C20A5DE7200D4A4B5 /* CustomGameViewController.swift in Sources */,
+				83F45B9922F87A7600D6DE97 /* HighScoresViewController.swift in Sources */,
 				38C539C522B2C13200B403F4 /* LevelsVC.swift in Sources */,
 				835E91A42083D7E30072D221 /* HighScoreTableViewCell.swift in Sources */,
-				83E831FF22EB448300E61747 /* ChoosePictureVC.swift in Sources */,
 				8384A89620C8A9270045D5D3 /* HowToPlayViewController.swift in Sources */,
+				83B33F4E22EF4AE400949094 /* SelectDifficultyVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,7 +450,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.DocsApps.Slidearoo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AssistStat.Fifteen;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
@@ -426,7 +471,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.DocsApps.Slidearoo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AssistStat.Fifteen;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;

@@ -10,8 +10,6 @@ import UIKit
 
 class MenuVC: UIViewController, CustomGameDelegate, ChoosePictureVCDelegate {
 
-    
-    
     // MARK: Properties
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
@@ -86,9 +84,21 @@ class MenuVC: UIViewController, CustomGameDelegate, ChoosePictureVCDelegate {
         return button
     }()
     
+    var restoreIAPButton: UIButton = {
+        let button = UIButton(frame: CGRect(x: 100, y: 0, width: 400, height: 100))
+        button.backgroundColor = UIColor.lavendarDark
+        button.titleLabel?.font = UIFont(name: "Avenir", size: 40.0)
+        button.setTitle("Restore Purchases", for: .normal)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.addTarget(self, action: #selector(restoreIAP), for: .primaryActionTriggered)
+        button.layer.cornerRadius = 10
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.title = "Slidearoo"
         
         createLabelsAndButtons()
         
@@ -110,8 +120,12 @@ class MenuVC: UIViewController, CustomGameDelegate, ChoosePictureVCDelegate {
 //            print("OMG, it's that mythical new Apple product!!!")
 //        #endif
         
+        // this will notify user if restore worked successfully.
+        NotificationCenter.default.addObserver(self, selector: #selector(handlePurchaseNotification(_:)), name: NSNotification.Name(rawValue: IAPHelper.IAPHelperPurchaseNotification), object: nil)
+        
         
     }
+    
 
     
     // this method is called whenever the focused item changes.. Not necessary for iOS.. only tvOS
@@ -133,8 +147,22 @@ class MenuVC: UIViewController, CustomGameDelegate, ChoosePictureVCDelegate {
         view.addSubview(howToButton)
         view.addSubview(highScoresButton)
         view.addSubview(quickPictureGameButton)
+        view.addSubview(restoreIAPButton)
         
-        let stackView = UIStackView(arrangedSubviews: [quickNumberGameButton, quickPictureGameButton, customGameButton, resumeGameButton, howToButton, highScoresButton])
+        // In App purchases are only available in iOS
+        #if os(iOS)
+            print("running on iOS")
+            restoreIAPButton.isHidden = false
+        #elseif os(tvOS)
+            print("running on tvOS")
+            restoreIAPButton.isHidden = true
+        #else
+            print("OMG, it's that mythical new Apple product!!!")
+            restoreIAPButton.isHidden = true
+        #endif
+        
+        
+        let stackView = UIStackView(arrangedSubviews: [quickNumberGameButton, quickPictureGameButton, customGameButton, resumeGameButton, howToButton, highScoresButton, restoreIAPButton])
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
         stackView.alignment = .fill
@@ -148,7 +176,6 @@ class MenuVC: UIViewController, CustomGameDelegate, ChoosePictureVCDelegate {
         stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         stackView.widthAnchor.constraint(lessThanOrEqualToConstant: UIScreen.main.bounds.width*2/3).isActive = true
-        
     }
     
     @objc func customGame() {
@@ -201,6 +228,26 @@ class MenuVC: UIViewController, CustomGameDelegate, ChoosePictureVCDelegate {
             self.present(alert, animated: true, completion: nil)
         }
         
+    }
+    
+    // this is used to restore In App Purchases.
+    @objc func restoreIAP()
+    {
+        SlidearooProducts.store.restorePurchases()
+    }
+    
+    // this is called after a product gets purchased.  Its called from IAPHelper and a notification
+    @objc func handlePurchaseNotification(_ notification: Notification) {
+        guard let productID = notification.object as? String else { return }
+        
+        print("Restored: \(productID)")
+        restoredPurchaseAlert()
+    }
+    func restoredPurchaseAlert() {
+        let alert = UIAlertController(title: "Success", message: "You successfully restored In App Purchases", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
     }
     
     // delegate call from customGameVC

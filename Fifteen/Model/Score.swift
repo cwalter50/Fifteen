@@ -33,11 +33,12 @@ class Score {
     }
     
     init(record: CKRecord) {
+
         self.name = record["name"] as? String ?? ""
         self.moves = record["moves"] as? Int ?? 0
         self.time = record["time"] as? Int ?? 0
         self.difficultyLevel = record["difficultyLevel"] as? String ?? ""
-        self.creationDate = record["creationDate"] as? Date ?? Date()
+        self.creationDate = record.creationDate ?? Date()
         self.record = record
         
 //        self.recordName = record.recordID.recordName
@@ -60,8 +61,9 @@ class Score {
         var publicSaved = false
         var privateSaved = false
         
-        let myContainer = CKContainer.default()
-        let publicDatabase = myContainer.publicCloudDatabase
+//        let myContainer = CKContainer.default()
+        let publicDatabase = CKContainer(identifier: "iCloud.com.AssistStat.Fifteen").publicCloudDatabase
+//        let publicDatabase = myContainer.publicCloudDatabase
         publicDatabase.save(newScoreRecord) {
             (record, error) in
             if let error = error {
@@ -85,7 +87,8 @@ class Score {
             })
 
         }
-        let privateDatabase = myContainer.privateCloudDatabase
+//        let privateDatabase = myContainer.privateCloudDatabase
+        let privateDatabase = CKContainer(identifier: "iCloud.com.AssistStat.Fifteen").privateCloudDatabase
         privateDatabase.save(newScoreRecord) {
             (record, error) in
             if let error = error {

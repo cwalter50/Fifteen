@@ -26,7 +26,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Yc-Un-rgu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4344" y="-2368"/>
+            <point key="canvasLocation" x="5440" y="-2700"/>
         </scene>
         <!--Picture GameVC-->
         <scene sceneID="ajS-s5-A1m">
@@ -41,10 +41,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="YEy-A8-pYi"/>
                     </view>
+                    <connections>
+                        <segue destination="Lqy-Do-Qnh" kind="presentation" identifier="HowToSegue" modalPresentationStyle="fullScreen" id="U3x-8j-EWz"/>
+                        <segue destination="hqO-0n-PnW" kind="show" identifier="HighScoresSegue" id="MQE-Je-xHh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R1m-pb-bSC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4168" y="-4548"/>
+            <point key="canvasLocation" x="8807" y="-879"/>
         </scene>
         <!--Choose PictureVC-->
         <scene sceneID="tWE-ZU-13t">
@@ -192,8 +196,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="zEC-3N-4Ro"/>
-        <segue reference="cca-f9-gnk"/>
+        <segue reference="MQE-Je-xHh"/>
+        <segue reference="iwH-QZ-fQD"/>
         <segue reference="LEM-ET-BPB"/>
     </inferredMetricsTieBreakers>
 </document>

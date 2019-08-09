@@ -20,12 +20,14 @@ class Board: NSObject, NSCoding {
     var moves: Int = 0
     var time: Int = 0
     var solutionImage: UIImage?
+    var color: UIColor
 
     init(rows: Int, columns: Int)
     {
+
         self.rows = rows
         self.columns = columns
-        
+        color = .blueJeansLight
         let theMax = max(rows, columns) // this will make sure that the block width will fit horizontally or vertically
         
         let width = UIScreen.main.bounds.width
@@ -42,18 +44,20 @@ class Board: NSObject, NSCoding {
 //        self.backgroundView.backgroundColor = UIColor.grapefruitDark
         self.backgroundView.center = center
         
+        let color = UIColor.blueJeansLight
+        
         for i in 0..<(rows * columns - 1)
         {
             let row = i / columns + 1
             let column = (i % columns) + 1
             let pos = TilePosition(row: row, column: column)
             let rect = CGRect(x:CGFloat(column - 1) * (blockWidth + 2.0) , y: CGFloat(row - 1) * (blockWidth + 2.0), width: blockWidth, height: blockWidth)
-            let tile = Tile(position: pos, name: i + 1, frame: rect)
+            let tile = Tile(position: pos, name: i + 1, frame: rect, color: color)
             tiles.append(tile)
             backgroundView.addSubview(tile)
         }
         let pos = TilePosition(row: rows, column: columns)
-        emptyTile = Tile(position: pos, name: 0, frame: CGRect(x: CGFloat(columns - 1) * (blockWidth + 2), y: CGFloat(rows - 1) * (blockWidth + 2), width: blockWidth, height: blockWidth))
+        emptyTile = Tile(position: pos, name: 0, frame: CGRect(x: CGFloat(columns - 1) * (blockWidth + 2), y: CGFloat(rows - 1) * (blockWidth + 2), width: blockWidth, height: blockWidth), color: color)
         tiles.append(emptyTile)
         backgroundView.addSubview(emptyTile)
         moves = 0
@@ -89,6 +93,22 @@ class Board: NSObject, NSCoding {
             }
         }
     }
+    init(rows: Int, columns:Int, emptyTile: Tile, tiles: [Tile], moves: Int, time: Int, backgroundView: UIView) {
+        self.rows = rows
+        self.columns = columns
+        self.emptyTile = emptyTile
+        self.tiles = tiles
+        self.moves = moves
+        self.time = time
+        self.backgroundView = backgroundView
+        self.color = .blueJeansLight
+        
+        for tile in tiles {
+            self.backgroundView.addSubview(tile)
+        }
+    }
+    
+    
     
     // helper method to crop the image
     func cropImage(image: UIImage?, toRect: CGRect) -> UIImage? {
@@ -104,18 +124,14 @@ class Board: NSObject, NSCoding {
         
     }
     
-    init(rows: Int, columns:Int, emptyTile: Tile, tiles: [Tile], moves: Int, time: Int, backgroundView: UIView) {
-        self.rows = rows
-        self.columns = columns
-        self.emptyTile = emptyTile
-        self.tiles = tiles
-        self.moves = moves
-        self.time = time
-        self.backgroundView = backgroundView
+
+    
+    static func randomColor() -> UIColor
+    {
+        let colors: [UIColor] = [.blueJeansLight, .grassLight, .grapefruitLight, .lavendarLight, .sunFlowerLight, .aquaLight, .bitterSweetLight]
         
-        for tile in tiles {
-            self.backgroundView.addSubview(tile)
-        }
+        let rand = Int.random(in: 0..<colors.count)
+        return colors[rand]
     }
     
     func shuffle(numberOfMoves: Int) {
@@ -168,8 +184,8 @@ class Board: NSObject, NSCoding {
     func moveWithAnimation(startPosition: TilePosition) {
         if let tile = self.tileAt(position: startPosition) {
             // create a blank tile and place behind moving tile and empty tile.  They will be removed on completion of animation
-            let holdingTile = Tile(position: tile.position, name: 0, frame: tile.frame)
-            let holdingTile2 = Tile(position: emptyTile.position, name: 0, frame: emptyTile.frame)
+            let holdingTile = Tile(position: tile.position, name: 0, frame: tile.frame, color: color)
+            let holdingTile2 = Tile(position: emptyTile.position, name: 0, frame: emptyTile.frame, color: color)
             let holdingPosition = emptyTile.position
             self.backgroundView.addSubview(holdingTile)
             self.backgroundView.addSubview(holdingTile2)
@@ -310,6 +326,8 @@ class Board: NSObject, NSCoding {
         aCoder.encode(emptyTile, forKey: "emptyTile")
         aCoder.encode(tiles, forKey: "tiles")
     }
+    
+
 
 
 }

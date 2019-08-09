@@ -11,13 +11,15 @@ import UIKit
 
 class HighScoreTableViewCell: UITableViewCell {
 
+
     // figure out and rewrite all of this so that it can be loaded programmatically.
     var rankLabel: UILabel = {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 40, height: 100))
         label.text = "1"
-        label.font = UIFont(name: "Avenir", size: 60)
+        label.font = UIFont(name: "Avenir", size: 40)
         label.textColor = UIColor.white
         label.adjustsFontSizeToFitWidth = true
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
@@ -26,8 +28,9 @@ class HighScoreTableViewCell: UITableViewCell {
         label.text = "Test"
         label.numberOfLines = 2
         label.font = UIFont(name: "Avenir", size: 40)
-        label.textColor = UIColor.black
+        label.textColor = UIColor.darkGray
         label.adjustsFontSizeToFitWidth = true
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
@@ -36,21 +39,20 @@ class HighScoreTableViewCell: UITableViewCell {
         label.text = "Test"
         label.numberOfLines = 2
         label.font = UIFont(name: "Avenir", size: 30)
-        label.textColor = UIColor.black
+        label.textColor = UIColor.darkGray
         label.adjustsFontSizeToFitWidth = true
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
     }()
-//    @IBOutlet weak var movesLabel: UILabel!
-//    @IBOutlet weak var dateLabel: UILabel!
-//    @IBOutlet weak var nameLabel: UILabel!
-//    @IBOutlet weak var timeLabel: UILabel!
+    
+
     var score: Score? {
         didSet {
             
-            rankLabel.frame = CGRect(x: 10, y: 5, width: 50, height: 100)
-            aboutLabel.frame = CGRect(x: 60, y: 5, width: frame.width - 60, height: 60)
-            dateLabel.frame = CGRect(x: 60, y: 65, width: frame.width - 60, height: 35)
+//            rankLabel.frame = CGRect(x: 10, y: 5, width: 50, height: 100)
+//            aboutLabel.frame = CGRect(x: 60, y: 5, width: frame.width - 60, height: 60)
+//            dateLabel.frame = CGRect(x: 60, y: 65, width: frame.width - 60, height: 35)
             guard let theScore = score else {return}
 
             let min = theScore.time / 60
@@ -69,9 +71,37 @@ class HighScoreTableViewCell: UITableViewCell {
             
             aboutLabel.text = "\(name)\(theScore.moves) moves in \(timeText)"
             dateLabel.text = dateString
+            
         }
     }
     
+    
+//    override func prepareForReuse() {
+//        super.prepareForReuse()
+//        setOrUpdateConstraints()
+//    }
+    
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        super.setHighlighted(highlighted, animated: true)
+        if highlighted {
+            self.layer.borderColor = UIColor.darkGray.cgColor
+            self.layer.borderWidth = 3.0
+            self.backgroundColor = UIColor.white
+            self.rankLabel.textColor = UIColor.darkGray
+            self.aboutLabel.textColor = UIColor.mintDark
+            self.dateLabel.textColor = UIColor.mintDark
+        }
+        else
+        {
+            self.layer.borderColor = UIColor.darkGray.cgColor
+            self.layer.borderWidth = 0.0
+            self.backgroundColor = UIColor.mintLight
+            self.rankLabel.textColor = UIColor.white
+            self.aboutLabel.textColor = UIColor.darkGray
+            self.dateLabel.textColor = UIColor.darkGray
+        }
+    }
+
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:)")
     }
@@ -85,11 +115,39 @@ class HighScoreTableViewCell: UITableViewCell {
 //        rankLabel.frame = CGRect(x: 10, y: 5, width: 50, height: 100)
 //        aboutLabel.frame = CGRect(x: 60, y: 5, width: frame.width - 60, height: 60)
 //        dateLabel.frame = CGRect(x: 60, y: 65, width: frame.width - 60, height: 30)
-        self.addSubview(rankLabel)
-        self.addSubview(aboutLabel)
-        self.addSubview(dateLabel)
-
+        self.contentView.addSubview(rankLabel)
+        self.contentView.addSubview(aboutLabel)
+        self.contentView.addSubview(dateLabel)
+//        self.addSubview(rankLabel)
+//        self.addSubview(aboutLabel)
+//        self.addSubview(dateLabel)
+        
+        // set up constraints
+        let stackView = UIStackView(arrangedSubviews: [aboutLabel, dateLabel])
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        stackView.spacing = 5
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        self.contentView.addSubview(stackView)
+        
+        let stackViewMain = UIStackView(arrangedSubviews: [rankLabel, stackView])
+        stackViewMain.axis = .horizontal
+        stackViewMain.distribution = .fill
+        stackViewMain.alignment = .fill
+        stackViewMain.spacing = 5
+        stackViewMain.translatesAutoresizingMaskIntoConstraints = false
+        self.contentView.addSubview(stackViewMain)
+        
+        stackViewMain.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 20).isActive = true
+        stackViewMain.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -20).isActive = true
+        stackViewMain.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 5).isActive = true
+        stackViewMain.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -5).isActive = true
+        
+        rankLabel.widthAnchor.constraint(equalToConstant: 30).isActive = true
     }
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

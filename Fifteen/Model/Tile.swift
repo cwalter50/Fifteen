@@ -28,11 +28,12 @@ class Tile : UIView
         let imageView = UIImageView(frame: CGRect.zero)
         imageView.contentMode = .scaleToFill
         imageView.image = nil
+        imageView.clipsToBounds = true
         return imageView
     }()
 
     // initializer used in board for Tiles with numbers
-    init(position: TilePosition, name: Int, frame: CGRect) {
+    init(position: TilePosition, name: Int, frame: CGRect, color: UIColor) {
         self.position = position
         self.name = name
         self.bordersEmptyTile = false
@@ -41,21 +42,21 @@ class Tile : UIView
         self.currentFrame = frame
 
         super.init(frame: frame)
-        setTileLabelsAndViews()
+        setTileLabelsAndViews(color: color)
         
     }
     
     // initializer used if there is an image
-    convenience init(position: TilePosition, name: Int, frame: CGRect, image: UIImage?)
+    convenience init(position: TilePosition, name: Int, frame: CGRect, color: UIColor, image: UIImage?)
     {
-        self.init(position: position, name: name, frame: frame)
+        self.init(position: position, name: name, frame: frame, color: color)
         
         imageView.image = image
         
     }
     
     
-    init(row: Int, column: Int, initialRow: Int, initialColumn: Int, name: Int, initialFrame: CGRect, bordersEmptyTile: Bool, nameLabel: UILabel, currentFrame: CGRect) {
+    init(row: Int, column: Int, initialRow: Int, initialColumn: Int, name: Int, initialFrame: CGRect, bordersEmptyTile: Bool, nameLabel: UILabel, currentFrame: CGRect, color: UIColor) {
         self.position = TilePosition(row: row, column: column)
         self.name = name
         self.initialFrame = initialFrame
@@ -64,10 +65,10 @@ class Tile : UIView
         self.nameLabel = nameLabel
         self.currentFrame = currentFrame
         super.init(frame: currentFrame) // might have to change this to currentFrame and not initialFrame.  TEST!!!
-        setTileLabelsAndViews()
+        setTileLabelsAndViews(color: color)
     }
     
-    func setTileLabelsAndViews() {
+    func setTileLabelsAndViews(color: UIColor) {
         
         self.nameLabel.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
         //        nameLabel.center = self.center
@@ -75,7 +76,8 @@ class Tile : UIView
         
         self.addSubview(nameLabel)
         
-        self.backgroundColor = UIColor.blueJeansLight
+        self.backgroundColor = color
+//        self.backgroundColor = randomColor()
         self.layer.cornerRadius = 10.0
         self.layer.borderColor = UIColor.darkGray.cgColor
         self.layer.borderWidth = 2.0
@@ -83,6 +85,9 @@ class Tile : UIView
         
         // move this above the nameLabel if you want numbers and images...
         imageView.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
+        self.layer.cornerRadius = 10.0
+        self.layer.borderColor = UIColor.darkGray.cgColor
+        self.layer.borderWidth = 2.0
         self.addSubview(imageView)
         
         
@@ -104,6 +109,14 @@ class Tile : UIView
     {
         imageView.image = image
     }
+    
+    func randomColor() -> UIColor
+    {
+        let colors: [UIColor] = [.blueJeansLight, .grassLight, .grapefruitLight, .lavendarLight, .sunFlowerLight, .aquaLight, .bitterSweetLight]
+        
+        let rand = Int.random(in: 0..<colors.count)
+        return colors[rand]
+    }
     required convenience init(coder aDecoder: NSCoder) {
         // use these to get position
         let row = aDecoder.decodeInteger(forKey: "row")
@@ -116,7 +129,7 @@ class Tile : UIView
         let currentFrame = aDecoder.decodeCGRect(forKey: "currentFrame")
         let bordersEmptyTile = aDecoder.decodeBool(forKey: "bordersEmptyTile")
         let nameLabel = aDecoder.decodeObject(forKey: "nameLabel") as! UILabel
-        self.init(row: row, column: column, initialRow: initialRow, initialColumn: initialColumn, name: name, initialFrame: initialFrame, bordersEmptyTile: bordersEmptyTile, nameLabel: nameLabel, currentFrame: currentFrame)
+        self.init(row: row, column: column, initialRow: initialRow, initialColumn: initialColumn, name: name, initialFrame: initialFrame, bordersEmptyTile: bordersEmptyTile, nameLabel: nameLabel, currentFrame: currentFrame, color: UIColor.blueJeansLight)
     }
     
     override func encode(with aCoder: NSCoder) {
@@ -134,6 +147,7 @@ class Tile : UIView
         aCoder.encode(currentFrame, forKey: "currentFrame")
         aCoder.encode(bordersEmptyTile, forKey: "bordersEmptyTile")
         aCoder.encode(nameLabel, forKey: "nameLabel")
+//        aCoder.encode(imageView.image, forKey: "image")
     }
 }
 struct TilePosition : Equatable

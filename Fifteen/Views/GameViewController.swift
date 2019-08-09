@@ -1,33 +1,40 @@
 //
-//  PictureGameVC.swift
+//  ViewController.swift
 //  Fifteen
 //
-//  Created by Christopher Walter on 7/26/19.
-//  Copyright © 2019 AssistStat. All rights reserved.
+//  Created by Christopher Walter on 4/2/18.
+//  Copyright © 2018 AssistStat. All rights reserved.
 //
 
+//
+//  ViewController.swift
+//  Fifteen
+//
+//  Created by Christopher Walter on 4/2/18.
+//  Copyright © 2018 AssistStat. All rights reserved.
+//
 import UIKit
 import CloudKit
 
-class PictureGameVC: UIViewController {
+
+class GameViewController: UIViewController, PlayAgainDelegate {
     
     // MARK: Properties
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
     //    var blockWidth: CGFloat = 0.0
-    
+
     var scores: [Score] = []
     
-    var image: UIImage?
-    var gameSettings = GameSettings() // make default game settings. wil be overridden with passed data from segue.
+    var gameSettings = GameSettings() // this carries rows, columns, shuffle, etc
+
     var board: Board = Board(rows: 4, columns: 4)
-    
     var savedBoard: Board?
     var gameScore: Score? // this will be used to pass winning game to highScoresVC
     
     var gameWon = false // this is used to prevent the user from keep moving the board around with swipes after the game is won
     
-    
+
     var timer: Timer = Timer() // time is kept in the board class
     
     var timerLabel: UILabel = {
@@ -107,49 +114,25 @@ class PictureGameVC: UIViewController {
         return button
     }()
     
-    var solutionView: UIImageView = {
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        imageView.image = UIImage(named: "Happy")
-        imageView.contentMode = .scaleAspectFit
-        //        imageView.layer.borderColor = UIColor.darkGray.cgColor
-        //        imageView.layer.borderWidth = 2.0
-        //        imageView.clipsToBounds = true
-        //        imageView.layer.cornerRadius = 5.0
-        
-        return imageView
-    }()
-    var solutionLabel: UILabel = {
-        let label = UILabel(frame: CGRect(x: 100, y: 0, width: 300, height: 100))
-        label.backgroundColor = UIColor.darkGray
-        label.textColor = UIColor.white
-        label.font = UIFont(name: "Avenir", size: 18.0)
-        label.text = "Solution"
-        label.textAlignment = .center
-        label.adjustsFontSizeToFitWidth = true
-        label.layer.cornerRadius = 5.0
-        return label
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
-        
-        
+        // this disables the swipe back feature.  it was causing glitches with the game.
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         setUpSwipeGestures()
         createOrLoadGameBoard()
-        solutionView.image = image
         #if os(iOS)
-        print("running on iOS")
-        createLabelsAndButtonsiOS()
-        self.title = "Slidearoo"
+            print("running on iOS")
+            createLabelsAndButtonsiOS()
+            self.title = "Slidearoo"
         
         #elseif os(tvOS)
-        print("running on tvOS")
-        createLabelsAndButtonstvOS()
+            print("running on tvOS")
+            createLabelsAndButtonstvOS()
         
         #else
-        print("OMG, it's that mythical new Apple product!!!")
-        createLabelsAndButtonsiOS()
+            print("OMG, it's that mythical new Apple product!!!")
+            createLabelsAndButtonsiOS()
         #endif
         
         updateMovesLabel()
@@ -186,7 +169,7 @@ class PictureGameVC: UIViewController {
             }
         }
     }
-    
+
     func startTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { (timer) in
             self.board.time += 1
@@ -209,10 +192,10 @@ class PictureGameVC: UIViewController {
     }
     
     func createLabelsAndButtonstvOS() {
-        
+
         self.view.addSubview(timerLabel)
         timerLabel.center = CGPoint(x: width * 0.43, y: height * 0.07)
-        
+
         self.view.addSubview(movesLabel)
         movesLabel.center = CGPoint(x: width * 0.6, y: height * 0.07)
         self.view.addSubview(howToButton)
@@ -231,38 +214,19 @@ class PictureGameVC: UIViewController {
         self.view.addSubview(timerLabel)
         
         self.view.addSubview(movesLabel)
+
+        let topStack = UIStackView(arrangedSubviews: [timerLabel, movesLabel])
+        topStack.axis = .horizontal
+        topStack.distribution = .equalSpacing
+        topStack.alignment = .firstBaseline
+        topStack.spacing = 5
+        topStack.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(topStack)
         
-        self.view.addSubview(solutionView)
-        
-        let topStackA = UIStackView(arrangedSubviews: [timerLabel, movesLabel])
-        topStackA.axis = .vertical
-        topStackA.distribution = .fillEqually
-        topStackA.alignment = .fill
-        topStackA.spacing = 5
-        topStackA.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(topStackA)
-        
-        let topStackB = UIStackView(arrangedSubviews: [solutionLabel, solutionView])
-        topStackB.axis = .vertical
-        topStackB.distribution = .fill
-        topStackB.alignment = .fill
-        topStackB.spacing = 2
-        topStackB.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(topStackB)
-        
-        
-        let topStackC = UIStackView(arrangedSubviews: [topStackA, topStackB])
-        topStackC.axis = .horizontal
-        topStackC.distribution = .fillEqually
-        topStackC.alignment = .fill
-        topStackC.spacing = 5
-        topStackC.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(topStackC)
-        
-        topStackC.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 10).isActive = true
-        topStackC.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
-        topStackC.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
-        topStackC.heightAnchor.constraint(equalToConstant: 140).isActive = true
+        topStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
+        topStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
+        topStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
+        topStack.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         // bottom buttons
         self.view.addSubview(howToButton)
@@ -293,24 +257,16 @@ class PictureGameVC: UIViewController {
         bottomStackB.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bottomStackB)
         
-        bottomStackB.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -15).isActive = true
+        bottomStackB.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
         bottomStackB.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
         bottomStackB.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
         bottomStackB.heightAnchor.constraint(equalToConstant: 35).isActive = true
         
-        bottomStackA.bottomAnchor.constraint(equalTo: bottomStackB.topAnchor, constant: -5).isActive = true
+        bottomStackA.bottomAnchor.constraint(equalTo: bottomStackB.topAnchor, constant: -10).isActive = true
         bottomStackA.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
         bottomStackA.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
         bottomStackA.heightAnchor.constraint(equalToConstant: 35).isActive = true
-        
-        board.backgroundView.translatesAutoresizingMaskIntoConstraints = false
-        board.backgroundView.topAnchor.constraint(equalTo: topStackC.bottomAnchor, constant: 10).isActive = true
-        board.backgroundView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
-        board.backgroundView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
-        board.backgroundView.bottomAnchor.constraint(equalTo: bottomStackA.topAnchor, constant: 10).isActive = true
-        
-        
-        
+
     }
     func updateMovesLabel() {
         movesLabel.text = "Moves: \(board.moves)"
@@ -320,24 +276,43 @@ class PictureGameVC: UIViewController {
     func createOrLoadGameBoard() {
         // load saved Board if it exists, otherwise create a new board
         if let theBoard = savedBoard {
+//            board.backgroundView.backgroundColor = UIColor.green
             board = theBoard
-            // update timerLabel to fix the 1 second glitch
-            let min = self.board.time / 60
-            let sec = self.board.time % 60
-            let timeText = String(format:"%i:%02i",min, sec)
-            self.timerLabel.text = timeText
+        // update timerLabel to fix the 1 second glitch
+        let min = self.board.time / 60
+        let sec = self.board.time % 60
+        let timeText = String(format:"%i:%02i",min, sec)
+        self.timerLabel.text = timeText
         } else {
-            //            board = Board(rows: gameSettings.rows, columns: gameSettings.columns)
-            
-            board = Board(rows: gameSettings.rows, columns: gameSettings.columns, image: image)
+            board = Board(rows: gameSettings.rows, columns: gameSettings.columns)
             // figure out a setting to shuffle board for easy/ medium, or hard
             board.shuffle(numberOfMoves: gameSettings.shuffleCount)
             
-            
-            
         }
         self.view.addSubview(board.backgroundView)
+
+
+//        board.backgroundView.translatesAutoresizingMaskIntoConstraints = false
+//        board.backgroundView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+//        board.backgroundView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+//        board.backgroundView.backgroundColor = UIColor.black
+//        if width < height
+//        {
+//            board.backgroundView.heightAnchor.constraint(equalToConstant: width / 2).isActive = true
+//        }
+//        else
+//        {
+//            board.backgroundView.heightAnchor.constraint(equalToConstant: height / 2).isActive = true
+//        }
+//        board.backgroundView.widthAnchor.constraint(equalTo: board.backgroundView.heightAnchor).isActive = true
         
+//        for tile in board.tiles
+//        {
+//            tile.translatesAutoresizingMaskIntoConstraints = false
+//            tile.heightAnchor.constraint(equalToConstant: board.backgroundView.frame.width / 4).isActive = true
+//            tile.widthAnchor.constraint(equalToConstant: board.backgroundView.frame.width / 4).isActive = true
+//        }
+
         
     }
     
@@ -354,11 +329,11 @@ class PictureGameVC: UIViewController {
         // save board to user defaults and dismiss
         let userDefaults = UserDefaults.standard
         let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: board)
-        
+
         userDefaults.set(encodedData, forKey: "savedBoard")
         userDefaults.synchronize() // consider removing????
-        //        let defaults = UserDefaults.standard
-        //        defaults.set(board, forKey: "savedGame")
+//        let defaults = UserDefaults.standard
+//        defaults.set(board, forKey: "savedGame")
         
         self.navigationController?.popViewController(animated: true)
         
@@ -400,7 +375,7 @@ class PictureGameVC: UIViewController {
     
     func saveScoreInCloudKit(name: String) {
         let newScore = Score(name: name, moves: board.moves, time: board.time, difficultyLevel: gameSettings.difficultyLevel)
-        //        newScore.delegate = self // set the delegate so that we can alert this view when cloud data is saved or if there is an error
+        newScore.delegate = self // set the delegate so that we can alert this view when cloud data is saved or if there is an error
         newScore.saveToCloudkit() // I created a method to save to cloudkit within the class Score
         //        scores.append(newScore)
     }
@@ -419,7 +394,7 @@ class PictureGameVC: UIViewController {
             let name = nameTF.text ?? "Hulk"
             // uncomment after testing
             self.gameScore = Score(name: name, moves: self.board.moves, time: self.board.time, difficultyLevel: self.gameSettings.difficultyLevel)
-            //            self.performSegue(withIdentifier: "HighScoresSegue", sender: self)
+//            self.performSegue(withIdentifier: "HighScoresSegue", sender: self)
             self.saveScoreInCloudKit(name: name)
             
         })
@@ -445,30 +420,29 @@ class PictureGameVC: UIViewController {
     }
     
     
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //        if segue.identifier == "HighScoresSegue" {
-    //            let destVC = segue.destination as! HighScoresViewController
-    //            // pass data here
-    //            destVC.gameScore = self.gameScore
-    //            destVC.delegate = self
-    //            //            destVC.scores = scores
-    //        }
-    //    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "HighScoresSegue" {
+            let destVC = segue.destination as! HighScoresViewController
+            // pass data here
+            destVC.gameScore = self.gameScore
+            destVC.delegate = self
+            //            destVC.scores = scores
+        }
+    }
 }
 
-//extension GameViewController: newScoreAddedDelegate {
-//    // this function will get called after theScore is saved in cloudkit
-//    func showHighScores(score: Score) {
-//        self.gameScore = score
-//        self.performSegue(withIdentifier: "HighScoresSegue", sender: self)
-//        print("new Score has been added with difficulty level \(gameScore!.difficultyLevel)")
-//    }
-//    // this will be called if there is an error in saving the score to cloudkit
-//    func errorAlert(message: String) {
-//        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-//        let yesAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-//        alert.addAction(yesAction)
-//        present(alert, animated: true, completion: nil)
-//    }
-
-
+extension GameViewController: newScoreAddedDelegate {
+    // this function will get called after theScore is saved in cloudkit
+    func showHighScores(score: Score) {
+        self.gameScore = score
+        self.performSegue(withIdentifier: "HighScoresSegue", sender: self)
+        print("new Score has been added with difficulty level \(gameScore!.difficultyLevel)")
+    }
+    // this will be called if there is an error in saving the score to cloudkit
+    func errorAlert(message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        let yesAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(yesAction)
+        present(alert, animated: true, completion: nil)
+    }
+}
