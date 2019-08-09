@@ -525,10 +525,7 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
                 let score = Score(name: "No Scores yet", moves: 0, time: 0, difficultyLevel: "Easy")
                 // populate scores with just the default score
                 self.allScores = [score]
-                DispatchQueue.main.async(execute: {
-                    self.highTableView.reloadData()
-                    print("reloaded HighTableView")
-                })
+                
             } else {
                 self.allScores.removeAll()
                 for record in records {
@@ -552,13 +549,13 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
                     
                 }
                 
-                DispatchQueue.main.async(execute: {
-                    self.highTableView.reloadData()
-                    let newStats = Stats(scores: self.personalScores, difficultyLevel: difficulty ?? "4 x 4 medium")
-                    self.reloadBackgroundViewLabels(stats: newStats)
-                    print("reloaded HighTableView")
-                })
             }
+            DispatchQueue.main.async(execute: {
+                self.highTableView.reloadData()
+                let newStats = Stats(scores: self.personalScores, difficultyLevel: difficulty ?? "4 x 4 medium")
+                self.reloadBackgroundViewLabels(stats: newStats)
+                print("reloaded HighTableView")
+            })
         }
     }
     

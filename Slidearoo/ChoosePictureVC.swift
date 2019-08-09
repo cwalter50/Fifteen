@@ -143,12 +143,14 @@ class ChoosePictureVC: UIViewController, UICollectionViewDataSource, UICollectio
     
     func createGameImages()
     {
-        imageStrings = ["Night","ClownFish", "Test", "AppIconiOSOriginal","Happy", "Smile", "OutOfTimeLogo3"]
+        imageStrings = ["Night","ClownFish", "Test", "AppIconiOSOriginal","Happy", "Smile", "OutOfTimeAd", "Grafitti"]
         for word in imageStrings
         {
             let newImage = UIImage(named: word)
             gameImages.append(newImage)
         }
+        
+        gameImages.shuffle()
     }
     
     @objc func backButtonTapped()
