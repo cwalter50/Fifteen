@@ -110,6 +110,7 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor.white
         #if os(iOS)
         setUpViewsiOS()
         self.title = "Slidearoo"
@@ -226,11 +227,7 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
             levelButton.setTitle("Select Difficulty", for: .normal)
             print("No difficulty selected")
         }
-        
     }
-    
-    
-    
     
     func setUpViewsiOS() {
         

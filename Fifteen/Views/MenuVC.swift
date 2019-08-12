@@ -100,6 +100,7 @@ class MenuVC: UIViewController, CustomGameDelegate, ChoosePictureVCDelegate {
         
         self.title = "Slidearoo"
         
+        view.backgroundColor = UIColor.white
         createLabelsAndButtons()
         
 //        if #available(tvOS 9.0,*)

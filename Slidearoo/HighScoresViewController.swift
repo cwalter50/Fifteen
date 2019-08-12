@@ -23,7 +23,6 @@ protocol PlayAgainDelegate {
 class HighScoresViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SelectDifficultyDelegate  {
 
     // MARK: Properties
-    
     var delegate: PlayAgainDelegate?
     let width = UIScreen.main.bounds.width
     let height = UIScreen.main.bounds.height
@@ -88,7 +87,7 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         
         let items = ["moves" , "time"]
         let segmentedControl = UISegmentedControl(items : items)
-        segmentedControl.frame = CGRect.zero
+        segmentedControl.frame = CGRect(x: 100, y: 0, width: 300, height: 100)
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self, action: #selector(sortByChanged(_:)), for: .valueChanged)
         segmentedControl.layer.cornerRadius = 5.0
@@ -114,19 +113,35 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.addTarget(self, action: #selector(levelButtonTapped(sender:)), for: .primaryActionTriggered)
         button.layer.cornerRadius = 10.0
-        button.clipsToBounds = true
+//        button.clipsToBounds = true
         return button
+        
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor.white
        
+        #if os(iOS)
+        print("running on iOS")
         setUpViewsiOS()
         self.title = "Slidearoo"
+        
+        #elseif os(tvOS)
+        print("running on tvOS")
+        setupViewstvOS()
+        
+        #else
+        print("OMG, it's that mythical new Apple product!!!")
+        setUpViewsiOS()
+        #endif
     
         if let score = gameScore {
             stats = Stats(scores: [score], difficultyLevel: score.difficultyLevel)
             self.reloadBackgroundViewLabels(stats: stats)
+            #if os(tvOS)
+                reloadBackgroundViewLabelstvOS(stats: stats)
+            #endif
             myScores.append(score)
             allScores.append(score)
             levelButton.setTitle(score.difficultyLevel, for: .normal)
@@ -230,8 +245,108 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
             print("No difficulty selected")
         }
     }
-    func setUpViewsiOS() {
+    
+    func setupViewstvOS()
+    {
+        myTableView = UITableView(frame: CGRect(x: 0, y: 0, width: width / 4.0, height: height * 0.7), style: UITableView.Style.plain)
+        myTableView.center = CGPoint(x: width * 0.25 - 10, y: height * 0.5 + 10.0)
+        myTableView.delegate = self
+        myTableView.dataSource = self
+        myTableView.register(HighScoreTableViewCell.self, forCellReuseIdentifier: "myCell")
+        self.view.addSubview(self.myTableView)
+        myTableView.backgroundColor = UIColor.clear
+        myTableView.layer.cornerRadius = 10.0
+        myTableView.tableFooterView = UIView(frame: CGRect.zero)
+        // created a custom function to get headerView
+        myTableView.tableHeaderView = getHeaderView(text: "Personal Best Scores")
+        
+        highTableView = UITableView(frame: CGRect(x: 0, y: 0, width: width / 4.0, height: height * 0.7), style: UITableView.Style.plain)
+        highTableView.center = CGPoint(x: width * 0.75 + 10.0, y: height * 0.5 + 10)
+        highTableView.delegate = self
+        highTableView.dataSource = self
+        highTableView.register(HighScoreTableViewCell.self, forCellReuseIdentifier: "myCell")
+        view.addSubview(self.highTableView)
+        highTableView.tableFooterView = UIView(frame: CGRect.zero)
+        highTableView.backgroundColor = UIColor.clear
+        highTableView.layer.cornerRadius = 10.0
+        highTableView.tableHeaderView = getHeaderView(text: "All-Time Best Scores")
+        
+        view.addSubview(levelButton)
+        levelButton.center = CGPoint(x: width * 0.5, y: height * 0.1)
+        view.addSubview(playAgainButton)
+        playAgainButton.center = CGPoint(x: width * 0.75, y: height * 0.1)
+        view.addSubview(mainMenuButton)
+        mainMenuButton.center = CGPoint(x: width * 0.25, y: height * 0.1)
+        
+        view.addSubview(sortBySegmentedControl)
+        
+        sortBySegmentedControl.center = CGPoint(x: width * 0.5, y: height * 0.9)
+        sortBySegmentedControl.tintColor = UIColor.black
+        
+        
+//        backgroundView = UIView(frame:CGRect(x: 0, y: 0, width: width / 4.0 - 10, height: height * 0.7))
+//
+//        backgroundView.center = CGPoint(x: view.center.x, y: view.center.y + 10)
+//        backgroundView.backgroundColor = UIColor.clear
+//        backgroundView.layer.cornerRadius = 10.0
+//        self.view.addSubview(backgroundView)
+        
+//        let theFrame = backgroundView.frame
+        
+        let theFrame = CGRect(x: 0, y: 0, width: width / 4.0 - 10, height: height * 0.7)
+//        let gameScoreView = UIView(frame: CGRect(x: 0, y: 0, width: theFrame.width, height: theFrame.height / 3.0 - 5.0))
+//        gameScoreView.backgroundColor = UIColor.blueJeansDark
+//        gameScoreView.layer.cornerRadius = 10.0
+//
+//        gameScoreLabel = getDisplayLabel(frame: theFrame, numberOfLines: 3)
+//        gameScoreView.addSubview(gameScoreLabel)
+//
+//        let levelAverageView = UIView(frame: CGRect(x: 0, y: theFrame.height / 3.0, width: theFrame.width, height: theFrame.height / 3.0 - 5.0))
+//        levelAverageView.backgroundColor = UIColor.sunFlowerDark
+//        levelAverageView.layer.cornerRadius = 10.0
+//        levelAverageLabel = getDisplayLabel(frame: theFrame, numberOfLines: 4)
+//        levelAverageView.addSubview(levelAverageLabel)
+//
+//        let personalAverageView: UIView = UIView(frame: CGRect(x: 0, y: theFrame.height * 2.0 / 3.0, width: theFrame.width, height: theFrame.height / 3.0 - 5.0))
+//        personalAverageView.backgroundColor = UIColor.aquaDark
+//        personalAverageView.layer.cornerRadius = 10.0
+//        personalAverageLabel = getDisplayLabel(frame: theFrame, numberOfLines: 4)
+//        personalAverageView.addSubview(personalAverageLabel)
+        
+        gameScoreLabel = getDisplayLabel(frame: theFrame, numberOfLines: 3)
+        levelAverageLabel = getDisplayLabel(frame: theFrame, numberOfLines: 4)
+        personalAverageLabel = getDisplayLabel(frame: theFrame, numberOfLines: 4)
+        view.addSubview(gameScoreLabel)
+        gameScoreLabel.backgroundColor = UIColor.blueJeansDark
+        view.addSubview(levelAverageLabel)
+        levelAverageLabel.backgroundColor = UIColor.sunFlowerDark
+        view.addSubview(personalAverageLabel)
+        personalAverageLabel.backgroundColor = UIColor.aquaDark
 
+        let middleStack = UIStackView(arrangedSubviews: [gameScoreLabel,levelAverageLabel,personalAverageLabel])
+        middleStack.axis = .vertical
+        middleStack.distribution = .fillEqually
+        middleStack.alignment = .fill
+        middleStack.spacing = 5
+        middleStack.frame = CGRect(x: 0, y: 0, width: width / 4.0 - 10, height: height * 0.65)
+        middleStack.center = CGPoint(x: view.center.x, y: view.center.y + 10)
+        view.addSubview(middleStack)
+
+//        backgroundView.addSubview(gameScoreView)
+//        backgroundView.addSubview(levelAverageView)
+//        backgroundView.addSubview(personalAverageView)
+        
+        reloadBackgroundViewLabelstvOS(stats: stats)
+        
+        // remove playAgainButton, and gameScoreView if gameScore does not exist. This will be the case if we ump to high scores directly from the menu, as opposed to after winning.
+        if gameScore == nil
+        {
+            gameScoreLabel.isHidden = true
+            playAgainButton.isHidden = true
+        }
+    }
+    func setUpViewsiOS()
+    {
         let theFrame = CGRect(x: 0, y: 0, width: 100, height: 100) // this is a default frame and shouldn't matter for iOS because I am using constraints in iOS
         let gameScoreView = UIView(frame: CGRect.zero)
         gameScoreView.backgroundColor = UIColor.blueJeansDark
@@ -456,6 +571,32 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         
     }
     
+    func reloadBackgroundViewLabelstvOS(stats: Stats)
+    {
+        var congratsString = "You won! Congrats!"
+        var congratsRange = NSRange(location: 0, length: congratsString.count)
+        var levelString = "Level Stats"
+        var levelRange = NSRange(location: 0, length: levelString.count)
+        var averageString = "Overall Stats"
+        var averageRange = NSRange(location: 0, length: averageString.count)
+        if let score = gameScore {
+            let displayTime = getDisplayTime(time: score.time)
+            congratsString = "Congrats \(score.name)!\nYou completed \(score.difficultyLevel)\nMoves: \(score.moves)  Time: \(displayTime)"
+            congratsRange = NSRange(location: 0, length: 10 + score.name.count)
+        }
+        let diff = levelButton.titleLabel?.text ?? ""
+        levelString = "\(diff) stats\nBest: \(stats.leastMovesLevel) moves, \(getDisplayTime(time: stats.bestTimeLevel)) time\nAverage: \(stats.averageLevelMoves) moves in \(getDisplayTime(time: stats.averageLevelTime))\nGames Won: \(stats.gamesPlayedLevel)"
+        levelRange = NSRange(location: 0, length: 6 + diff.count)
+        
+        averageString = "Overall Stats\nBest: \(stats.leastMoves) moves, \(getDisplayTime(time: stats.bestTime)) time\nAverage: \(stats.averageTotalMoves) moves in \(getDisplayTime(time: stats.averageLevelTime))\nGames Won: \(stats.gamesPlayedTotal)"
+        
+        averageRange = NSRange(location: 0, length: 13)
+        
+        gameScoreLabel.attributedText = getLabelsAttributedText(string: congratsString, range: congratsRange)
+        levelAverageLabel.attributedText = getLabelsAttributedText(string: levelString, range: levelRange)
+        personalAverageLabel.attributedText = getLabelsAttributedText(string: averageString, range: averageRange)
+    }
+    
     
     func loadAllScoresFromCloudkit(sortBy: String, difficulty: String?)
     {
@@ -510,7 +651,11 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
                 DispatchQueue.main.async(execute: {
 
                     let newStats = Stats(scores: self.myScores, difficultyLevel: difficulty ?? "4 x 4 medium")
+                    
                     self.reloadBackgroundViewLabels(stats: newStats)
+                    #if os(tvOS)
+                        self.reloadBackgroundViewLabelstvOS(stats: newStats)
+                    #endif
                     // sort all Scores
                     if self.sortBySegmentedControl.selectedSegmentIndex == 0
                     {
@@ -560,6 +705,9 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
                     print("personalTable should be reloaded with zero scores")
                     let newStats = Stats(scores: self.myScores, difficultyLevel: score.difficultyLevel)
                     self.reloadBackgroundViewLabels(stats: newStats)
+                    #if os(tvOS)
+                        self.reloadBackgroundViewLabelstvOS(stats: newStats)
+                    #endif
                 })
                 
                 
@@ -586,6 +734,9 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
                         
                         let newStats = Stats(scores: self.myScores, difficultyLevel: score.difficultyLevel)
                         self.reloadBackgroundViewLabels(stats: newStats)
+                        #if os(tvOS)
+                        self.reloadBackgroundViewLabelstvOS(stats: newStats)
+                        #endif
                     }
                     self.myTableView.reloadData() // this is for iOS...
                     print("personalTable should be reloaded")
@@ -594,7 +745,6 @@ class HighScoresViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     // Mark: TableView methods
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 //        return 100
         return UIScreen.main.bounds.height / 12

@@ -155,6 +155,18 @@ class CustomGameViewController: UIViewController {
         columnLabel.center = CGPoint(x: width * 0.5, y: height * 0.1)
         view.addSubview(difficultyLabel)
         difficultyLabel.center = CGPoint(x: width * 0.8, y: height * 0.1)
+        
+        view.addSubview(numberButton)
+        numberButton.center = CGPoint(x: width * 0.4, y: height * 0.7)
+        view.addSubview(pictureButton)
+        pictureButton.center = CGPoint(x: width * 0.6, y: height * 0.7)
+        
+        numberButton.isSelected = true // make this the default button selected...
+        gameSettings.isWithImage = false
+        gameSettings.image = nil
+        pictureButton.addTarget(self, action: #selector(pictureButtonTapped), for: .primaryActionTriggered)
+        numberButton.addTarget(self, action: #selector(numberButtonTapped), for: .primaryActionTriggered)
+        
         view.addSubview(playGameButton)
         playGameButton.center = CGPoint(x: width * 0.6, y: height * 0.9)
         view.addSubview(backButton)
@@ -163,19 +175,19 @@ class CustomGameViewController: UIViewController {
         // create 4 row, 4 column, and 4 difficulty MenuButtons
         
         for i in 3...6 {
-            let rowButton = MenuButton(name: "\(i)", frame: CGRect(x: 0, y: 0, width: 350, height: 150))
+            let rowButton = MenuButton(name: "\(i)", frame: CGRect(x: 0, y: 0, width: 350, height: 100))
 
             rowButton.addTarget(self, action: #selector(rowButtonTapped), for: .primaryActionTriggered)
             self.view.addSubview(rowButton)
             rowButtons.append(rowButton)
-            rowButton.center = CGPoint(x: width*0.2, y: height * 0.1 + 160 * (CGFloat(i) - 2.0))
+            rowButton.center = CGPoint(x: width*0.2, y: height * 0.1 + 110 * (CGFloat(i) - 2.0))
             // these are the columns buttons
-            let button = MenuButton(name: "\(i)", frame: CGRect(x: 0, y: 0, width: 350, height: 150))
+            let button = MenuButton(name: "\(i)", frame: CGRect(x: 0, y: 0, width: 350, height: 100))
 
             button.addTarget(self, action: #selector(columnButtonTapped), for: .primaryActionTriggered)
             self.view.addSubview(button)
             columnButtons.append(button)
-            button.center = CGPoint(x: width*0.5, y: height * 0.1 + 160 * (CGFloat(i) - 2.0))
+            button.center = CGPoint(x: width*0.5, y: height * 0.1 + 110 * (CGFloat(i) - 2.0))
             if gameSettings.rows == i {
                 rowButton.isSelected = true
             }
@@ -187,12 +199,12 @@ class CustomGameViewController: UIViewController {
         var difficultyNames = ["easy", "medium", "hard", "black belt"]
         for i in 0..<difficultyNames.count {
             
-            let button = MenuButton(name: "\(difficultyNames[i])", frame: CGRect(x: 0, y: 0, width: 350, height: 150))
+            let button = MenuButton(name: "\(difficultyNames[i])", frame: CGRect(x: 0, y: 0, width: 350, height: 100))
 
             button.addTarget(self, action: #selector(difficultyButtonTapped), for: .primaryActionTriggered)
             self.view.addSubview(button)
             difficultyButtons.append(button)
-            button.center = CGPoint(x: width*0.8, y: height * 0.1 + 160 * (CGFloat(i) + 1.0))
+            button.center = CGPoint(x: width*0.8, y: height * 0.1 + 110 * (CGFloat(i) + 1.0))
             if gameSettings.difficulty == difficultyNames[i] {
                 button.isSelected = true
             }
@@ -207,8 +219,6 @@ class CustomGameViewController: UIViewController {
         view.addSubview(difficultyLabel)
         view.addSubview(playGameButton)
         view.addSubview(backButton)
-        
-
         
         playGameButton.translatesAutoresizingMaskIntoConstraints = false
         backButton.translatesAutoresizingMaskIntoConstraints = false
@@ -304,7 +314,6 @@ class CustomGameViewController: UIViewController {
         bottomStack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bottomStack)
         
-        
         let tableStack = UIStackView(arrangedSubviews: [rowStack, columnStack, difficultyStack])
         tableStack.axis = .horizontal
         tableStack.distribution = .fillEqually
@@ -313,7 +322,6 @@ class CustomGameViewController: UIViewController {
         tableStack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableStack)
         
-
         view.addSubview(pictureButton)
         view.addSubview(numberButton)
         numberButton.isSelected = true // make this the default button selected...
@@ -338,7 +346,6 @@ class CustomGameViewController: UIViewController {
         mainStack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(mainStack)
         
-        
         // add constraints
         bottomStack.heightAnchor.constraint(equalToConstant: 60).isActive = true
         pictureStack.heightAnchor.constraint(equalToConstant: 60).isActive = true
@@ -346,9 +353,6 @@ class CustomGameViewController: UIViewController {
         mainStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 24).isActive = true
         mainStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -24).isActive = true
         mainStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100).isActive = true
-        
-        
-
     }
     
 

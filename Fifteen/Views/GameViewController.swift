@@ -118,7 +118,8 @@ class GameViewController: UIViewController, PlayAgainDelegate {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         // this disables the swipe back feature.  it was causing glitches with the game.
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        // this will not work for tvOS so I commented it out... Comment back in when updated iOS...
+//        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         setUpSwipeGestures()
         createOrLoadGameBoard()
         #if os(iOS)

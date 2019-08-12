@@ -134,7 +134,8 @@ class PictureGameVC: UIViewController, PlayAgainDelegate {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         // this disables the swipe back feature.  it was causing glitches with the game.
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        // this will not work for tvOS.... I commented out. Comment back in for iOS
+//        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         
         setUpSwipeGestures()
         createOrLoadGameBoard()
@@ -216,6 +217,14 @@ class PictureGameVC: UIViewController, PlayAgainDelegate {
         
         self.view.addSubview(movesLabel)
         movesLabel.center = CGPoint(x: width * 0.6, y: height * 0.07)
+        
+        view.addSubview(solutionLabel)
+        solutionLabel.frame = CGRect(x: width * 0.8, y: height * 0.05, width: 300, height: 100)
+        solutionLabel.center = CGPoint(x: solutionLabel.center.x, y: height * 0.07)
+        solutionLabel.font = UIFont(name: "Avenir", size: 50.0)
+        view.addSubview(solutionView)
+        solutionView.frame = CGRect(x: width * 0.8, y: solutionLabel.frame.maxY + 10, width: 300, height: 300)
+        
         self.view.addSubview(howToButton)
         howToButton.center = CGPoint(x: width * 0.1, y: height * 0.94)
         self.view.addSubview(quitButton)
@@ -386,6 +395,7 @@ class PictureGameVC: UIViewController, PlayAgainDelegate {
             // make all numbers disapear
             for tile in board.tiles {
                 tile.nameLabel.text = "#"
+                tile.imageView.isHidden = true
             }
         } else {
             // DO NOT reset time
@@ -393,6 +403,7 @@ class PictureGameVC: UIViewController, PlayAgainDelegate {
             pauseButton.setTitle("Pause", for: .normal)
             for tile in board.tiles {
                 tile.setTileTitle()
+                tile.imageView.isHidden = false
             }
             
         }
